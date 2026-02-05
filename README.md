@@ -4,6 +4,7 @@
 
 ## Estrutura dos pacotes na arquitetura MVC
 
+```
 src/
  └── main/
      ├── java/
@@ -46,6 +47,7 @@ src/
          ├── css/
          ├── js/
          └── index.jsp
+```
 
 Quando for necessário mexer nos arquivos para modificações ou construção do backend, sigam estas regras da arquitetura.
 
@@ -60,6 +62,7 @@ Ela traz algumas vantagens na hora de criar as classes DAO.
 
 Exemplo:
 
+```
 public class AlunoDAO {
     public void salvar(Aluno aluno) {
         try (
@@ -77,6 +80,7 @@ public class AlunoDAO {
         }
     }
 }
+```
 
 Quando criamos essa conexão utilizando o ConnectionFactory dentro do try, o mecanismo try-with-resources garante que, ao final da consulta, a conexão seja fechada automaticamente.  
 Isso deixa o código mais curto e garante que o banco de dados seja sempre fechado após ser utilizado no método.
