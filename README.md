@@ -1,7 +1,5 @@
 # Backend do Kori
 
-<hr>
-
 ## Estrutura dos pacotes na arquitetura MVC
 
 ```
