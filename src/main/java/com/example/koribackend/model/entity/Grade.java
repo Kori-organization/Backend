@@ -54,4 +54,8 @@ public class Grade {
     public void setRec(double rec) {
         this.rec = rec;
     }
+
+    public String toString() {
+        return "ID: " + this.id + "\nGrade 1: " + this.grade1 + "\nGrade 2: " + this.grade2 + "\nSubject: " + this.subject + "\nRecuperation: " + this.rec;
+    }
 }

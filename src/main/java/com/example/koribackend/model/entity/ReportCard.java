@@ -38,4 +38,8 @@ public class ReportCard {
     public void setFinalSituation(boolean finalSituation) {
         this.finalSituation = finalSituation;
     }
+
+    public String toString() {
+        return "Grader: " + this.grader + "Student name: " + this.studentName + "Final situation: " + this.finalSituation;
+    }
 }

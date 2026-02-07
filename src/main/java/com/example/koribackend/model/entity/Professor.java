@@ -56,4 +56,8 @@ public class Professor {
     public void setFinalSituation(String finalSituation) {
         this.finalSituation = finalSituation;
     }
+
+    public String toString() {
+        return "ID: " + this.id + "\nUsername: " + this.username + "\nPassword: " + this.password + "\nName: " + this.name + "\nFinal situation: " + this.finalSituation;
+    }
 }

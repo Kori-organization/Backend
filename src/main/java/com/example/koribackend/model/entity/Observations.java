@@ -34,4 +34,8 @@ public class Observations {
     public void setStudentName(String studentName) {
         this.studentName = studentName;
     }
+
+    public String toString() {
+        return "ID: " + this.id + "Password: " + this.password + "Student name: " + this.studentName;
+    }
 }
