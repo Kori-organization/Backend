@@ -10,9 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class admnistratorDAO {
+public class AdmnistratorDAO {
 
-    // Get all administrators
+    // Gets all administrators
     public List<Admnistrator> selectAdministratorAll() {
 
         List<Admnistrator> administrators = new ArrayList<>();
@@ -20,13 +20,11 @@ public class admnistratorDAO {
         // SQL query
         String sql = "SELECT id, username, password_hash FROM administrators";
 
-        // Execute query
         try (
                 Connection conn = ConnectionFactory.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery()
         ) {
-            // Map results
             while (rs.next()) {
                 Admnistrator admin = new Admnistrator();
                 admin.setId(rs.getInt("id"));
@@ -36,33 +34,32 @@ public class admnistratorDAO {
                 administrators.add(admin);
             }
         } catch (SQLException e) {
-            // Handle error
+            // SQL error
             e.printStackTrace();
         }
 
         return administrators;
     }
 
-    // Delete admin by ID
-    public int deleteById(int id) {
+    // Deletes by ID
+    public boolean deleteById(int id) {
 
         // SQL query
         String sql = "DELETE FROM administrators WHERE id = ?";
 
-        // Execute deletion
         try (
                 Connection conn = ConnectionFactory.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
-            stmt.executeUpdate();
+            int rows = stmt.executeUpdate();
+            return rows > 0;
 
         } catch (SQLException e) {
-            // Handle error
+            // SQL error
             e.printStackTrace();
         }
 
-        return id;
+        return false;
     }
-
 }

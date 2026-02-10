@@ -1,6 +1,5 @@
 package com.example.koribackend.model.dao;
 
-import com.example.koribackend.model.entity.Admnistrator;
 import com.example.koribackend.model.entity.Student;
 import com.example.koribackend.util.ConnectionFactory;
 
@@ -11,26 +10,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class studentDAO {
+public class StudentDAO {
 
-    // Get all administrators
+    // Get all students
     public List<Student> selectStudentAll() {
 
         List<Student> students = new ArrayList<>();
 
-        // SQL query
-        String sql = "SELECT enrollment, email, issueDate, password, name, serie FROM student";
+        String sql = "SELECT enrollment, email, issueDate, password, name, serie FROM students";
 
-        // Execute query
         try (
                 Connection conn = ConnectionFactory.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery()
         ) {
-            // Map results
             while (rs.next()) {
                 Student stud = new Student();
-                stud.setEnrollment(rs.getInt("id"));
+                stud.setEnrollment(rs.getInt("enrollment"));
                 stud.setEmail(rs.getString("email"));
                 stud.setIssueDate(rs.getDate("issueDate"));
                 stud.setPassword(rs.getString("password"));
@@ -40,11 +36,27 @@ public class studentDAO {
                 students.add(stud);
             }
         } catch (SQLException e) {
-            // Handle error
             e.printStackTrace();
         }
 
         return students;
     }
 
+    // Delete student by enrollment
+    public boolean deleteStudent(int enrollment) {
+
+        String sql = "DELETE FROM students WHERE enrollment = ?";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, enrollment);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }
