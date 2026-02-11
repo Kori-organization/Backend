@@ -3,17 +3,31 @@ package com.example.koribackend.model.entity;
 import java.util.List;
 
 public class ReportCard {
+    private int id;
     private List<Grade> grader;
     private String studentName;
     private boolean finalSituation;
+    private String subjectName;
+    private String professorName;
 
-    public ReportCard(List<Grade> grader, String studentName, boolean finalSituation) {
+    public ReportCard(int id, List<Grade> grader, String studentName, boolean finalSituation, String subjectName, String professorName) {
+        this.id = id;
         this.grader = grader;
         this.studentName = studentName;
         this.finalSituation = finalSituation;
+        this.subjectName = subjectName;
+        this.professorName = professorName;
     }
 
     public ReportCard() {}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public List<Grade> getGrader() {
         return grader;
@@ -39,7 +53,23 @@ public class ReportCard {
         this.finalSituation = finalSituation;
     }
 
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
+
+    public String getProfessorName() {
+        return professorName;
+    }
+
+    public void setProfessorName(String professorName) {
+        this.professorName = professorName;
+    }
+
     public String toString() {
-        return "Grader: " + this.grader + "Student name: " + this.studentName + "Final situation: " + this.finalSituation;
+        return "ID: " + this.id + " Grader: " + this.grader + " Student name: " + this.studentName + " Final situation: " + this.finalSituation + " Subject name: " + this.subjectName + " Professor name: " + this.professorName;
     }
 }
