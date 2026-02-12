@@ -1,15 +1,16 @@
 package com.example.koribackend.model.entity;
 
-public class Admnistrator {
+public class Administrator {
     private int id;
-    private String name;
+    private String username;
     private String password;
 
-    public Admnistrator() {}
+    public Administrator() {
+    }
 
-    public Admnistrator(int id, String name, String password) {
+    public Administrator(int id, String username, String password) {
         this.id = id;
-        this.name = name;
+        this.username = username;
         this.password = password;
     }
 
@@ -21,12 +22,12 @@ public class Admnistrator {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String name) {
+        this.username = name;
     }
 
     public String getPassword() {
@@ -38,6 +39,6 @@ public class Admnistrator {
     }
 
     public String toString() {
-        return  "ID: " + this.id +  "\nName: " + this.name + "\nPassword: " + this.password;
+        return "ID: " + this.id + "\nName: " + this.username + "\nPassword: " + this.password;
     }
 }

@@ -12,8 +12,6 @@ public class Observations {
     }
     public Observations() {}
 
-    public Observations() { }
-
     public int getId() {
         return id;
     }

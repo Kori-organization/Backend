@@ -17,7 +17,8 @@ public class StudentDAO {
 
         List<Student> students = new ArrayList<>();
 
-        String sql = "SELECT enrollment, email, issueDate, password, name, serie FROM students";
+        // SQL query
+        String sql = "SELECT enrollment, email, issue_date, password, name, serie FROM students";
 
         try (
                 Connection conn = ConnectionFactory.getConnection();
@@ -28,7 +29,7 @@ public class StudentDAO {
                 Student stud = new Student();
                 stud.setEnrollment(rs.getInt("enrollment"));
                 stud.setEmail(rs.getString("email"));
-                stud.setIssueDate(rs.getDate("issueDate"));
+                stud.setIssueDate(rs.getDate("issue_date"));
                 stud.setPassword(rs.getString("password"));
                 stud.setName(rs.getString("name"));
                 stud.setSerie(rs.getInt("serie"));
@@ -45,6 +46,7 @@ public class StudentDAO {
     // Delete student by enrollment
     public boolean deleteStudent(int enrollment) {
 
+        // SQL query
         String sql = "DELETE FROM students WHERE enrollment = ?";
 
         try (
@@ -60,6 +62,7 @@ public class StudentDAO {
         return false;
     }
 
+    // Login
     public boolean loginValid(String email, String password) {
         // SQL query
         String sql = "SELECT enrollment FROM students WHERE email LIKE ? AND password LIKE ?";
@@ -68,8 +71,8 @@ public class StudentDAO {
                 Connection conn = ConnectionFactory.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql);
         ) {
-            stmt.setString(1,email);
-            stmt.setString(2,password);
+            stmt.setString(1, email);
+            stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return true;

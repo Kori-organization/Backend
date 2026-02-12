@@ -1,6 +1,6 @@
 package com.example.koribackend.controller;
 
-import com.example.koribackend.model.dao.AdmnistratorDAO;
+import com.example.koribackend.model.dao.AdministratorDAO;
 import com.example.koribackend.model.dao.ProfessorDAO;
 import com.example.koribackend.model.dao.StudentDAO;
 import jakarta.servlet.*;
@@ -34,7 +34,7 @@ public class LoginController extends HttpServlet {
         String password = request.getParameter("password");
         if (emailOrUser.matches("^@.+$")) {
             emailOrUser = emailOrUser.split("@")[1];
-            if (new AdmnistratorDAO().loginValid(emailOrUser, password)) {
+            if (new AdministratorDAO().loginValid(emailOrUser, password)) {
                 System.out.println("You are a Admin Kori");
             } else {
                 System.out.println("Implement text of error - Admin");

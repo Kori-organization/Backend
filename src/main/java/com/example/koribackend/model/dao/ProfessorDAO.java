@@ -30,11 +30,9 @@ public class ProfessorDAO {
                 prof.setId(rs.getInt("id"));
                 prof.setUsername(rs.getString("username"));
                 prof.setPassword(rs.getString("password_hash"));
-
                 professors.add(prof);
             }
         } catch (SQLException e) {
-            // SQL error
             e.printStackTrace();
         }
 
@@ -45,7 +43,8 @@ public class ProfessorDAO {
     public Professor selectProfessorForSubject(String subject) {
 
         // SQL query
-        String sql = "SELECT p.id, p.username, p.password_hash FROM professors p JOIN subjects s ON s.id = p.subject_id WHERE s.name ILIKE ?";
+        String sql = "SELECT p.id, p.username, p.password_hash FROM professors p " +
+                "JOIN subjects s ON s.id = p.subject_id WHERE s.name ILIKE ?";
         Professor professor = null;
 
         try (
@@ -53,8 +52,7 @@ public class ProfessorDAO {
                 PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
 
-            // Sets subject
-            stmt.setString(1, subject);
+            stmt.setString(1, "%" + subject + "%");
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -65,14 +63,12 @@ public class ProfessorDAO {
             }
 
         } catch (SQLException e) {
-            // SQL error
             e.printStackTrace();
         }
 
         return professor;
     }
 
-    // Deletes by ID
     // Deletes by ID
     public boolean deleteById(int id) {
 
@@ -85,36 +81,38 @@ public class ProfessorDAO {
         ) {
 
             stmt.setInt(1, id);
-            int rows = stmt.executeUpdate();
-            return rows > 0;
+            return stmt.executeUpdate() > 0;
 
         } catch (SQLException e) {
-            // SQL error
             e.printStackTrace();
         }
 
         return false;
     }
 
+    // Login
     public boolean loginValid(String user, String password) {
+
         // SQL query
-        String sql = "SELECT id FROM professors WHERE username LIKE ? AND password_hash LIKE ?";
+        String sql = "SELECT id FROM professors WHERE username = ? AND password_hash = ?";
 
         try (
                 Connection conn = ConnectionFactory.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql);
+                PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
-            stmt.setString(1,user);
-            stmt.setString(2,password);
+            stmt.setString(1, user);
+            stmt.setString(2, password);
+
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return true;
-            }
-            return false;
+            return rs.next();
+
         } catch (SQLException e) {
-            // SQL error
             e.printStackTrace();
-            return false;
         }
+
+        return false;
     }
 }
+
+
+
