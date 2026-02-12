@@ -43,6 +43,34 @@ public class StudentDAO {
         return students;
     }
 
+    public Student selectStudentForEmail(String email) {
+        Student student = null;
+
+        String sql = "SELECT enrollment, email, issue_Date, password, name, serie FROM students WHERE email LIKE ?";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+
+        ) {
+            stmt.setString(1,email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                student = new Student();
+                student.setEnrollment(rs.getInt("enrollment"));
+                student.setEmail(rs.getString("email"));
+                student.setIssueDate(rs.getDate("issue_Date"));
+                student.setPassword(rs.getString("password"));
+                student.setName(rs.getString("name"));
+                student.setSerie(rs.getInt("serie"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return student;
+    }
+
     // Delete student by enrollment
     public boolean deleteStudent(int enrollment) {
 
@@ -83,5 +111,21 @@ public class StudentDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean newPasswordStudent(int enrollment, String newPassword) {
+        String sql = "UPDATE students set password = ? WHERE enrollment = ?";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            stmt.setString(1,newPassword);
+            stmt.setInt(2, enrollment);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

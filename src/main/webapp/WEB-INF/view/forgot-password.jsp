@@ -26,10 +26,10 @@
     <br>Digite o e-mail associado à sua conta.
   </p>
 
-  <form>
+  <form action="recoverPassword" method="post">
     <label>E-mail</label>
-    <input type="email" placeholder="Digite seu e-mail">
-    <button type="button" onclick="location.href='create-password.html'">
+    <input type="email" name="email" placeholder="Digite seu e-mail">
+    <button type="submit">
       Enviar e-mail
     </button>
     <p class="forgot">
