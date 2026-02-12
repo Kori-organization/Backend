@@ -6,10 +6,10 @@ toggles.forEach(toggle => {
 
         if (input.type === 'password') {
             input.type = 'text';
-            toggle.src = '../../Assets/eye.svg';
+            toggle.src = contextPath + '/assets/eye.svg';
         } else {
             input.type = 'password';
-            toggle.src = '../../Assets/eye-off.svg';
+            toggle.src = contextPath + '/assets/eye-off.svg';
         }
     });
 });

@@ -56,6 +56,8 @@
   ← Voltar
 </button>
 </body>
-
+<script>
+  const contextPath = '${pageContext.request.contextPath}';
+</script>
 <script src="${pageContext.request.contextPath}/js/create-password.js"></script>
 </html>
