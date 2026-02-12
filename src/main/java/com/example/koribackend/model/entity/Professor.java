@@ -5,14 +5,14 @@ public class Professor {
     private String username;
     private String password;
     private String name;
-    private String finalSituation;
+    private String subjectName;
 
-    public Professor(int id, String username, String password, String name, String finalSituation) {
+    public Professor(int id, String username, String password, String name, String subjectName) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.name = name;
-        this.finalSituation = finalSituation;
+        this.subjectName = subjectName;
     }
 
     public Professor() {}
@@ -49,15 +49,16 @@ public class Professor {
         this.name = name;
     }
 
-    public String getFinalSituation() {
-        return finalSituation;
+    public String getSubjectName() {
+        return subjectName;
     }
 
-    public void setFinalSituation(String finalSituation) {
-        this.finalSituation = finalSituation;
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 
+    @Override
     public String toString() {
-        return "ID: " + this.id + "\nUsername: " + this.username + "\nPassword: " + this.password + "\nName: " + this.name + "\nFinal situation: " + this.finalSituation;
+        return "ID: " + this.id + " Username: " + this.username + " Password: [PROTECTED]" +  this.name + "Subject name: "  + this.subjectName;
     }
 }

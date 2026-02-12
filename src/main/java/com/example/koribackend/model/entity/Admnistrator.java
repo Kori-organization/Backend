@@ -38,6 +38,6 @@ public class Admnistrator {
     }
 
     public String toString() {
-        return "ID: " + this.id + "\nName: " + this.name + "\nPassword: " + this.password;
+        return  "ID: " + this.id +  "\nName: " + this.name + "\nPassword: " + this.password;
     }
 }
