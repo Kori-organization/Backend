@@ -59,4 +59,26 @@ public class StudentDAO {
 
         return false;
     }
+
+    public boolean loginValid(String email, String password) {
+        // SQL query
+        String sql = "SELECT enrollment FROM students WHERE email LIKE ? AND password LIKE ?";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+        ) {
+            stmt.setString(1,email);
+            stmt.setString(2,password);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            // SQL error
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

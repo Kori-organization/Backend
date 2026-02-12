@@ -2,14 +2,15 @@ package com.example.koribackend.model.entity;
 
 public class Observations {
     private int id;
-    private String password;
     private String studentName;
+    private String observation;
 
-    public Observations(int id, String password, String studentName) {
+    public Observations(int id, String studentName, String observation) {
         this.id = id;
-        this.password = password;
         this.studentName = studentName;
+        this.observation = observation;
     }
+    public Observations() {}
 
     public Observations() { }
 
@@ -21,14 +22,6 @@ public class Observations {
         this.id = id;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getStudentName() {
         return studentName;
     }
@@ -37,7 +30,15 @@ public class Observations {
         this.studentName = studentName;
     }
 
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
+    }
+
     public String toString() {
-        return "ID: " + this.id + "Password: " + this.password + "Student name: " + this.studentName;
+        return "ID: " + this.id + "Student name: " + this.studentName + "\nObservation: " + this.observation;
     }
 }

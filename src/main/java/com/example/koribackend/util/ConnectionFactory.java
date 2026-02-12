@@ -13,6 +13,14 @@ public final class ConnectionFactory {
     private static final String user = dotenv.get("DB_USER");
     private static final String password = dotenv.get("DB_PASSWORD");
 
+    static {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     private ConnectionFactory() {
         // Prevent its instantiation.
     }

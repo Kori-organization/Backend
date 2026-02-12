@@ -62,4 +62,26 @@ public class AdmnistratorDAO {
 
         return false;
     }
+
+    public boolean loginValid(String user, String password) {
+        // SQL query
+        String sql = "SELECT id FROM administrators WHERE username LIKE ? AND password_hash LIKE ?";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+        ) {
+            stmt.setString(1,user);
+            stmt.setString(2,password);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            // SQL error
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
