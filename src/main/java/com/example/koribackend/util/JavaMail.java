@@ -7,11 +7,11 @@ import java.util.Properties;
 
 public class JavaMail {
 
-    private Dotenv dotenv = Dotenv.load();
-    private String senha = dotenv.get("EMAIL_PASSWORD");
+    private static Dotenv dotenv = Dotenv.load();
+    private static String senha = dotenv.get("EMAIL_PASSWORD");
 
 
-    public boolean sendPasswordRecovery(String email, String token) {
+    public static boolean sendPasswordRecovery(String email, String token, String baseURL) {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -32,9 +32,9 @@ public class JavaMail {
                     Message.RecipientType.TO,
                     InternetAddress.parse(email)
             );
-
-            message.setSubject("<title>");
-            String formatacao = "<body>";
+            String link = baseURL + "/checkToken?token=" + token;
+            message.setSubject("Test of link email");
+            String formatacao = "<body><p>"+ link +"</p></body>";
 
             message.setContent(formatacao, "text/html; charset=UTF-8");
 

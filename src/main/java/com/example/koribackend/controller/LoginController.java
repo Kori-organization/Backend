@@ -3,20 +3,24 @@ package com.example.koribackend.controller;
 import com.example.koribackend.model.dao.AdmnistratorDAO;
 import com.example.koribackend.model.dao.ProfessorDAO;
 import com.example.koribackend.model.dao.StudentDAO;
+import com.example.koribackend.model.entity.Student;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.util.Date;
 
-@WebServlet(urlPatterns = {"/enter","/forgot-password"})
+@WebServlet(urlPatterns = {"/enter","/forgotPassword"})
 public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getServletPath();
         if (path.equals("/enter")) {
             response.sendRedirect("index.jsp");
-        } else if (path.equals("/forgot-password")) {
+        } else if (path.equals("/forgotPassword")) {
             request.getRequestDispatcher("WEB-INF/view/forgot-password.jsp").forward(request,response);
         }
     }
@@ -25,7 +29,7 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getServletPath();
         if (path.equals("/enter")) {
-            enterScreen(request,response);
+            enterScreen(request, response);
         }
     }
 

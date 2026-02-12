@@ -34,7 +34,7 @@
         <button type="submit">Entrar</button>
 
         <p class="forgot">
-            Esqueceu sua senha? <a href="forgot-password">Recuperar</a>
+            Esqueceu sua senha? <a href="forgotPassword">Recuperar</a>
         </p>
     </form>
 </div>
