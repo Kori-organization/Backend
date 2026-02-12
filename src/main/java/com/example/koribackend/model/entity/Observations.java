@@ -11,6 +11,8 @@ public class Observations {
         this.studentName = studentName;
     }
 
+    public Observations() { }
+
     public int getId() {
         return id;
     }
