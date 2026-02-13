@@ -2,10 +2,10 @@ package com.example.koribackend.model.entity;
 
 public class Grade {
     private int id;
-    private double grade1;
-    private double grade2;
+    private Double grade1;
+    private Double grade2;
     private String subject;
-    private double rec;
+    private Double rec;
 
     public Grade(int id, double grade1, double grade2, String subject, double rec) {
         this.id = id;
