@@ -19,6 +19,14 @@ public class Student {
         this.serie = serie;
     }
 
+    public Student(String email, Date issueDate, String password, String name, int serie) {
+        this.email = email;
+        this.issueDate = issueDate;
+        this.password = password;
+        this.name = name;
+        this.serie = serie;
+    }
+
     public Student() {}
 
     public int getEnrollment() {

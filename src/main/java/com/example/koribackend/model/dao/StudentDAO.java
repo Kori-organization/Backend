@@ -128,4 +128,23 @@ public class StudentDAO {
         }
         return false;
     }
+
+    public boolean createAccount(Student student) {
+        String sql = "INSERT INTO students(email, issue_Date, password, name, serie) VALUES(?,?,?,?,?)";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            stmt.setString(1,student.getEmail());
+            stmt.setDate(2, student.getIssueDate());
+            stmt.setString(3,student.getPassword());
+            stmt.setString(4,student.getName());
+            stmt.setInt(5,student.getSerie());
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

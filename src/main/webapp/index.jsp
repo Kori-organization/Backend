@@ -19,15 +19,15 @@
     <div class="logo"><img src="assets/logo.svg" alt="Logo" width="100px" onclick="location.reload()"></div>
 
     <h1>Seja bem-vindo(a)<br>de volta.</h1>
-    <p class="subtitle">Novo aqui? <a href="#">Criar uma conta</a></p>
+    <p class="subtitle">Novo aqui? <a href="createAccount">Criar uma conta</a></p>
 
     <form method="post" action="enter">
         <label>E-mail ou usuário</label>
-        <input type="text" name="emailOrUser" placeholder="Digite seu e-mail ou usuário">
+        <input type="text" name="emailOrUser" value="${empty email ? "" : email}" placeholder="Digite seu e-mail ou usuário">
 
         <label>Senha</label>
         <div class="password-field">
-            <input type="password" name="password" id="password" placeholder="Digite sua senha">
+            <input type="password" name="password" value="${empty password ? "" : password}" id="password" placeholder="Digite sua senha">
             <img src="assets/eye-off.svg" class="eye" id="togglePassword" alt="Show password">
         </div>
 

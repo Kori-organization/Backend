@@ -52,9 +52,6 @@
   </form>
 </div>
 
-<button class="back-button" onclick="location.href='forgot-password.html'">
-  ← Voltar
-</button>
 </body>
 <script>
   const contextPath = '${pageContext.request.contextPath}';
