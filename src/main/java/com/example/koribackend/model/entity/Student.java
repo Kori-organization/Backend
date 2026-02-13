@@ -80,4 +80,8 @@ public class Student {
     public String toString() {
         return "Enrollment: " + this.enrollment + "\nEmail: " + this.email + "Issue date: " + this.issueDate + "Password: " + this.password + "Name: " + this.name + "Serie" + this.serie;
     }
+
+    public String getFirstName() {
+        return this.name.split(" ")[0];
+    }
 }

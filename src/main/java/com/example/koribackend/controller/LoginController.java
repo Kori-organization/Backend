@@ -63,7 +63,7 @@ public class LoginController extends HttpServlet {
 
     }
 
-    private void enterScreen(HttpServletRequest request, HttpServletResponse response) {
+    private void enterScreen(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String emailOrUser = request.getParameter("emailOrUser");
         String password = request.getParameter("password");
         if (emailOrUser.matches("^@.+$")) {
@@ -81,7 +81,8 @@ public class LoginController extends HttpServlet {
             }
         } else if (emailOrUser.matches("^[A-Za-z0-9._+-]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$|^$")) {
             if (new StudentDAO().loginValid(emailOrUser, password)) {
-                System.out.println("You are a Student");
+                request.getSession().setAttribute("student",new StudentDAO().selectStudentForEmail(emailOrUser));
+                response.sendRedirect("homeStudent");
             } else {
                 System.out.println("Implement text of error - Student");
             }
