@@ -31,7 +31,7 @@ public class RecoverPasswordController extends HttpServlet {
         }
     }
 
-    public void checkToken(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void checkToken(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String token = request.getParameter("token");
 
         if (token == null || token.isEmpty()) {
@@ -65,7 +65,7 @@ public class RecoverPasswordController extends HttpServlet {
         }
     }
 
-    public void updatePassword(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException {
+    private void updatePassword(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException {
         String newPassword = request.getParameter("newPassword");
         String enrollment = (String) request.getSession(false).getAttribute("enrollment");
         boolean resultAction = new StudentDAO().newPasswordStudent(Integer.parseInt(enrollment),newPassword);
@@ -77,7 +77,7 @@ public class RecoverPasswordController extends HttpServlet {
         }
     }
 
-    public void sendEmail(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    private void sendEmail(HttpServletRequest request,HttpServletResponse response) throws IOException {
         String email = request.getParameter("email");
         Student student = new StudentDAO().selectStudentForEmail(email);
         if (student != null) {

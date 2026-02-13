@@ -4,16 +4,16 @@ import com.example.koribackend.model.dao.AdmnistratorDAO;
 import com.example.koribackend.model.dao.ProfessorDAO;
 import com.example.koribackend.model.dao.StudentDAO;
 import com.example.koribackend.model.entity.Student;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.example.koribackend.util.FileCpfManager;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 
-@WebServlet(urlPatterns = {"/enter","/forgotPassword"})
+@WebServlet(urlPatterns = {"/enter","/forgotPassword","/createAccount"})
 public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,6 +22,8 @@ public class LoginController extends HttpServlet {
             response.sendRedirect("index.jsp");
         } else if (path.equals("/forgotPassword")) {
             request.getRequestDispatcher("WEB-INF/view/forgot-password.jsp").forward(request,response);
+        } else if (path.equals("/createAccount")) {
+            request.getRequestDispatcher("WEB-INF/view/create-account.jsp").forward(request,response);
         }
     }
 
@@ -30,10 +32,38 @@ public class LoginController extends HttpServlet {
         String path = request.getServletPath();
         if (path.equals("/enter")) {
             enterScreen(request, response);
+        } else if (path.equals("/createAccount")) {
+            createAccount(request,response);
         }
     }
 
-    public void enterScreen(HttpServletRequest request, HttpServletResponse response) {
+    private void createAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession(false).getAttribute("cpfs") == null) {
+            request.getSession().setAttribute("cpfs",new FileCpfManager(getServletContext()));
+        }
+
+        String name = request.getParameter("name");
+        String cpf = request.getParameter("cpf");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        FileCpfManager cpfs = (FileCpfManager) request.getSession(false).getAttribute("cpf");
+        if (cpfs.checkCpf(cpf)) {
+            request.getSession().setAttribute("cpfs",cpfs.deleteCpf(cpf));
+            Student student = new Student(email, Date.valueOf(LocalDate.now()), password,name,1);
+            if (new StudentDAO().createAccount(student)) {
+                request.setAttribute("email",student.getEmail());
+                request.setAttribute("password",student.getPassword());
+                request.getRequestDispatcher("index.jsp").forward(request,response);
+            } else {
+                System.out.println("Implement popup of error - create account");
+            }
+        } else {
+            System.out.println("Implement popup of error - create account");
+        }
+
+    }
+
+    private void enterScreen(HttpServletRequest request, HttpServletResponse response) {
         String emailOrUser = request.getParameter("emailOrUser");
         String password = request.getParameter("password");
         if (emailOrUser.matches("^@.+$")) {
