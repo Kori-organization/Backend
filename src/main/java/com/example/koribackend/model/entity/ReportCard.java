@@ -6,17 +6,15 @@ public class ReportCard {
     private int id;
     private List<Grade> grader;
     private String studentName;
-    private boolean finalSituation;
-    private String subjectName;
-    private String professorName;
+    private String finalSituation;
+    private int serie;
 
-    public ReportCard(int id, List<Grade> grader, String studentName, boolean finalSituation, String subjectName, String professorName) {
+    public ReportCard(int id, List<Grade> grader, String studentName, String finalSituation, int serie) {
         this.id = id;
         this.grader = grader;
         this.studentName = studentName;
         this.finalSituation = finalSituation;
-        this.subjectName = subjectName;
-        this.professorName = professorName;
+        this.serie = serie;
     }
 
     public ReportCard() {}
@@ -45,31 +43,23 @@ public class ReportCard {
         this.studentName = studentName;
     }
 
-    public boolean isFinalSituation() {
+    public String getFinalSituation() {
         return finalSituation;
     }
 
-    public void setFinalSituation(boolean finalSituation) {
+    public void setFinalSituation(String finalSituation) {
         this.finalSituation = finalSituation;
     }
 
-    public String getSubjectName() {
-        return subjectName;
+    public int getSerie() {
+        return this.serie;
     }
 
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
-    }
-
-    public String getProfessorName() {
-        return professorName;
-    }
-
-    public void setProfessorName(String professorName) {
-        this.professorName = professorName;
+    public void setSerie(int serie) {
+        this.serie = serie;
     }
 
     public String toString() {
-        return "ID: " + this.id + " Grader: " + this.grader + " Student name: " + this.studentName + " Final situation: " + this.finalSituation + " Subject name: " + this.subjectName + " Professor name: " + this.professorName;
+        return "ID: " + this.id + " Grader: " + this.grader + " Student name: " + this.studentName + " Final situation: " + this.finalSituation;
     }
 }

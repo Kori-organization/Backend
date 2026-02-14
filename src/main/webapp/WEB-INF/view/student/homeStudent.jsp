@@ -26,7 +26,7 @@
         <h2>Início</h2>
       </div>
 
-      <div class="menu-item active2 one" onclick="window.location='bulletin.html'">
+      <div class="menu-item active2 one" onclick="window.location='reportCard'">
         <img src="${pageContext.request.contextPath}/assets/greeting.svg" alt="Boletim">
         <h2>Boletim</h2>
       </div>

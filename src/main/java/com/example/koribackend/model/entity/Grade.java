@@ -15,6 +15,8 @@ public class Grade {
         this.rec = rec;
     }
 
+    public Grade() { }
+
     public int getId() {
         return id;
     }
