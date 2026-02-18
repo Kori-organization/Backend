@@ -77,7 +77,7 @@ public class ObservationsDAO {
         List<Observations> observations = new ArrayList<>();
 
         // SQL query
-        String sql = "SELECT obs.id, obs.observation, s.name AS student_name FROM observations obs JOIN students s ON s.enrollment = obs.student_id WHERE obs.student_id = ?";
+        String sql = "SELECT obs.id, obs.observation, s.name AS student_name FROM observations obs JOIN students s ON s.enrollment = obs.student_id WHERE obs.student_id = ? ORDER BY obs.id DESC LIMIT 8";
 
         try (
                 Connection conn = ConnectionFactory.getConnection();

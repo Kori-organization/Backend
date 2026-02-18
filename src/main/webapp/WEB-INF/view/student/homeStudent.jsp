@@ -32,7 +32,7 @@
       </div>
 
       <div class="menu-item active2 two">
-        <img src="${pageContext.request.contextPath}/assets/notes.svg" alt="Observações" onclick="window.location='observation.html'">
+        <img src="${pageContext.request.contextPath}/assets/notes.svg" alt="Observações" onclick="window.location='observations'">
         <h2>Observações</h2>
       </div>
 

@@ -19,7 +19,7 @@
     <!-- Sidebar navigation -->
     <aside class="sidebar">
         <div class="sidebar-menu">
-            <div class="menu-item active2 one" onclick="window.location='index.html'">
+            <div class="menu-item active2 one" onclick="window.location='homeStudent'">
                 <img src="${pageContext.request.contextPath}/assets/home-3.svg">
                 <h2>Início</h2>
             </div>
@@ -27,7 +27,7 @@
                 <img src="${pageContext.request.contextPath}/assets/greeting-2.svg">
                 <h2>Boletim</h2>
             </div>
-            <div class="menu-item active2 two" onclick="window.location='observation.html'">
+            <div class="menu-item active2 two" onclick="window.location='observations'">
                 <img src="${pageContext.request.contextPath}/assets/notes.svg">
                 <h2>Observações</h2>
             </div>
@@ -85,7 +85,7 @@
                     <h3><span class="badge yellow">1º Semestre</span>Média</h3>
                     <% for (Grade grade : reportCard.getGrader()) { %>
                         <% counter--; %>
-                        <div class="bitem <%=counter == reportCard.getGrader().size() - 1 ? "top" : ""%><%=counter == 0 ? "bottom" : ""%><%=(grade.getGrade1() != -1 && grade.getGrade1() < 7) ? "red" : ""%>"><%=(grade.getGrade1() == -1) ? "-" : String.format("%.2f",grade.getGrade1())%></div>
+                        <div class="bitem <%=counter == reportCard.getGrader().size() - 1 ? "top" : ""%><%=counter == 0 ? "bottom" : ""%><%=(grade.getGrade1() != -1 && grade.getGrade1() < 7) ? " red" : ""%>"><%=(grade.getGrade1() == -1) ? "-" : String.format("%.2f",grade.getGrade1())%></div>
                     <% } %>
                     <% counter = reportCard.getGrader().size(); %>
                 </div>
@@ -95,7 +95,7 @@
                     <h3><span class="badge yellow">2º Semestre</span>Média</h3>
                     <% for (Grade grade : reportCard.getGrader()) { %>
                         <% counter--; %>
-                        <div class="bitem <%=counter == reportCard.getGrader().size() - 1 ? "top" : ""%><%=counter == 0 ? "bottom" : ""%><%=(grade.getGrade2() != -1 && grade.getGrade2() < 7) ? "red" : ""%>"><%=(grade.getGrade2() == -1) ? "-" : String.format("%.2f",grade.getGrade2())%></div>
+                        <div class="bitem <%=counter == reportCard.getGrader().size() - 1 ? "top" : ""%><%=counter == 0 ? "bottom" : ""%><%=(grade.getGrade2() != -1 && grade.getGrade2() < 7) ? " red" : ""%>"><%=(grade.getGrade2() == -1) ? "-" : String.format("%.2f",grade.getGrade2())%></div>
                     <% } %>
                     <% counter = reportCard.getGrader().size(); %>
                 </div>
@@ -105,7 +105,7 @@
                     <h3><span class="badge pink">Recuperação</span>Média</h3>
                     <% for (Grade grade : reportCard.getGrader()) { %>
                         <% counter--; %>
-                        <div class="bitem <%=counter == reportCard.getGrader().size() - 1 ? "top" : ""%><%=counter == 0 ? "bottom" : ""%><%=(grade.getRec() != -1 && grade.getRec() < 7) ? "red" : ""%>"><%=(grade.getRec() == -1) ? "-" : String.format("%.2f",grade.getRec())%></div>
+                        <div class="bitem <%=counter == reportCard.getGrader().size() - 1 ? "top" : ""%><%=counter == 0 ? "bottom" : ""%><%=(grade.getRec() != -1 && grade.getRec() < 7) ? " red" : ""%>"><%=(grade.getRec() == -1) ? "-" : String.format("%.2f",grade.getRec())%></div>
                     <% } %>
                     <% counter = reportCard.getGrader().size(); %>
                 </div>
@@ -126,7 +126,7 @@
                                 media = -1;
                             }
                         %>
-                        <div class="bitem <%=counter == reportCard.getGrader().size() - 1 ? "top" : ""%><%=counter == 0 ? "bottom" : ""%><%=(media != -1 && media < 7) ? "red" : ""%>"><%=(media == -1) ? "-" : String.format("%.2f",media)%></div>
+                        <div class="bitem <%=counter == reportCard.getGrader().size() - 1 ? "top" : ""%><%=counter == 0 ? "bottom" : ""%><%=(media != -1 && media < 7) ? " red" : ""%>"><%=(media == -1) ? "-" : String.format("%.2f",media)%></div>
                     <% } %>
                     <% counter = reportCard.getGrader().size(); %>
                 </div>
@@ -150,7 +150,7 @@
                             media = -1;
                         }
                     %>
-                    <div class="bitem <%=counter == reportCard.getGrader().size() - 1 ? "top" : ""%><%=counter == 0 ? "bottom" : ""%> <%=(media != -1 && media < 7) ? "red" : ""%> <%=media >= 7 ? "green" : ""%>"><%=(media == -1) ? "-" : (media < 7 && media >= 5 && rec ? "Recuperação" : (media >= 7 ? "Aprovado" : "Reprovado"))%></div>
+                    <div class="bitem <%=counter == reportCard.getGrader().size() - 1 ? "top" : ""%><%=counter == 0 ? "bottom" : ""%> <%=(media != -1 && media < 7) ? " red" : ""%> <%=media >= 7 ? "green" : ""%>"><%=(media == -1) ? "-" : (media < 7 && media >= 5 && rec ? "Recuperação" : (media >= 7 ? "Aprovado" : "Reprovado"))%></div>
                     <% } %>
                 </div>
             </div>
