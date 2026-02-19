@@ -26,7 +26,7 @@
 <div class="login-card">
 
   <div class="logo">
-    <img src="${pageContext.request.contextPath}/assets/logo.svg" width="100px" onclick="location.href='index.html'">
+    <img src="${pageContext.request.contextPath}/assets/logo.svg" width="100px" onclick="location.href='enter'">
   </div>
 
   <h1>Criar conta</h1>

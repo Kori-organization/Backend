@@ -77,25 +77,24 @@ public class RecoverPasswordController extends HttpServlet {
         }
     }
 
-    private void sendEmail(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    private void sendEmail(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
         String email = request.getParameter("email");
         Student student = new StudentDAO().selectStudentForEmail(email);
+        boolean result;
         if (student != null) {
             String baseURL = String.format("%s://%s:%s%s",request.getScheme(), request.getServerName(),request.getServerPort(), request.getContextPath());
             String token = Jwts.builder()
                     .setSubject(String.valueOf(student.getEnrollment())) // enrollment of student
                     .setIssuedAt(new Date())
-                    .setExpiration(new Date(System.currentTimeMillis() + 15 * 60 * 1000)) // 15 minutes
+                    .setExpiration(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000)) // 1 day
                     .signWith(SignatureAlgorithm.HS256, key)
                     .compact();
-
-            JavaMail.sendPasswordRecovery(email,token,baseURL);
-
-            System.out.println("Implement a popup of description of email");
-
-            response.sendRedirect("forgotPassword");
+            result = JavaMail.sendPasswordRecovery(email,token,baseURL);
         } else {
-            System.out.println("Implement text of error - Input Email Invalid");
+            result = false;
         }
+        request.setAttribute("email",email);
+        request.setAttribute("result",result);
+        request.getRequestDispatcher("WEB-INF/view/confirmation-email.jsp").forward(request,response);
     }
 }

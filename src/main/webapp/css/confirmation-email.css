@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background: #fbf6e6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Montserrat", sans-serif;
+    overflow: hidden;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.7;
+}
+
+.blue {
+    width: 600px;
+    height: 600px;
+    background: #9dd9e0;
+    top: -100px;
+    left: 50px;
+}
+
+.pink {
+    width: 650px;
+    height: 650px;
+    background: #f2a7b1;
+    top: -240px;
+    right: 30px;
+}
+
+.green {
+    width: 450px;
+    height: 450px;
+    background: #c7dd9c;
+    bottom: 60px;
+    left: 180px;
+}
+
+.yellow {
+    width: 350px;
+    height: 350px;
+    background: #f6d38b;
+    bottom: 180px;
+    right: 380px;
+}
+
+.login-card {
+    width: 420px;
+    padding: 70px 60px;
+    border-radius: 28px;
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(255,255,255,0.6);
+    text-align: center;
+}
+
+.logo {
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+.success-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.success-icon {
+    width: 48px;
+}
+
+.login-card h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #102c3d;
+}
+
+.subtitle {
+    font-size: 13px;
+    margin-bottom: 28px;
+    color: #102c3d;
+}
+
+.subtitle span {
+    display: block;
+    font-weight: 600;
+}
+
+.resend-text {
+    font-size: 13px;
+    margin-bottom: 14px;
+}
+
+button {
+    width: 100%;
+    padding: 13px;
+    border-radius: 999px;
+    border: none;
+    background: #f5c659;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: "Montserrat", sans-serif;
+}
+
+button:hover {
+    background: #eab84b;
+}
+
+.back-button {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    width: 150px;
+    height: 52px;
+}
