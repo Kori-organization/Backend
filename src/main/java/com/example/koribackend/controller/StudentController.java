@@ -12,7 +12,7 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/homeStudent","/reportCard","/observations"})
+@WebServlet(urlPatterns = {"/homeStudent","/reportCard","/observations","/createPDF"})
 public class StudentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,6 +23,10 @@ public class StudentController extends HttpServlet {
             showBulletin(request,response);
         } else if (path.equals("/observations")) {
             showObservations(request,response);
+        } else if (path.equals("/createPDF")) {
+            int enrollment = ((Student) request.getSession(false).getAttribute("student")).getEnrollment();
+            request.setAttribute("enrollment",enrollment);
+            request.getRequestDispatcher("createReportCardPDF").forward(request,response);
         }
     }
 

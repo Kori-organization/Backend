@@ -1,8 +1,3 @@
-/*
- * Bulletin Page Styles
- * Kori School System
- */
-
 /* Google Font import */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
@@ -340,6 +335,20 @@ img {
     z-index: 1;
     font-size: 21px;
     margin-top: 10px;
+    display: flex;
+    gap: 15px;
+}
+
+.download-icon {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    margin-top: 2px;
+    transition: transform 0.2s ease;
+}
+
+.download-icon:hover {
+    transform: scale(1.05);
 }
 
 /* Report card grid */
@@ -502,6 +511,10 @@ img {
 
 .green {
     color: #8CA11C;
+}
+
+.yellow {
+    color: #D4A017;
 }
 
 /* Custom scrollbar */
