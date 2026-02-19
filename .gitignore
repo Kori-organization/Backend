@@ -41,5 +41,5 @@ build/
 *.log
 *.tmp
 src/main/resources/.env
-t.smarttomcat/
+.smarttomcat/
 tomcat-work/
