@@ -63,7 +63,7 @@ public class LoginController extends HttpServlet {
 
     }
 
-    private void enterScreen(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void enterScreen(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String emailOrUser = request.getParameter("emailOrUser");
         String password = request.getParameter("password");
         if (emailOrUser.matches("^@.+$")) {
@@ -71,21 +71,32 @@ public class LoginController extends HttpServlet {
             if (new AdministratorDAO().loginValid(emailOrUser, password)) {
                 System.out.println("You are a Admin Kori");
             } else {
-                System.out.println("Implement text of error - Admin");
+                accountNotFound(request,response);
             }
         } else if (emailOrUser.matches("^\\w+\\.\\w+$")) {
             if (new ProfessorDAO().loginValid(emailOrUser,password)) {
                 System.out.println("You are a Professor");
             } else {
-                System.out.println("Implement text of error - Professor");
+                accountNotFound(request,response);
             }
         } else if (emailOrUser.matches("^[A-Za-z0-9._+-]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$|^$")) {
             if (new StudentDAO().loginValid(emailOrUser, password)) {
                 request.getSession().setAttribute("student",new StudentDAO().selectStudentForEmail(emailOrUser));
                 response.sendRedirect("homeStudent");
             } else {
-                System.out.println("Implement text of error - Student");
+                accountNotFound(request,response);
             }
+        } else {
+            accountNotFound(request,response);
         }
+    }
+
+    private void accountNotFound(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String emailOrUser = request.getParameter("emailOrUser");
+        String password = request.getParameter("password");
+        request.setAttribute("email",emailOrUser);
+        request.setAttribute("password",password);
+        request.setAttribute("accountExists",false);
+        request.getRequestDispatcher("index.jsp").forward(request,response);
     }
 }

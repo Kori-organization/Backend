@@ -21,15 +21,23 @@
     <h1>Seja bem-vindo(a)<br>de volta.</h1>
     <p class="subtitle">Novo aqui? <a href="createAccount">Criar uma conta</a></p>
 
-    <form method="post" action="enter">
+    <form method="post" action="enter" id="loginForm">
         <label>E-mail ou usuário</label>
-        <input type="text" name="emailOrUser" value="${empty email ? "" : email}" placeholder="Digite seu e-mail ou usuário">
+        <input type="text" name="emailOrUser" class="${empty requestScope.accountExists ? "" : "input-error"}" value="${empty requestScope.email ? "" : requestScope.email}" placeholder="Digite seu e-mail ou usuário" required>
+
+        <p class="error-message" style="display: ${empty requestScope.accountExists ? "none" : "block"};" id="emailError">
+            ${empty requestScope.accountExists ? "" : "Não foi possível encontrar sua conta Kori."}
+        </p>
 
         <label>Senha</label>
         <div class="password-field">
-            <input type="password" name="password" value="${empty password ? "" : password}" id="password" placeholder="Digite sua senha">
+            <input type="password" name="password" value="${empty requestScope.password ? "" : requestScope.password}" id="password" placeholder="Digite sua senha">
             <img src="assets/eye-off.svg" class="eye" id="togglePassword" alt="Show password">
         </div>
+
+        <p class="error-message" id="passwordError">
+            Sua senha precisa conter pelo menos um número, uma letra e um caractere especial.
+        </p>
 
         <button type="submit">Entrar</button>
 

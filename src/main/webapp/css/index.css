@@ -183,3 +183,15 @@ button:hover {
 .forgot a:hover {
     color: #1385ae;
 }
+
+.error-message {
+    color: #ff3b30;
+    font-size: 13px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    display: none;
+}
+
+.input-error {
+    border: 2px solid #ff3b30 !important;
+}
