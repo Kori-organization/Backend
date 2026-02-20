@@ -25,7 +25,7 @@
                     <h2>Início</h2>
                 </div>
                 <div class="menu-item active2 two">
-                    <img src="${pageContext.request.contextPath}/assets/greeting.svg" onclick="window.location='reportCard'">
+                    <img src="${pageContext.request.contextPath}/assets/greeting.svg" onclick="window.location='reportCardStudent'">
                     <h2>Boletim</h2>
                 </div>
                 <div class="menu-item active" onclick="location.reload()">
@@ -33,12 +33,12 @@
                     <h2>Observações</h2>
                 </div>
                 <div class="menu-item active2 three">
-                    <img src="${pageContext.request.contextPath}/assets/info-circle.svg" onclick="window.location='teacher.html'">
+                    <img src="${pageContext.request.contextPath}/assets/info-circle.svg" onclick="window.location='informationStudent'">
                     <h2>Informações</h2>
                 </div>
             </div>
             <!-- User profile section -->
-            <div class="profile">
+            <div class="profile" onclick="window.location='profileStudent'">
                 <img src="${pageContext.request.contextPath}/assets/user.svg" width="38">
             </div>
         </aside>

@@ -25,10 +25,10 @@
     Sua senha precisa ser diferente da sua senha anterior.
   </p>
 
-  <form method="post" action="updatePassword">
+  <form method="post" action="updatePassword" id="createPasswordForm">
     <label>Nova senha</label>
     <div class="password-field">
-      <input type="password" name="newPassword" id="newPassword" placeholder="Digite a nova senha">
+      <input type="password" name="newPassword" id="newPassword" placeholder="Digite a nova senha" required>
       <img
               src="${pageContext.request.contextPath}/assets/eye-off.svg"
               class="eye toggle-password"
@@ -36,10 +36,13 @@
               alt="Mostrar senha"
       >
     </div>
+    <p class="error-message" id="newPasswordError">
+      A senha deve conter letra, número e caractere especial.
+    </p>
 
     <label>Confirmar nova senha</label>
     <div class="password-field">
-      <input type="password" name="confirmNewPassword" id="confirmNewPassword" placeholder="Confirme a nova senha">
+      <input type="password" name="confirmNewPassword" id="confirmNewPassword" placeholder="Confirme a nova senha" required>
       <img
               src="${pageContext.request.contextPath}/assets/eye-off.svg"
               class="eye toggle-password"
@@ -47,6 +50,9 @@
               alt="Mostrar senha"
       >
     </div>
+    <p class="error-message" id="confirmPasswordError">
+      As senhas não coincidem.
+    </p>
 
     <button type="submit">Criar</button>
   </form>
