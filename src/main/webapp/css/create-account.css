@@ -1,5 +1,7 @@
+/* Google Font import */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
+/* Global reset and base styles */
 * {
     margin: 0;
     padding: 0;
@@ -106,11 +108,15 @@ input {
     width: 100%;
     padding: 14px;
     border-radius: 30px;
-    border: none;
+    border: 2px solid transparent;
     margin-bottom: 18px;
     outline: none;
     font-size: 14px;
     background: #fff;
+}
+
+input:focus {
+    border-color: #50AECF;
 }
 
 .password-field {
@@ -175,4 +181,16 @@ button:hover {
 
 .back-button:hover {
     background: #eab84b;
+}
+
+.error-message {
+    display: none;
+    color: #ff3b30;
+    font-size: 13px;
+    margin-top: -12px;
+    margin-bottom: 12px;
+}
+
+.input-error {
+    border: 2px solid #ff3b30 !important;
 }

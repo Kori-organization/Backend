@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.example.koribackend.model.entity.Student" %><%--
   Created by IntelliJ IDEA.
   User: lucaslima-ieg
   Date: 13/02/2026
@@ -32,22 +32,31 @@
   <h1>Criar conta</h1>
   <p class="subtitle">Já esteve aqui antes? <a href="enter">Entrar</a></p>
 
-  <form method="post" action="createAccount">
+  <form method="post" action="createAccount" id="loginForm">
 
     <label>Nome completo</label>
-    <input type="text" name="name" placeholder="Digite seu nome completo" required>
+    <input type="text" name="name" value="${empty requestScope.name ? "" : requestScope.name}" placeholder="Digite seu nome completo" required>
 
     <label>CPF</label>
-    <input type="text" name="cpf" placeholder="Digite seu CPF" pattern="^\d{11}$|^\d{3}\.\d{3}\.\d{3}-\d{2}$" title="Digite seu cpf no formato 123.456.789-10 ou apenas os numeros" required>
+    <input type="text" name="cpf" value="${empty requestScope.cpf ? "" : requestScope.cpf}" placeholder="Digite seu CPF" pattern="^\d{11}$|^\d{3}\.\d{3}\.\d{3}-\d{2}$" title="Digite seu cpf no formato 123.456.789-10 ou apenas os numeros" required>
+    <p class="error-message" style="display: ${empty requestScope.canCreateAccount ? "none" : "block"};" id="cpfError">
+      ${empty requestScope.canCreateAccount ? "" : "Cpf inválido para criação da conta Kori."}
+    </p>
 
     <label>E-mail</label>
-    <input type="email" name="email" id="email" placeholder="Digite seu e-mail" required>
+    <input type="email" name="email" value="${empty requestScope.email ? "" : requestScope.email}" id="email" placeholder="Digite seu e-mail" required>
+    <p class="error-message" style="display: ${empty requestScope.accountExists ? "none" : "block"};" id="emailError">
+      ${empty requestScope.accountExists ? "" : "Essa conta Kori já existe."}
+    </p>
 
     <label>Criar senha</label>
     <div class="password-field">
-      <input type="password" name="password" id="password" placeholder="Crie sua senha" required>
+      <input type="password" name="password" value="${empty requestScope.password ? "" : requestScope.password}" id="password" placeholder="Crie sua senha" required>
       <img src="${pageContext.request.contextPath}/assets/eye-off.svg" class="eye" id="togglePassword">
     </div>
+    <p class="error-message" id="passwordError">
+      Sua senha precisa conter pelo menos um número, uma letra e um caractere especial.
+    </p>
 
     <button type="submit">Entrar</button>
 

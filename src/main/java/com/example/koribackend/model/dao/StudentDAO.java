@@ -130,18 +130,70 @@ public class StudentDAO {
     }
 
     public boolean createAccount(Student student) {
-        String sql = "INSERT INTO students(email, issue_Date, password, name, serie) VALUES(?,?,?,?,?)";
+        String sql1 = "INSERT INTO students(email, issue_Date, password, name, serie) VALUES(?,?,?,?,?)";
+        String sql2 = "INSERT INTO report_card(final_situation,student_id) VALUES(?,?)";
+
+        Connection conn = null;
+        try {
+            conn = ConnectionFactory.getConnection();
+            conn.setAutoCommit(false);
+            int enrollment = -1;
+            try (PreparedStatement stmt1 = conn.prepareStatement(sql1,PreparedStatement.RETURN_GENERATED_KEYS)) {
+                stmt1.setString(1, student.getEmail());
+                stmt1.setDate(2, student.getIssueDate());
+                stmt1.setString(3, student.getPassword());
+                stmt1.setString(4, student.getName());
+                stmt1.setInt(5, student.getSerie());
+                stmt1.execute();
+                try (ResultSet keys = stmt1.getGeneratedKeys()) {
+                    if (keys.next()) {
+                        enrollment = keys.getInt(1);
+                    }
+                }
+            }
+            if (enrollment == -1) { return false; }
+            try (PreparedStatement stmt2 = conn.prepareStatement(sql2)) {
+                stmt2.setString(1, "Em processo");
+                stmt2.setInt(2, enrollment);
+                stmt2.execute();
+            }
+            conn.commit();
+            return true;
+        } catch (SQLException e) {
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.setAutoCommit(true);
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean accountExists(String email) {
+        String sql = "SELECT enrollment FROM students WHERE email LIKE ?";
 
         try (
                 Connection conn = ConnectionFactory.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
-            stmt.setString(1,student.getEmail());
-            stmt.setDate(2, student.getIssueDate());
-            stmt.setString(3,student.getPassword());
-            stmt.setString(4,student.getName());
-            stmt.setInt(5,student.getSerie());
-            return stmt.executeUpdate() > 0;
+            stmt.setString(1,email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+            return false;
         } catch (SQLException e) {
             e.printStackTrace();
         }

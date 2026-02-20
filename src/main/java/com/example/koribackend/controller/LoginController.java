@@ -46,21 +46,33 @@ public class LoginController extends HttpServlet {
         String cpf = request.getParameter("cpf");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        FileCpfManager cpfs = (FileCpfManager) request.getSession(false).getAttribute("cpf");
+        FileCpfManager cpfs = (FileCpfManager) request.getSession(false).getAttribute("cpfs");
+        Student student = new Student(email, Date.valueOf(LocalDate.now()),password,name,1);
         if (cpfs.checkCpf(cpf)) {
-            request.getSession().setAttribute("cpfs",cpfs.deleteCpf(cpf));
-            Student student = new Student(email, Date.valueOf(LocalDate.now()), password,name,1);
-            if (new StudentDAO().createAccount(student)) {
-                request.setAttribute("email",student.getEmail());
-                request.setAttribute("password",student.getPassword());
-                request.getRequestDispatcher("index.jsp").forward(request,response);
+            if (!(new StudentDAO().accountExists(email))) {
+                new StudentDAO().createAccount(student);
+                request.getSession().setAttribute("cpfs",cpfs.deleteCpf(cpf));
+                request.setAttribute("email", student.getEmail());
+                request.setAttribute("password", student.getPassword());
+                request.getRequestDispatcher("index.jsp").forward(request, response);
             } else {
-                System.out.println("Implement popup of error - create account");
+                request.setAttribute("accountExists",true);
+                returnAttributesAccount(request,response);
+                request.getRequestDispatcher("WEB-INF/view/create-account.jsp").forward(request,response);
             }
         } else {
-            System.out.println("Implement popup of error - create account");
+            request.setAttribute("canCreateAccount",false);
+            returnAttributesAccount(request,response);
+            request.getRequestDispatcher("WEB-INF/view/create-account.jsp").forward(request,response);
         }
 
+    }
+
+    private void returnAttributesAccount(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("name"); request.setAttribute("name",name);
+        String cpf = request.getParameter("cpf"); request.setAttribute("cpf",cpf);
+        String email = request.getParameter("email"); request.setAttribute("email",email);
+        String password = request.getParameter("password"); request.setAttribute("password",password);
     }
 
     private void enterScreen(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
