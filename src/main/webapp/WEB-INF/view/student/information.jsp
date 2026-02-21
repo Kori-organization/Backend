@@ -47,7 +47,7 @@
         </div>
 
         <div class="children-container">
-            <img src="${pageContext.request.contextPath}/assets/children.svg" alt="Criança" class="children-img">
+            <img src="${pageContext.request.contextPath}/assets/children.png" alt="Criança" class="children-img">
 
             <div class="info-box box1">
                 Nossa prioridade é a educação <br>infantil de qualidade.
