@@ -81,7 +81,8 @@ public class LoginController extends HttpServlet {
         if (emailOrUser.matches("^@.+$")) {
             emailOrUser = emailOrUser.split("@")[1];
             if (new AdministratorDAO().loginValid(emailOrUser, password)) {
-                System.out.println("You are a Admin Kori");
+                request.getSession().setAttribute("admin",new AdministratorDAO().selectAdministratorForUsername(emailOrUser));
+                response.sendRedirect("homeAdmin");
             } else {
                 accountNotFound(request,response);
             }

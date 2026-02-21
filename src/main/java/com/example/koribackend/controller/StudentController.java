@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/homeStudent","/reportCardStudent","/observationsStudent","/createPDF","/informationStudent","/profileStudent","/downloadRegulation"})
+@WebServlet(urlPatterns = {"/homeStudent","/reportCardStudent","/observationsStudent","/createPDF","/informationStudent","/profileStudent"})
 public class StudentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,37 +33,7 @@ public class StudentController extends HttpServlet {
             request.getRequestDispatcher("WEB-INF/view/student/information.jsp").forward(request,response);
         } else if (path.equals("/profileStudent")) {
             request.getRequestDispatcher("WEB-INF/view/student/profile.jsp").forward(request,response);
-        } else if (path.equals("/downloadRegulation")) {
-            downloadRegulation(request,response);
         }
-    }
-
-    private void downloadRegulation(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        InputStream is = getServletContext()
-                .getResourceAsStream("/WEB-INF/data/RegulamentoEscolar-Kori.docx");
-
-        if (is == null) {
-            response.sendRedirect("homeStudent");
-            return;
-        }
-
-        // Word Type
-        response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-
-        // Force download
-        response.setHeader("Content-Disposition", "attachment; filename=RegulamentoEscolar-Kori.docx");
-
-        OutputStream os = response.getOutputStream();
-
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-
-        while ((bytesRead = is.read(buffer)) != -1) {
-            os.write(buffer, 0, bytesRead);
-        }
-
-        is.close();
-        os.close();
     }
 
     private void showBulletin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

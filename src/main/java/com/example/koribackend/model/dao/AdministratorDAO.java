@@ -73,4 +73,28 @@ public class AdministratorDAO {
 
         return false;
     }
+
+    public Administrator selectAdministratorForUsername(String username) {
+
+        Administrator admin = null;
+        String sql = "SELECT id, username, password_hash FROM administrators WHERE username LIKE ?";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+        ) {
+            stmt.setString(1,username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                admin = new Administrator();
+                admin.setId(rs.getInt("id"));
+                admin.setUsername(rs.getString("username"));
+                admin.setPassword(rs.getString("password_hash"));
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return admin;
+    }
 }

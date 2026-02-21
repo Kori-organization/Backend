@@ -89,7 +89,7 @@
 
         <!-- Shortcuts -->
         <div class="shortcuts-container">
-          <div class="card shortcut-card" onclick="window.location='downloadRegulation'">
+          <div class="card shortcut-card" onclick="window.location='dowloadRegulation?point=homeStudent'">
             <img src="${pageContext.request.contextPath}/assets/support.svg" alt="School rules" class="shortcut-icon">
             <div>Ver regulamento escolar</div>
           </div>
