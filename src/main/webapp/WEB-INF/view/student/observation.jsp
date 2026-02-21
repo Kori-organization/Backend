@@ -20,7 +20,7 @@
         <!-- Sidebar navigation -->
         <aside class="sidebar">
             <div class="sidebar-menu">
-                <div class="menu-item active2 one" onclick="window.location='index.html'">
+                <div class="menu-item active2 one" onclick="window.location='homeStudent'">
                     <img src="${pageContext.request.contextPath}/assets/home-3.svg">
                     <h2>Início</h2>
                 </div>
