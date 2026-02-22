@@ -17,7 +17,7 @@
         <img src="${pageContext.request.contextPath}/assets/home-white.svg">
         <h2>Início</h2>
       </div>
-      <div class="menu-item active2 two" onclick="window.location='student.html'">
+      <div class="menu-item active2 two" onclick="window.location='showClass'">
         <img src="${pageContext.request.contextPath}/assets/student.svg" alt="Alunos">
         <h2>Alunos</h2>
       </div>

@@ -21,7 +21,9 @@ import java.util.ArrayList;
         "/createProfessor",
         "/showProfessors",
         "/deleteProfessor",
-        "/editProfessor"})
+        "/editProfessor",
+        "/showClass",
+        "/selectClass"})
 public class AdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -42,7 +44,18 @@ public class AdminController extends HttpServlet {
             case "/deleteProfessor":
                 deleteProfessor(request,response);
                 break;
+            case "/showClass":
+                request.getRequestDispatcher("/WEB-INF/view/admin/student.jsp").forward(request,response);
+                break;
+            case "/selectClass":
+                selectClass(request,response);
+                break;
         }
+    }
+
+    private void selectClass(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int serie = Integer.parseInt(request.getParameter("serie"));
+        request.getSession().setAttribute("serie",serie);
     }
 
     private void deleteProfessor(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
