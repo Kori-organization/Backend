@@ -22,7 +22,7 @@
                     <h2>Início</h2>
                 </div>
                 <div class="menu-item active2 two">
-                    <img src="${pageContext.request.contextPath}/assets/greeting.svg" onclick="window.location='bulletinGrades'">
+                    <img src="${pageContext.request.contextPath}/assets/greeting.svg" onclick="window.location='reportCardGrades'">
                     <h2>Boletim</h2>
                 </div>
                 <div class="menu-item active" onclick="location.reload()">

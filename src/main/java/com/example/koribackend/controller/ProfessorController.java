@@ -2,9 +2,11 @@ package com.example.koribackend.controller;
 
 import com.example.koribackend.dto.StudentDTO;
 import com.example.koribackend.model.dao.ObservationDAO;
+import com.example.koribackend.model.dao.ReportCardDAO;
 import com.example.koribackend.model.dao.StudentDAO;
 import com.example.koribackend.model.entity.Observation;
 import com.example.koribackend.model.entity.Professor;
+import com.example.koribackend.model.entity.ReportCard;
 import com.example.koribackend.model.entity.Student;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,7 +19,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/homeProfessor", "/obsStudentsList", "/observationGrades", "/obsStudent", "/addObservation", "/bulletinGrades", "/bulletinStudentsList", "/informationProfessor", "/profileProfessor", "/logoutProfessor"})
+@WebServlet(urlPatterns = {
+        "/homeProfessor",
+        "/obsStudentsList",
+        "/observationGrades",
+        "/obsStudent",
+        "/addObservation",
+        "/reportCardGrades",
+        "/reportCardStudentsList",
+        "/informationProfessor",
+        "/profileProfessor",
+        "/logoutProfessor",
+        "/studentReportCard"})
 public class ProfessorController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getServletPath();
@@ -33,17 +46,19 @@ public class ProfessorController extends HttpServlet {
             showStudentsObservationList(request, response, Integer.parseInt(request.getParameter("grade")), enrollment);
         } else if (path.equals("/obsStudent")) {
             showStudentObservation(request, response, Integer.parseInt(request.getParameter("studentId")));
-        } else if (path.equals("/bulletinGrades")) {
-            request.getRequestDispatcher("WEB-INF/view/professor/bulletin-grades.jsp").forward(request, response);
-        } else if (path.equals("/bulletinStudentsList")) {
+        } else if (path.equals("/reportCardGrades")) {
+            request.getRequestDispatcher("WEB-INF/view/professor/reportcard-grades.jsp").forward(request, response);
+        } else if (path.equals("/reportCardStudentsList")) {
             String enrollment = request.getParameter("studentId") == null ? "" : request.getParameter("studentId");
-            showStudentsBulletinList(request, response, Integer.parseInt(request.getParameter("grade")), enrollment);
+            showStudentsReportCardList(request, response, Integer.parseInt(request.getParameter("grade")), enrollment);
         } else if (path.equals("/informationProfessor")) {
             request.getRequestDispatcher("WEB-INF/view/professor/information.jsp").forward(request, response);
         } else if (path.equals("/profileProfessor")) {
             request.getRequestDispatcher("WEB-INF/view/professor/profile.jsp").forward(request, response);
         } else if (path.equals("/logoutProfessor")) {
             logout(request, response);
+        } else if (path.equals("/studentReportCard")) {
+            showStudentReportCard(request, response, Integer.parseInt(request.getParameter("studentId")));
         }
     }
 
@@ -75,7 +90,7 @@ public class ProfessorController extends HttpServlet {
         request.getRequestDispatcher("WEB-INF/view/professor/obs-student.jsp").forward(request,response);
     }
 
-    private void showStudentsBulletinList(HttpServletRequest request, HttpServletResponse response, int grade, String enrollment) throws ServletException, IOException {
+    private void showStudentsReportCardList(HttpServletRequest request, HttpServletResponse response, int grade, String enrollment) throws ServletException, IOException {
         List<StudentDTO> students = new ArrayList<>();
         if (enrollment.equals("")) {
             students = new StudentDAO().selectStudentDTOAllByGrade(grade, ((Professor) request.getSession().getAttribute("professor")).getSubjectName());
@@ -84,7 +99,7 @@ public class ProfessorController extends HttpServlet {
         }
         request.setAttribute("students", students);
         request.setAttribute("grade", grade);
-        request.getRequestDispatcher("WEB-INF/view/professor/bulletin-students-list.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/view/professor/reportcard-students-list.jsp").forward(request, response);
     }
 
     private void addObservation(HttpServletRequest request, HttpServletResponse response, int studentId) throws ServletException, IOException {
@@ -101,5 +116,13 @@ public class ProfessorController extends HttpServlet {
             session.invalidate();
         }
         response.sendRedirect("enter");
+    }
+
+    private void showStudentReportCard(HttpServletRequest request, HttpServletResponse response, int enrollment) throws ServletException, IOException {
+        ReportCard reportCard = new ReportCardDAO().selectReportCard(enrollment);
+        Student student = new StudentDAO().selectStudentByEnrollment(enrollment);
+        request.setAttribute("reportCard",reportCard);
+        request.setAttribute("student",student);
+        request.getRequestDispatcher("/WEB-INF/view/professor/reportcard.jsp").forward(request,response);
     }
 }

@@ -31,7 +31,7 @@
     <!-- Top navigation bar -->
     <div class="topbar">
         <!-- Back button -->
-        <a class="back" href="bulletinGrades" title="Voltar">
+        <a class="back" href="reportCardGrades" title="Voltar">
             <img src="${pageContext.request.contextPath}/assets/left.svg" alt="Voltar" width="15px"> Voltar
         </a>
 
@@ -44,7 +44,7 @@
         <h1>Alunos do <%=grade%>º Ano</h1>
 
         <!-- Search box -->
-        <form action="bulletinStudentsList">
+        <form action="reportCardStudentsList">
             <div class="search-box">
                 <input type="hidden" name="grade" value="<%=grade%>">
                 <input type="text" placeholder="Pesquisar Aluno..." aria-label="Pesquisar Aluno" name="studentId">
@@ -96,7 +96,7 @@
 
                     <div class="square-actions">
                         <img src="${pageContext.request.contextPath}/assets/recovery.svg" class="recovery disabled" width="42">
-                        <img src="${pageContext.request.contextPath}/assets/notes-5.svg" width="30">
+                        <img src="${pageContext.request.contextPath}/assets/greeting-4.svg" width="30" onclick="window.location='studentReportCard?studentId=<%=student.getEnrollment()%>'" class="bulletin">
                     </div>
                 </div>
             </div>
