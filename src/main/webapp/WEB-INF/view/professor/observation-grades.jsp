@@ -35,8 +35,8 @@
                 </div>
             </div>
             <!-- User profile section -->
-            <div class="profile">
-                <img src="${pageContext.request.contextPath}/assets/user.svg" width="38">
+            <div class="profile" onclick="window.location='profileProfessor'">
+                <img src="${pageContext.request.contextPath}/assets/user.svg" alt="Profile picture" width="38px">
             </div>
         </aside>
 
