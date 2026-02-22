@@ -87,7 +87,8 @@ public class LoginController extends HttpServlet {
             }
         } else if (emailOrUser.matches("^\\w+\\.\\w+$")) {
             if (new ProfessorDAO().loginValid(emailOrUser,password)) {
-                System.out.println("You are a Professor");
+                request.getSession().setAttribute("professor", new ProfessorDAO().selectProfessorByUser(emailOrUser));
+                response.sendRedirect("homeProfessor");
             } else {
                 accountNotFound(request,response);
             }

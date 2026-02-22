@@ -1,0 +1,271 @@
+/* Import Google Font: Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;700&display=swap');
+
+/* Global CSS variables */
+:root {
+    --sidebar-blue: #53BDD9;
+    --page-bg: #FAF6EB;
+    --card-bg: #FFFFFF;
+    --muted: #6b7280;
+    --text: #0f1724;
+    --accent: #F5C659;
+    --radius: 18px;
+    --soft-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+    --success: #8EE07D;
+    --danger: #FF6B6B;
+}
+
+/* Reset box model */
+* {
+    box-sizing: border-box
+}
+
+/* Body base styles */
+body {
+    margin: 0;
+    font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+    background: var(--sidebar-blue);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+}
+
+/* Top navigation bar */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    background: var(--sidebar-blue);
+    display: flex;
+    align-items: center;
+    padding: 12px 80px;
+    z-index: 20;
+}
+
+/* Back button style */
+.topbar .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #FFD76B;
+    padding: 15px 30px;
+    border-radius: 999px;
+    color: #021018;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform .18s ease, box-shadow .18s;
+}
+
+/* Back button hover effect */
+.topbar .back:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Greeting image (right side) */
+.img-greeting {
+    margin-left: auto;
+    cursor: pointer;
+    transition: transform .18s ease;
+}
+
+/* Greeting image hover animation */
+.img-greeting:hover {
+    transform: scale(1.03);
+}
+
+/* Main content container */
+main {
+    margin-top: 160px;
+    background: var(--page-bg);
+    border-top-left-radius: 52px;
+    border-top-right-radius: 52px;
+    padding: 74px;
+    box-shadow: 0 8px 30px rgba(2, 6, 23, 0.12);
+    min-height: calc(100vh - 140px);
+}
+
+/* Page title */
+h1 {
+    margin: 15px 0 38px 6px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #21303a;
+}
+
+/* Search input container */
+.search-box {
+    flex: 1;
+    max-width: 720px;
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 8px 10px 8px 18px;
+    border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(16, 24, 40, 0.04);
+    border: 1px solid rgba(2, 6, 23, 0.03);
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+/* Search input field */
+.search-box input {
+    border: 0;
+    outline: 0;
+    flex: 1;
+    font-size: 13px;
+    color: var(--muted);
+    background: transparent;
+}
+
+/* Search button */
+.search-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    border: none;
+    background: #FFBECC;
+    cursor: pointer;
+    transition: transform .16s ease
+}
+
+/* Search button hover */
+.search-btn:hover {
+    transform: scale(1.04)
+}
+
+/* Inherit font for form elements */
+button,
+input,
+textarea,
+select {
+    font-family: inherit
+}
+
+/* Table container */
+.table {
+    margin-top: 6px
+}
+
+/* Table header row */
+.table .header {
+    display: grid;
+    grid-template-columns: 150px 1fr 1.5fr 180px 180px;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--muted);
+    padding: 8px 18px;
+    align-items: center;
+}
+
+/* Student row card */
+.student-row {
+    margin-top: 12px;
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 14px 18px;
+    display: grid;
+    grid-template-columns: 150px 1fr 1.5fr 180px 180px;
+    gap: 12px;
+    align-items: center;
+    box-shadow: var(--soft-shadow);
+    border: 1px solid rgba(2, 6, 23, 0.03);
+}
+
+/* Student ID */
+.student-row .matricula {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0f1724;
+}
+
+/* Student name */
+.student-row .nome {
+    font-size: 14px;
+    font-weight: 600;
+    color: #21303a;
+    letter-spacing: .1px;
+}
+
+/* Student email */
+.student-row .email {
+    font-size: 13px;
+    color: #1f2a33;
+    opacity: .8;
+}
+
+/* Admission date */
+.student-row .admissao {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: left;
+}
+
+
+.btn-observacoes {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 22px;
+    border-radius: 999px;
+
+    background: #F5C659;
+    color: #021018;
+    font-size: 13px;
+    font-weight: 600;
+
+    border: none;
+    cursor: pointer;
+
+    box-shadow: 0 6px 14px rgba(245, 198, 89, 0.25);
+    transition: transform .15s ease;
+}
+
+.btn-observacoes:hover {
+    transform: scale(1.02);
+}
+
+.btn-observacoes img {
+    display: block;
+}
+
+/* Overlay background */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 80;
+    padding: 20px;
+}
+
+/* Show overlay */
+.overlay.show {
+    display: flex;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f2f2f2;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e6b53b;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #e6b53b;
+}

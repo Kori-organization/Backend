@@ -37,7 +37,7 @@
       </div>
 
       <div class="menu-item active2 three">
-        <img src="${pageContext.request.contextPath}/assets/info-circle.svg" alt="Professores" onclick="window.location='teacher.html'">
+        <img src="${pageContext.request.contextPath}/assets/info-circle.svg" alt="Professores" onclick="window.location='informationStudent'">
         <h2>Informações</h2>
       </div>
     </div>

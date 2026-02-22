@@ -1,8 +1,8 @@
 package com.example.koribackend.controller;
 
-import com.example.koribackend.model.dao.ObservationsDAO;
+import com.example.koribackend.model.dao.ObservationDAO;
 import com.example.koribackend.model.dao.ReportCardDAO;
-import com.example.koribackend.model.entity.Observations;
+import com.example.koribackend.model.entity.Observation;
 import com.example.koribackend.model.entity.ReportCard;
 import com.example.koribackend.model.entity.Student;
 import jakarta.servlet.*;
@@ -12,7 +12,7 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/homeStudent","/reportCard","/observations","/createPDF"})
+@WebServlet(urlPatterns = {"/homeStudent","/reportCard","/observations","/createPDF", "/informationStudent"})
 public class StudentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,6 +27,8 @@ public class StudentController extends HttpServlet {
             int enrollment = ((Student) request.getSession(false).getAttribute("student")).getEnrollment();
             request.setAttribute("enrollment",enrollment);
             request.getRequestDispatcher("createReportCardPDF").forward(request,response);
+        } else if (path.equals("/informationStudent")) {
+            request.getRequestDispatcher("WEB-INF/view/student/information.jsp").forward(request, response);
         }
     }
 
@@ -39,7 +41,7 @@ public class StudentController extends HttpServlet {
 
     private void showObservations(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Student student = (Student) request.getSession(false).getAttribute("student");
-        List<Observations> observations = new ObservationsDAO().selectObservationsForStudent(student.getEnrollment());
+        List<Observation> observations = new ObservationDAO().selectObservationsForStudent(student.getEnrollment());
         request.setAttribute("observations",observations);
         request.getRequestDispatcher("WEB-INF/view/student/observation.jsp").forward(request,response);
     }

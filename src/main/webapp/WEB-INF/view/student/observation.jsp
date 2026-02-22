@@ -1,4 +1,4 @@
-<%@ page import="com.example.koribackend.model.entity.Observations" %>
+<%@ page import="com.example.koribackend.model.entity.Observation" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="pt-BR">
@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/student/observation.css">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
     <%
-            List<Observations> observations = (List<Observations>) request.getAttribute("observations");
+            List<Observation> observations = (List<Observation>) request.getAttribute("observations");
             int counter = 1;
     %>
 </head>
@@ -33,7 +33,7 @@
                     <h2>Observações</h2>
                 </div>
                 <div class="menu-item active2 three">
-                    <img src="${pageContext.request.contextPath}/assets/info-circle.svg" onclick="window.location='teacher.html'">
+                    <img src="${pageContext.request.contextPath}/assets/info-circle.svg" onclick="window.location='informationStudent'">
                     <h2>Informações</h2>
                 </div>
             </div>
@@ -66,7 +66,7 @@
 
             <!-- Observation container -->
             <div class="obs-container" id="obsContainer">
-                <% for (Observations observation : observations) { %>
+                <% for (Observation observation : observations) { %>
                      <% if (counter == 1) { %>
                           <div class="obs-card pink">
                         <% counter++; } else if (counter == 2) { %>

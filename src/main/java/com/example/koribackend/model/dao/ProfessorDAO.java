@@ -40,7 +40,7 @@ public class ProfessorDAO {
     }
 
     // Gets professor by subject
-    public Professor selectProfessorForSubject(String subject) {
+    public Professor selectProfessorBySubject(String subject) {
 
         // SQL query
         String sql = "SELECT p.id, p.username, p.password_hash FROM professors p " +
@@ -60,6 +60,36 @@ public class ProfessorDAO {
                 professor.setId(rs.getInt("id"));
                 professor.setUsername(rs.getString("username"));
                 professor.setPassword(rs.getString("password_hash"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return professor;
+    }
+
+    // Gets professor by user
+    public Professor selectProfessorByUser(String username) {
+        Professor professor = null;
+
+        // SQL query
+        String sql = "SELECT p.id, p.username, p.password_hash, p.name, s.name AS subject_name FROM professors p JOIN subjects s ON p.subject_id = s.id WHERE p.username = ?";
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                professor = new Professor();
+                professor.setId(rs.getInt("id"));
+                professor.setUsername(rs.getString("username"));
+                professor.setPassword(rs.getString("password_hash"));
+                professor.setName(rs.getString("name"));
+                professor.setSubjectName(rs.getString("subject_name"));
             }
 
         } catch (SQLException e) {
