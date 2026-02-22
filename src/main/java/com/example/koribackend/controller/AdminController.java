@@ -17,10 +17,13 @@ public class AdminController extends HttpServlet {
         switch (path) {
             case "/homeAdmin":
                 request.getRequestDispatcher("/WEB-INF/view/admin/homeAdmin.jsp").forward(request,response);
+                break;
             case "/informationsAdmin":
                 request.getRequestDispatcher("/WEB-INF/view/admin/information.jsp").forward(request,response);
+                break;
             case "/logoutAdmin":
                 logout(request,response);
+                break;
         }
     }
 

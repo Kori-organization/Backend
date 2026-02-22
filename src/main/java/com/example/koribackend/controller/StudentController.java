@@ -27,20 +27,27 @@ public class StudentController extends HttpServlet {
         switch (path) {
             case "/homeStudent":
                 request.getRequestDispatcher("/WEB-INF/view/student/homeStudent.jsp").forward(request,response);
+                break;
             case "/reportCardStudent":
                 showBulletin(request,response);
+                break;
             case "/observationsStudent":
                 showObservations(request,response);
+                break;
             case "/createPDF":
                 int enrollment = ((Student) request.getSession(false).getAttribute("student")).getEnrollment();
                 request.setAttribute("enrollment",enrollment);
                 request.getRequestDispatcher("createReportCardPDF").forward(request,response);
+                break;
             case "/informationsStudent":
                 request.getRequestDispatcher("/WEB-INF/view/student/information.jsp").forward(request,response);
+                break;
             case "/profileStudent":
                 request.getRequestDispatcher("/WEB-INF/view/student/profile.jsp").forward(request,response);
+                break;
             case "/logoutStudent":
                 logout(request,response);
+                break;
         }
     }
 
