@@ -1,5 +1,6 @@
 package com.example.koribackend.model.dao;
 
+import com.example.koribackend.dto.RakingDTO;
 import com.example.koribackend.dto.StudentDTO;
 import com.example.koribackend.model.entity.Student;
 import com.example.koribackend.util.ConnectionFactory;
@@ -391,5 +392,57 @@ public class StudentDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public ArrayList<RakingDTO> selectClassRanking(String subjectName) {
+        ArrayList<RakingDTO> rakingDTOS = new ArrayList<>();
+
+        String sql = "SELECT \n" +
+                "    s.serie,\n" +
+                "    AVG(\n" +
+                "        CASE\n" +
+                "            WHEN g.grade1 IS NOT NULL AND g.grade2 IS NOT NULL THEN\n" +
+                "                CASE\n" +
+                "                    WHEN (g.grade1 + g.grade2) / 2 >= 7 THEN\n" +
+                "                        (g.grade1 + g.grade2) / 2\n" +
+                "                    WHEN g.rec IS NULL THEN\n" +
+                "                        (g.grade1 + g.grade2) / 2\n" +
+                "                    ELSE\n" +
+                "                        ((g.grade1 + g.grade2) / 2 + g.rec) / 2\n" +
+                "                END\n" +
+                "            WHEN g.grade1 IS NOT NULL AND g.grade2 IS NULL THEN\n" +
+                "                g.grade1\n" +
+                "            WHEN g.grade2 IS NOT NULL AND g.grade1 IS NULL THEN\n" +
+                "                g.grade2\n" +
+                "            ELSE 0\n" +
+                "        END\n" +
+                "    ) AS media_turma\n" +
+                "FROM students s\n" +
+                "LEFT JOIN report_card rc ON rc.student_id = s.enrollment\n" +
+                "LEFT JOIN grade_rep gr ON gr.rep_id = rc.id\n" +
+                "LEFT JOIN grades g ON g.id = gr.grade_id\n" +
+                "LEFT JOIN subjects sub \n" +
+                "    ON sub.id = g.subject_id \n" +
+                "    AND sub.name = ?\n" +
+                "GROUP BY s.serie\n" +
+                "ORDER BY media_turma ASC LIMIT 3;";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            stmt.setString(1,subjectName);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                RakingDTO rakingDTO = new RakingDTO();
+                rakingDTO.setSerie(rs.getInt(1));
+                rakingDTO.setAvarageClass(rs.getDouble(2));
+                rakingDTOS.add(rakingDTO);
+            }
+            return rakingDTOS;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

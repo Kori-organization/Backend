@@ -4,6 +4,13 @@ const currentMonthElement = document.getElementById('current-month');
 const previousMonthButton = document.getElementById('previous-month');
 const nextMonthButton = document.getElementById('next-month');
 
+// Forms
+const studentForm = document.getElementById("studentForm");
+const professorForm = document.getElementById("professorForm");
+
+// Regex password
+const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).+$/;
+
 // Current date
 let currentDate = new Date();
 
@@ -120,54 +127,210 @@ monsterImage.addEventListener('click', () => {
 
 // ***********************************************************************************************************
 
-// Calculator functionality
+document.addEventListener('DOMContentLoaded', () => {
 
-// Calculator input elements
-const n1Input = document.getElementById('n1');
-const n2Input = document.getElementById('n2');
-const resultValue = document.querySelector('.result-value');
+    /* HELPERS */
 
-// Minimum required average
-const MEDIA = 7;
-
-// Limits input value between 0 and 10
-function limitarInput(input) {
-    let valor = parseFloat(input.value);
-
-    if (isNaN(valor)) return;
-
-    if (valor > 10) input.value = 10;
-    if (valor < 0) input.value = 0;
-}
-
-// Calculate the required score to reach the average
-function calcular() {
-    // Validate input values
-    limitarInput(n1Input);
-    limitarInput(n2Input);
-
-    const n1 = parseFloat(n1Input.value);
-    const n2 = parseFloat(n2Input.value);
-
-    // Clear result if inputs are invalid
-    if (isNaN(n1) || isNaN(n2)) {
-        resultValue.textContent = '';
-        return;
+    // Get element by id (supports typo fallback)
+    function getEl(idA, idB) {
+        return document.getElementById(idA) || (idB ? document.getElementById(idB) : null);
     }
 
-    const soma = n1 + n2;
-    const mediaAtual = soma / 2;
-
-    // If average is already enough, show zero
-    if (mediaAtual >= MEDIA) {
-        resultValue.textContent = '0';
-    } else {
-        // Calculate how many points are missing
-        const falta = (MEDIA * 2 - soma).toFixed(1);
-        resultValue.textContent = falta;
+    // Safe event binding
+    function safeAdd(el, evt, fn) {
+        if (el) el.addEventListener(evt, fn);
     }
-}
 
-// Recalculate whenever the user types
-n1Input.addEventListener('input', calcular);
-n2Input.addEventListener('input', calcular);
+    // Open / close overlay
+    function openOverlay(ov) {
+        if (!ov) return;
+        ov.classList.add('show');
+        ov.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeOverlay(ov) {
+        if (!ov) return;
+        ov.classList.remove('show');
+        ov.setAttribute('aria-hidden', 'true');
+    }
+
+    // Check empty input
+    function isEmpty(el) {
+        return !el || !String(el.value || '').trim();
+    }
+
+    /* ELEMENTS */
+
+
+    // Action cards
+    const studentCard = document.querySelector('.action-card.student');
+    const teacherCard = document.querySelector('.action-card.teacher2');
+
+    // Overlays
+    const studentOverlay = getEl('studentOverylay', 'studentOverlay');
+    const teacherOverlay = getEl('teacherOverylay', 'teacherOverlay');
+    const confirmStudentOverlay = getEl('confirmStudentOverlay');
+    const confirmTeacherOverlay = getEl('confirmTeacherOverlay');
+
+    // Student inputs
+    const studentName = getEl('studentName');
+    const studentEmail = getEl('studentEmail');
+    const studentAdmission = getEl('studentAdmission');
+    const studentGrade = getEl('studentGrade');
+    const studentPassword = getEl('studentPassword');
+
+    // Teacher inputs
+    const teacherUser = getEl('teacherUser');
+    const teacherName = getEl('teacherName');
+    const teacherSubject = getEl('teacherSubject');
+    const teacherPassword = getEl('teacherPassword');
+
+    // Buttons
+    const btnCancelStudent = getEl('btnCancelStudent');
+    const btnSaveStudent = getEl('btnSaveStudent');
+    const confirmStudentCancel = getEl('confirmStudentCancel');
+    const confirmStudentSend = getEl('confirmStudentSend');
+
+    const btnCancelTeacher = getEl('btnCancelTeacher');
+    const btnSaveTeacher = getEl('btnSaveTeacher');
+    const confirmTeacherCancel = getEl('confirmTeacherCancel');
+    const confirmTeacherSend = getEl('confirmTeacherSend');
+
+    // Toast containers
+    const toastWrapStudent = getEl('toastWrapStudent');
+    const toastWrapTeacher = getEl('toastWrapTeacher');
+
+    /* OPEN MODALS */
+
+    safeAdd(studentCard, 'click', () => openOverlay(studentOverlay));
+    safeAdd(teacherCard, 'click', () => openOverlay(teacherOverlay));
+
+    /* CLOSE MODALS*/
+
+    safeAdd(btnCancelStudent, 'click', () => closeOverlay(studentOverlay));
+    safeAdd(btnCancelTeacher, 'click', () => closeOverlay(teacherOverlay));
+
+    // Click outside modal
+    [studentOverlay, teacherOverlay, confirmStudentOverlay, confirmTeacherOverlay].forEach(ov => {
+        if (!ov) return;
+        ov.addEventListener('click', e => {
+            if (e.target === ov) closeOverlay(ov);
+        });
+    });
+
+    // ESC key closes all
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            [studentOverlay, teacherOverlay, confirmStudentOverlay, confirmTeacherOverlay]
+                .forEach(closeOverlay);
+        }
+    });
+
+    /* STUDENT FLOW */
+
+    safeAdd(btnSaveStudent, 'click', e => {
+        e.preventDefault();
+
+        if (isEmpty(studentName) || isEmpty(studentEmail) || isEmpty(studentAdmission) || isEmpty(studentGrade) || isEmpty(studentPassword)) {
+            showToast('student', 'error', 'Campos obrigatórios', 'Preencha todos os campos antes de continuar.');
+            return;
+        } else if (!regex.test(studentPassword.value)) {
+            showToast('student', 'error', 'Senha inválida', 'Sua senha precisa conter pelo menos um número, uma letra e um caractere especial.');
+            return;
+        }
+
+        openOverlay(confirmStudentOverlay);
+    });
+
+    safeAdd(confirmStudentCancel, 'click', () =>
+        closeOverlay(confirmStudentOverlay)
+    );
+
+    safeAdd(confirmStudentSend, 'click', () => {
+        studentForm.submit();
+    });
+
+    /* TEACHER FLOW */
+
+    safeAdd(btnSaveTeacher, 'click', e => {
+        e.preventDefault();
+
+        if (isEmpty(teacherUser) || isEmpty(teacherName) || isEmpty(teacherPassword) || isEmpty(teacherSubject)) {
+            showToast('teacher', 'error', 'Campos obrigatórios', 'Preencha todos os campos antes de continuar.');
+            return;
+        } else if (!regex.test(teacherPassword.value)) {
+            showToast('teacher', 'error', 'Senha inválida', 'Sua senha precisa conter pelo menos um número, uma letra e um caractere especial.');
+            return;
+        }
+
+        openOverlay(confirmTeacherOverlay);
+    });
+
+    safeAdd(confirmTeacherCancel, 'click', () =>
+        closeOverlay(confirmTeacherOverlay)
+    );
+
+    safeAdd(confirmTeacherSend, 'click', () => {
+        professorForm.submit();
+    });
+
+    /* PASSWORD TOGGLE */
+
+    document.querySelectorAll('.toggle-password').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const input = btn.previousElementSibling;
+            if (!input) return;
+
+            const img = btn.querySelector('img');
+
+            const isHidden = input.type === 'password';
+
+            input.type = isHidden ? 'text' : 'password';
+
+            img.src = isHidden
+                ? contextPath + '/assets/eye-off.svg'
+                : contextPath + '/assets/eye.svg';
+
+            img.alt = isHidden
+                ? 'Hide password'
+                : 'Show password';
+        });
+    });
+
+    /* TOAST SYSTEM */
+
+    function showToast(typeOwner, type, title, message) {
+        const wrap =
+            typeOwner === 'student' ? toastWrapStudent :
+                typeOwner === 'teacher' ? toastWrapTeacher :
+                    null;
+
+        if (!wrap) return;
+
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+
+        const icon =
+            type === 'error'
+                ? contextPath + '/assets/error-icon.svg'
+                : contextPath + '/assets/check-icon.svg';
+
+        toast.innerHTML = `
+        <img src="${icon}" style="width:30px;height:22px">
+        <div class="toast-text">
+        <h4>${title}</h4>
+        ${message ? `<p>${message}</p>` : ''}
+        </div>
+    `;
+
+        wrap.appendChild(toast);
+
+
+        setTimeout(() => {
+            toast.classList.add('hide');
+            setTimeout(() => toast.remove(), 300);
+        }, 4000);
+    }
+
+    window.showToast = showToast;
+});

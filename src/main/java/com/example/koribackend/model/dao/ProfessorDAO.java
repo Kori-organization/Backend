@@ -1,6 +1,7 @@
 package com.example.koribackend.model.dao;
 
 import com.example.koribackend.model.entity.Professor;
+import com.example.koribackend.model.entity.Student;
 import com.example.koribackend.util.ConnectionFactory;
 
 import java.sql.Connection;
@@ -140,6 +141,56 @@ public class ProfessorDAO {
             e.printStackTrace();
         }
 
+        return false;
+    }
+
+    public boolean createAccount(Professor professor) {
+        String sql1 = "INSERT INTO subjects(name) VALUES(?)";
+        String sql2 = "INSERT INTO professors(username, password_hash, subject_id, name) VALUES (?,?,?,?)";
+
+        Connection conn = null;
+        try {
+            conn = ConnectionFactory.getConnection();
+            conn.setAutoCommit(false);
+            int id = -1;
+            try (PreparedStatement stmt1 = conn.prepareStatement(sql1,PreparedStatement.RETURN_GENERATED_KEYS)) {
+                stmt1.setString(1,professor.getSubjectName());
+                stmt1.execute();
+                try (ResultSet keys = stmt1.getGeneratedKeys()) {
+                    if (keys.next()) {
+                        id = keys.getInt(1);
+                    }
+                }
+            }
+            if (id == -1) { return false; }
+            try (PreparedStatement stmt2 = conn.prepareStatement(sql2)) {
+                stmt2.setString(1,professor.getUsername());
+                stmt2.setString(2,professor.getPassword());
+                stmt2.setInt(3,id);
+                stmt2.setString(4,professor.getName());
+                stmt2.execute();
+            }
+            conn.commit();
+            return true;
+        } catch (SQLException e) {
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.setAutoCommit(true);
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return false;
     }
 }

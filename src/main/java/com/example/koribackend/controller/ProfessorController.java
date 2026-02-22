@@ -23,6 +23,8 @@ public class ProfessorController extends HttpServlet {
         String path = request.getServletPath();
 
         if (path.equals("/homeProfessor")) {
+            String subjectName = ((Professor) request.getSession(false).getAttribute("professor")).getSubjectName();
+            request.setAttribute("raking",new StudentDAO().selectClassRanking(subjectName));
             request.getRequestDispatcher("WEB-INF/view/professor/homeProfessor.jsp").forward(request,response);
         } else if (path.equals("/observationGrades")) {
             request.getRequestDispatcher("WEB-INF/view/professor/observation-grades.jsp").forward(request,response);

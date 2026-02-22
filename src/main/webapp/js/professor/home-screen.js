@@ -118,56 +118,57 @@ monsterImage.addEventListener('click', () => {
 });
 
 
-// ***********************************************************************************************************
+// *****************************************
+// Ranking chart system
 
-// Calculator functionality
+// Ranking data
+const ranking = window.dataSystem.ranking;
 
-// Calculator input elements
-const n1Input = document.getElementById('n1');
-const n2Input = document.getElementById('n2');
-const resultValue = document.querySelector('.result-value');
+// Max bar height
+const maxHeight = 70;
 
-// Minimum required average
-const MEDIA = 7;
+// Render chart
+function renderRanking() {
 
-// Limits input value between 0 and 10
-function limitarInput(input) {
-    let valor = parseFloat(input.value);
+    ranking.forEach((item, index) => {
 
-    if (isNaN(valor)) return;
+        const bar =
+            document.getElementById("bar" + (index + 1));
 
-    if (valor > 10) input.value = 10;
-    if (valor < 0) input.value = 0;
+        const value =
+            document.getElementById("value" + (index + 1));
+
+        // Set value text
+        value.textContent = item.average.toFixed(1);
+
+        // Calculate height
+        const height =
+            (item.average / 10) * maxHeight;
+
+        // Apply height
+        bar.style.height =
+            height + "px";
+
+    });
+
+    // Find lowest class
+    let lowest = ranking[0];
+
+    ranking.forEach(item => {
+
+        if (item.average < lowest.average) {
+
+            lowest = item;
+
+        }
+
+    });
+
+    // Show message
+    document.getElementById("rankingText").innerHTML =
+        `A turma que precisa de mais atenção na sua disciplina é o <strong>${lowest.class}</strong>.`;
+
 }
 
-// Calculate the required score to reach the average
-function calcular() {
-    // Validate input values
-    limitarInput(n1Input);
-    limitarInput(n2Input);
-
-    const n1 = parseFloat(n1Input.value);
-    const n2 = parseFloat(n2Input.value);
-
-    // Clear result if inputs are invalid
-    if (isNaN(n1) || isNaN(n2)) {
-        resultValue.textContent = '';
-        return;
-    }
-
-    const soma = n1 + n2;
-    const mediaAtual = soma / 2;
-
-    // If average is already enough, show zero
-    if (mediaAtual >= MEDIA) {
-        resultValue.textContent = '0';
-    } else {
-        // Calculate how many points are missing
-        const falta = (MEDIA * 2 - soma).toFixed(1);
-        resultValue.textContent = falta;
-    }
-}
-
-// Recalculate whenever the user types
-n1Input.addEventListener('input', calcular);
-n2Input.addEventListener('input', calcular);
+// Run
+renderRanking();

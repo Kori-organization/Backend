@@ -1,4 +1,6 @@
 <%@ page import="com.example.koribackend.model.entity.Professor" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.koribackend.dto.RakingDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="pt-BR">
@@ -14,6 +16,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/professor/home-screen.css">
     <%
         Professor professor = (Professor) session.getAttribute("professor");
+        ArrayList<RakingDTO> raking = (ArrayList<RakingDTO>) request.getAttribute("raking");
      %>
 </head>
 
@@ -92,7 +95,7 @@
 
                     <!-- Shortcuts -->
                     <div class="shortcuts-container">
-                        <div class="card shortcut-card" onclick="window.location='informationProfessor'">
+                        <div class="card shortcut-card" onclick="window.location='dowloadRegulation?point=homeProfessor'">
                             <img src="${pageContext.request.contextPath}/assets/document-2.svg" alt="School rules" class="shortcut-icon">
                             <div>Ver regulamento escolar</div>
                         </div>
@@ -104,9 +107,67 @@
                         </div>
                     </div>
 
-                    <!-- Grade calculator -->
-                    <div class="card calculator-card" style="box-shadow: none;">
+                    <!-- Ranking Card -->
+                    <div class="card ranking-card">
 
+                        <!-- Ranking header -->
+                        <div class="ranking-header">
+                            <span class="ranking-icon"><img src="${pageContext.request.contextPath}/assets/scale.svg" alt="" width="25px"></span>
+
+                            <!-- Ranking title -->
+                            <span class="ranking-title">
+                                3 Ranking: turmas com médias mais baixas na sua <br>disciplina.
+                            </span>
+                        </div>
+
+                        <!-- Ranking content -->
+                        <div class="ranking-content">
+                            <!-- Chart container -->
+                            <div class="chart-container">
+                                <!-- Bar 1 -->
+                                <div class="bar-item">
+                                    <!-- Class name -->
+                                    <div class="bar-label"><%=raking.get(0).getSerieComplete()%></div>
+                                    <!-- Bar background -->
+                                    <div class="bar-bg">
+                                        <!-- Bar fill -->
+                                        <div class="bar-fill" id="bar1"></div>
+                                    </div>
+                                    <!-- Average value -->
+                                    <div class="bar-value">
+                                        média <strong id="value1"></strong>
+                                    </div>
+                                </div>
+
+                                <!-- Bar 2 -->
+                                <div class="bar-item">
+                                    <div class="bar-label"><%=raking.get(1).getSerieComplete()%></div>
+                                    <div class="bar-bg">
+                                        <div class="bar-fill red" id="bar2"></div>
+                                    </div>
+                                    <div class="bar-value">
+                                        média <strong id="value2"></strong>
+                                    </div>
+                                </div>
+
+                                <!-- Bar 3 -->
+                                <div class="bar-item">
+                                    <div class="bar-label"><%=raking.get(2).getSerieComplete()%></div>
+                                    <div class="bar-bg">
+                                        <div class="bar-fill yellow" id="bar3"></div>
+                                    </div>
+                                    <div class="bar-value">
+                                        média <strong id="value3"></strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Info box -->
+                            <div class="ranking-info">
+                                <div class="info-icon"><img src="${pageContext.request.contextPath}/assets/info-circle-3.svg" alt="" width="10px"></div>
+                                <div class="info-text" id="rankingText"></div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -193,6 +254,15 @@
     </div>
 
     <!-- Scripts -->
+    <script>
+        window.dataSystem = {
+            ranking: [
+                { class: "<%=raking.get(0).getSerieComplete()%>", average: <%=raking.get(0).getAvarageClass()%> },
+                { class: "<%=raking.get(1).getSerieComplete()%>", average: <%=raking.get(1).getAvarageClass()%> },
+                { class: "<%=raking.get(2).getSerieComplete()%>", average: <%=raking.get(2).getAvarageClass()%> }
+            ]
+        };
+    </script>
     <script src="${pageContext.request.contextPath}/js/professor/home-screen.js"></script>
 </body>
 

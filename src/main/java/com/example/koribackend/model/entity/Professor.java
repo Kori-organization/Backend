@@ -15,6 +15,13 @@ public class Professor {
         this.subjectName = subjectName;
     }
 
+    public Professor(String username, String password, String name, String subjectName) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.subjectName = subjectName;
+    }
+
     public Professor() {}
 
     public int getId() {
