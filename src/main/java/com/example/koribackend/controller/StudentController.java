@@ -18,7 +18,8 @@ import java.util.List;
         "/observationsStudent",
         "/createPDF",
         "/informationsStudent",
-        "/profileStudent"})
+        "/profileStudent",
+        "/logoutStudent"})
 public class StudentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,7 +39,18 @@ public class StudentController extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/view/student/information.jsp").forward(request,response);
             case "/profileStudent":
                 request.getRequestDispatcher("/WEB-INF/view/student/profile.jsp").forward(request,response);
+            case "/logoutStudent":
+                logout(request,response);
         }
+    }
+
+    private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+
+        response.sendRedirect("enter");
     }
 
     private void showBulletin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

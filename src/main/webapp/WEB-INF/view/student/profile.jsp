@@ -84,11 +84,31 @@
       </div>
     </div>
   </section>
+
+  <!-- Logout -->
+  <button class="logout-btn" id="openLogout">
+    → Sair da conta
+  </button>
+
   <!-- Small help link under the card -->
   <p class="profile-help">
     Há algo de errado com suas informações? <a href="mailto:korieducation@gmail.com" class="support-link">Entre em contato com o suporte.</a>
   </p>
+
+  <!-- Overlay + Popup -->
+  <div class="overlay" id="logoutOverlay">
+    <div class="logout-modal">
+      <div class="logout-icon"><img src="${pageContext.request.contextPath}/assets/info-circle-4.svg" alt="" width="40px"></div>
+      <h2>Tem certeza que deseja<br> sair da conta?</h2>
+
+      <div class="logout-actions">
+        <button class="btn-cancel" id="cancelLogout">Voltar</button>
+        <button class="btn-danger" onclick="window.location='logoutStudent'">Sair</button>
+      </div>
+    </div>
+  </div>
 </main>
 
 </body>
+<script src="${pageContext.request.contextPath}/js/student/profile.js"></script>
 </html>
