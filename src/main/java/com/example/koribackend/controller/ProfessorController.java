@@ -120,7 +120,9 @@ public class ProfessorController extends HttpServlet {
 
     private void showStudentReportCard(HttpServletRequest request, HttpServletResponse response, int enrollment) throws ServletException, IOException {
         ReportCard reportCard = new ReportCardDAO().selectReportCard(enrollment);
+        Student student = new StudentDAO().selectStudentByEnrollment(enrollment);
         request.setAttribute("reportCard",reportCard);
+        request.setAttribute("student",student);
         request.getRequestDispatcher("/WEB-INF/view/professor/reportcard.jsp").forward(request,response);
     }
 }

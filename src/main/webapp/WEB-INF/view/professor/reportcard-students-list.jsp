@@ -96,7 +96,7 @@
 
                     <div class="square-actions">
                         <img src="${pageContext.request.contextPath}/assets/recovery.svg" class="recovery disabled" width="42">
-                        <a href="studentReportCard?studentId=<%=student.getEnrollment()%>"><img src="${pageContext.request.contextPath}/assets/greeting-4.svg" width="36"></a>
+                        <img src="${pageContext.request.contextPath}/assets/greeting-4.svg" width="30" onclick="window.location='studentReportCard?studentId=<%=student.getEnrollment()%>'" class="bulletin">
                     </div>
                 </div>
             </div>
