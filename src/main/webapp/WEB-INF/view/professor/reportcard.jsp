@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/student/bulletin.css">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
     <%
-        ReportCard reportCard = (ReportCard) request.getAttribute("bulletin");
+        ReportCard reportCard = (ReportCard) request.getAttribute("reportCard");
         int counter = reportCard.getGrader().size();
     %>
 </head>

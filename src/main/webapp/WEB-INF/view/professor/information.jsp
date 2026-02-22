@@ -21,7 +21,7 @@
                     <img src="${pageContext.request.contextPath}/assets/home-3.svg">
                     <h2>Início</h2>
                 </div>
-                <div class="menu-item active2 two" onclick="window.location='bulletinGrades'">
+                <div class="menu-item active2 two" onclick="window.location='reportCardGrades'">
                     <img src="${pageContext.request.contextPath}/assets/greeting.svg">
                     <h2>Boletim</h2>
                 </div>

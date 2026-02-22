@@ -60,35 +60,35 @@
 
                 <div class="cards-grid">
 
-                    <div class="grade-card pink" onclick="window.location='bulletinStudentsList?grade=1'">
+                    <div class="grade-card pink" onclick="window.location='reportCardStudentsList?grade=1'">
                         <div class="card-label">
                             <h2>1º Ano</h2>
                             <p>Clique para cadastrar notas desta turma.</p>
                         </div>
                     </div>
 
-                    <div class="grade-card green" onclick="window.location='bulletinStudentsList?grade=2'">
+                    <div class="grade-card green" onclick="window.location='reportCardStudentsList?grade=2'">
                         <div class="card-label">
                             <h2>2º Ano</h2>
                             <p>Clique para cadastrar notas desta turma.</p>
                         </div>
                     </div>
 
-                    <div class="grade-card blue" onclick="window.location='bulletinStudentsList?grade=3'">
+                    <div class="grade-card blue" onclick="window.location='reportCardStudentsList?grade=3'">
                         <div class="card-label">
                             <h2>3º Ano</h2>
                             <p>Clique para cadastrar notas desta turma.</p>
                         </div>
                     </div>
 
-                    <div class="grade-card yellow" onclick="window.location='bulletinStudentsList?grade=4'">
+                    <div class="grade-card yellow" onclick="window.location='reportCardStudentsList?grade=4'">
                         <div class="card-label">
                             <h2>4º Ano</h2>
                             <p>Clique para cadastrar notas desta turma.</p>
                         </div>
                     </div>
 
-                    <div class="grade-card gray" onclick="window.location='bulletinStudentsList?grade=5'">
+                    <div class="grade-card gray" onclick="window.location='reportCardStudentsList?grade=5'">
                         <div class="card-label">
                             <h2>5º Ano</h2>
                             <p>Clique para cadastrar notas desta turma.</p>
