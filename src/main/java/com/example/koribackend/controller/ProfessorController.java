@@ -2,9 +2,11 @@ package com.example.koribackend.controller;
 
 import com.example.koribackend.dto.StudentDTO;
 import com.example.koribackend.model.dao.ObservationDAO;
+import com.example.koribackend.model.dao.ReportCardDAO;
 import com.example.koribackend.model.dao.StudentDAO;
 import com.example.koribackend.model.entity.Observation;
 import com.example.koribackend.model.entity.Professor;
+import com.example.koribackend.model.entity.ReportCard;
 import com.example.koribackend.model.entity.Student;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,7 +19,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/homeProfessor", "/obsStudentsList", "/observationGrades", "/obsStudent", "/addObservation", "/bulletinGrades", "/bulletinStudentsList", "/informationProfessor", "/profileProfessor", "/logoutProfessor"})
+@WebServlet(urlPatterns = {
+        "/homeProfessor",
+        "/obsStudentsList",
+        "/observationGrades",
+        "/obsStudent",
+        "/addObservation",
+        "/bulletinGrades",
+        "/bulletinStudentsList",
+        "/informationProfessor",
+        "/profileProfessor",
+        "/logoutProfessor",
+        "/studentBulletin"})
 public class ProfessorController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getServletPath();
@@ -44,6 +57,8 @@ public class ProfessorController extends HttpServlet {
             request.getRequestDispatcher("WEB-INF/view/professor/profile.jsp").forward(request, response);
         } else if (path.equals("/logoutProfessor")) {
             logout(request, response);
+        } else if (path.equals("/studentBulletin")) {
+            showStudentBulletin(request, response, Integer.parseInt(request.getParameter("studentId")));
         }
     }
 
@@ -101,5 +116,11 @@ public class ProfessorController extends HttpServlet {
             session.invalidate();
         }
         response.sendRedirect("enter");
+    }
+
+    private void showStudentBulletin(HttpServletRequest request, HttpServletResponse response, int enrollment) throws ServletException, IOException {
+        ReportCard reportCard = new ReportCardDAO().selectReportCard(enrollment);
+        request.setAttribute("bulletin",reportCard);
+        request.getRequestDispatcher("/WEB-INF/view/professor/bulletin.jsp").forward(request,response);
     }
 }

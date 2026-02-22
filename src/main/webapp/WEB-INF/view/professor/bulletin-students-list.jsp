@@ -96,7 +96,7 @@
 
                     <div class="square-actions">
                         <img src="${pageContext.request.contextPath}/assets/recovery.svg" class="recovery disabled" width="42">
-                        <img src="${pageContext.request.contextPath}/assets/notes-5.svg" width="30">
+                        <a href="studentBulletin?studentId=<%=student.getEnrollment()%>"><img src="${pageContext.request.contextPath}/assets/greeting-4-5.svg" width="30"></a>
                     </div>
                 </div>
             </div>
