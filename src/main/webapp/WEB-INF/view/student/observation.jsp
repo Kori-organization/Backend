@@ -20,12 +20,12 @@
         <!-- Sidebar navigation -->
         <aside class="sidebar">
             <div class="sidebar-menu">
-                <div class="menu-item active2 one" onclick="window.location='index.html'">
+                <div class="menu-item active2 one" onclick="window.location='homeStudent'">
                     <img src="${pageContext.request.contextPath}/assets/home-3.svg">
                     <h2>Início</h2>
                 </div>
                 <div class="menu-item active2 two">
-                    <img src="${pageContext.request.contextPath}/assets/greeting.svg" onclick="window.location='reportCard'">
+                    <img src="${pageContext.request.contextPath}/assets/greeting.svg" onclick="window.location='reportCardStudent'">
                     <h2>Boletim</h2>
                 </div>
                 <div class="menu-item active" onclick="location.reload()">
@@ -33,12 +33,12 @@
                     <h2>Observações</h2>
                 </div>
                 <div class="menu-item active2 three">
-                    <img src="${pageContext.request.contextPath}/assets/info-circle.svg" onclick="window.location='informationStudent'">
+                    <img src="${pageContext.request.contextPath}/assets/info-circle.svg" onclick="window.location='informationsStudent'">
                     <h2>Informações</h2>
                 </div>
             </div>
             <!-- User profile section -->
-            <div class="profile">
+            <div class="profile" onclick="window.location='profileStudent'">
                 <img src="${pageContext.request.contextPath}/assets/user.svg" width="38">
             </div>
         </aside>
@@ -50,7 +50,7 @@
 
             <!-- Top header with logo and home button -->
             <div class="top-main">
-                <div class="logo-container" onclick="window.location='index.html'">
+                <div class="logo-container" onclick="location.reload()">
                     <img src="${pageContext.request.contextPath}/assets/logo.svg" alt="Kori Logo" width="180">
                 </div>
                 <div class="home-button" onclick="location.reload()">

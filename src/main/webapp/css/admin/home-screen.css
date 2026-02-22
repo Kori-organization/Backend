@@ -1,0 +1,690 @@
+/* Google Font import */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* CSS Variables for consistent theming */
+:root {
+    --background: #FAF6EB;
+    --sidebar-color: #092831;
+    --card-color: #ffffff;
+    --pink-color: #F5C65940;
+    --green-color: #C1D25166;
+    --yellow-color: #F5C65966;
+    --yellow-text-color: #F5C659;
+    --text-color: #1f2937;
+    --muted-color: #6b7280;
+    --border-radius: 22px;
+}
+
+/* Reset and Base Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    background: var(--sidebar-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+    user-select: none;
+}
+
+img {
+    user-select: none;
+}
+
+/* Main App Container */
+.app {
+    display: flex;
+    min-height: 100vh;
+    padding-right: 32px;
+    padding-bottom: 1px;
+}
+
+/* Sidebar styles */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: var(--sidebar-color);
+    border-radius: 0 28px 28px 0;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 26px;
+    width: 200px;
+    user-select: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    z-index: 1000;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 18px;
+    margin-top: 60px;
+    width: 100%;
+}
+
+/* Menu items */
+.menu-item {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    gap: 2px;
+    transition: transform 0.18s ease;
+    cursor: pointer;
+    transform-origin: 55px center;
+    transform: scale(0.85);
+}
+
+.menu-item:hover {
+    transform: scale(0.89);
+}
+
+/* Active menu item */
+.menu-item.active {
+    width: 120px;
+    height: 170px;
+    border-radius: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #092831;
+    background-color: #FAF6EB;
+    transform-origin: center center;
+    margin-top: -60px;
+    margin-bottom: 5px;
+    gap: 13px;
+}
+
+.menu-item.active:hover {
+    transform: scale(0.89);
+}
+
+.menu-item.active2 {
+    width: 120px;
+    height: 170px;
+    border-radius: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #092831;
+    transform-origin: center center;
+    margin-top: -60px;
+    margin-bottom: 5px;
+    gap: 13px;
+}
+
+.menu-item.active:hover {
+    transform: scale(0.89);
+}
+
+.menu-item.two {
+    gap: 14px;
+}
+
+.menu-item.three {
+    margin-top: -60px;
+}
+
+
+/* Menu icons */
+.menu-item img {
+    width: 40px;
+    height: 40px;
+    display: block;
+}
+
+.menu-item.one img {
+    width: 42px;
+    height: 42px;
+}
+
+.menu-item.one h2 {
+    font-size: 17px;
+}
+
+.menu-item.two img {
+    width: 47px;
+    height: 47px;
+}
+
+.menu-item.two h2 {
+    font-size: 17px;
+}
+
+.menu-item.three img {
+    width: 39px;
+    height: 40px;
+}
+
+.menu-item.three h2 {
+    font-size: 17px;
+}
+
+
+/* Menu text */
+.menu-item h2 {
+    margin: 8px 0 0 0;
+    font-size: 17px;
+    line-height: 1;
+    text-align: center;
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+.menu-item.active h2 {
+    color: #092831;
+    font-size: 17px;
+}
+
+
+.menu-item.active img {
+    width: 40px;
+    height: 40px;
+
+}
+
+/* Logout */
+.logout {
+    width: 80px;
+    height: 100px;
+    bottom: 0;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    background: #FFC4C4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.18s ease;
+    cursor: pointer;
+    transform-origin: center center;
+    position: fixed;
+}
+
+.logout:hover {
+    transform: scale(1.04);
+}
+
+.logout img {
+    margin-top: -20px;
+    width: 26px;
+    height: 26px;
+}
+
+/* Main Content Area */
+.main {
+    padding-left: 32px;
+    background-color: var(--background);
+    border-bottom-left-radius: 50px;
+    border-top-left-radius: 50px;
+    margin-top: -3px;
+    margin-right: -32px;
+    width: calc(100% - 0px);
+    margin-left: 200px;
+}
+
+/* Top Background Elements */
+.color,
+.color2 {
+    background-color: var(--background);
+    width: 1300px;
+    height: 30px;
+    margin-left: 15px;
+    position: fixed;
+    z-index: 999;
+}
+
+.color2 {
+    margin-left: 0;
+    border-radius: 5px;
+}
+
+/* Top Main Header */
+.top-main {
+    position: fixed;
+    top: 0;
+    left: 140px;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    padding: 0 32px;
+    z-index: 999;
+    background-color: var(--background);
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 50px;
+    width: 1400px;
+    margin-left: 80px;
+}
+
+.logo-container {
+    width: 200px;
+    height: 70px;
+    border-radius: 8px;
+    margin-top: 0;
+    cursor: pointer;
+}
+
+.home-button {
+    width: 100px;
+    height: 70px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.18s ease;
+    cursor: pointer;
+    transform-origin: 40px center;
+    margin-right: 120px;
+    margin-top: -10px;
+}
+
+.home-button:hover {
+    transform: scale(1.05);
+}
+
+.home-button img {
+    margin-bottom: -40px;
+}
+
+/* Grid Layout */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 28px;
+    margin-top: 190px;
+}
+
+/* Card Base Style */
+.card {
+    background: var(--card-color);
+    border-radius: var(--border-radius);
+    padding: 22px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .05);
+}
+
+/* Left Column */
+.left-column {
+    width: 750px;
+    margin-left: 20px;
+}
+
+/* Welcome Card */
+.welcome-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--pink-color);
+    margin-bottom: 20px;
+    height: 280px;
+    padding-left: 30px;
+}
+
+.welcome-card h1 {
+    margin: 0;
+    margin-top: 15px;
+    font-size: 40px;
+}
+
+/* List */
+.admin-list {
+    margin-top: 30px;
+    padding-left: 18px;
+    list-style: disc;
+    color: #102C3D;
+    font-size: 18px;
+}
+
+.admin-list li {
+    margin-bottom: 6px;
+}
+
+.welcome-card h2 {
+    color: #E3809F;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    transition: transform 0.18s ease;
+    cursor: pointer;
+    transform-origin: left center;
+}
+
+.welcome-card h2:hover {
+    transform: scale(1.02);
+}
+
+.monster-container {
+    width: 140px;
+    height: 120px;
+    margin-top: -148px;
+    margin-right: 120px;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-4px);
+    }
+
+    40% {
+        transform: translateX(4px);
+    }
+
+    60% {
+        transform: translateX(-4px);
+    }
+
+    80% {
+        transform: translateX(4px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.monster-container img.shake {
+    animation: shake 0.4s;
+}
+
+/* Shortcuts Container */
+.shortcuts-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 20px;
+    height: 200px;
+}
+
+.shortcut-card {
+    background: var(--green-color);
+    border-radius: 18px;
+    padding: 22px;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 600;
+    color: #9AAA2C;
+}
+
+.shortcut-icon {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.card.shortcut-card>* {
+    transition: transform 0.18s ease;
+    cursor: pointer;
+}
+
+.card.shortcut-card:hover>* {
+    transform: scale(1.05);
+}
+
+/* Actions */
+.actions-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin-bottom: 60px;
+    height: 280px;
+}
+
+.action-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.action-card img {
+    width: 70px;
+    margin-bottom: 16px;
+}
+
+.action-card:hover {
+    transform: scale(1.01);
+}
+
+/* Color */
+.action-card.student {
+    background: #B7DDE6;
+    color: #3A8FA3;
+}
+
+.action-card.teacher2 {
+    background: #FFD1DC;
+    color: #C85A76;
+}
+
+/* Right Column */
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 420px;
+    margin-left: -120px;
+    margin-top: 20px;
+}
+
+/* Calendar */
+.calendar-container {
+    width: 500px;
+    height: 200px;
+    padding-right: 80px;
+    margin-top: -21px;
+}
+
+.calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    font-size: 23px;
+}
+
+.calendar-header button {
+    border: none;
+    background: none;
+    font-size: 34px;
+    padding: 6px 14px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-left: -10px;
+    height: 300px;
+}
+
+.day {
+    font-size: 17px;
+    text-align: center;
+    padding: 7px;
+    border-radius: 10px;
+    user-select: none;
+}
+
+.day.head {
+    color: var(--muted-color);
+    font-weight: 700;
+}
+
+.day.today {
+    background: #c8f3da;
+    height: 36px;
+}
+
+.day.holiday {
+    background-color: #a5ccff;
+    height: 36px;
+}
+
+.day.today.holiday {
+    background-color: #c8f3da;
+    height: 36px;
+}
+
+.day.selected {
+    background: #55bfd6;
+    color: white;
+    font-weight: 700;
+}
+
+#current-month {
+    user-select: none;
+}
+
+/* Calendar legend */
+.calendar-legend {
+    display: flex;
+    gap: 14px;
+    margin-top: 163px;
+    margin-left: 260px;
+    font-size: 13px;
+    color: #555;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 4px;
+}
+
+/* Colors reference */
+.legend-color.today {
+    background-color: #c8f3da; /* Green */
+}
+
+.legend-color.holiday {
+    background-color: #a5ccff; /* Blue */
+}
+
+/* Teachers Card */
+.teachers-card {
+    margin-top: 0px;
+    height: 380px;
+}
+
+.user-group-teacher {
+    display: flex;
+    justify-content: space-around;
+}
+
+.user-group-teacher img {
+    margin-top: -15px;
+}
+
+.user-group-teacher h3 {
+    margin-right: 180px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.teacher {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 14px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    transition: transform 0.18s ease;
+    transform-origin: center center;
+}
+
+.teacher.one {
+    background: #53BDD94D;
+}
+
+.teacher.two {
+    background: #F9B0C491;
+}
+
+.teacher.three {
+    background: #F8DEA1;
+}
+
+.teacher.four {
+    background: #C1D25166;
+}
+
+.teacher.five {
+    background: #0000002E;
+}
+
+/* Teacher email icon */
+.teacher img {
+    width: 21px;
+    height: 21px;
+    opacity: 0.8;
+    transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+/* Additional Card Styles */
+.card {
+    box-shadow: 5px 8px 20px rgba(52, 52, 52, 0.08),
+    5px 2px 6px rgba(66, 66, 66, 0.04);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f2f2f2;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e6b53b;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #e6b53b;
+}
+
+/* Remove Number Input Arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

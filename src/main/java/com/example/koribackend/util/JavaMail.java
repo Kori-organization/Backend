@@ -33,7 +33,7 @@ public class JavaMail {
                     InternetAddress.parse(email)
             );
             String link = baseURL + "/checkToken?token=" + token;
-            message.setSubject("Test of link email");
+            message.setSubject("Recuperação de senha - Kori");
             String formatacao = "<body style='margin:0; padding:0; background-color:#ffffff; font-family:Arial, Helvetica, sans-serif; user-select:none;'>" +
                     "<div style='width:100%; display:flex; justify-content:center; padding:40px 0;'>" +
                     "    <div style='width:500px; max-width:90%; background-color:#FAF6EB; border:6.12px solid #53BDD9; border-radius:28px; overflow:hidden;'>" +

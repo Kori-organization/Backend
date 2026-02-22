@@ -1,6 +1,7 @@
 package com.example.koribackend.model.entity;
 
 import java.sql.Date;
+import java.time.format.DateTimeFormatter;
 
 public class Student {
     private int enrollment;
@@ -84,4 +85,13 @@ public class Student {
     public String getFirstName() {
         return this.name.split(" ")[0];
     }
+
+    public String getCompleteSerie() {
+        return String.format("%dº Ano",this.serie);
+    }
+
+    public String getFormatDate() {
+        return this.issueDate.toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+
 }

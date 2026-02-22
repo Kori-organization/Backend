@@ -70,7 +70,7 @@ public class RecoverPasswordController extends HttpServlet {
         String enrollment = (String) request.getSession(false).getAttribute("enrollment");
         boolean resultAction = new StudentDAO().newPasswordStudent(Integer.parseInt(enrollment),newPassword);
         if (resultAction) {
-            request.getRequestDispatcher("/html/new-password.html").forward(request,response);
+            request.getRequestDispatcher("WEB-INF/view/new-password.jsp").forward(request,response);
         } else {
             request.getRequestDispatcher("WEB-INF/view/create-password.jsp");
             System.out.println("Implement popup error");
