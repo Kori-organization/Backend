@@ -6,17 +6,21 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/homeAdmin","/informationsAdmin","/logoutAdmin"})
+@WebServlet(urlPatterns = {
+        "/admin/home",
+        "/admin/informations",
+        "/admin/logout"})
 public class AdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getServletPath();
-        if (path.equals("/homeAdmin")) {
-            request.getRequestDispatcher("WEB-INF/view/admin/homeAdmin.jsp").forward(request,response);
-        } else if (path.equals("/informationsAdmin")) {
-            request.getRequestDispatcher("WEB-INF/view/admin/information.jsp").forward(request,response);
-        } else if (path.equals("/logoutAdmin")) {
-            logout(request,response);
+        switch (path) {
+            case "/admin/home":
+                request.getRequestDispatcher("/WEB-INF/view/admin/homeAdmin.jsp").forward(request,response);
+            case "/admin/informations":
+                request.getRequestDispatcher("/WEB-INF/view/admin/information.jsp").forward(request,response);
+            case "/admin/logout":
+                logout(request,response);
         }
     }
 
@@ -25,7 +29,7 @@ public class AdminController extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
-        response.sendRedirect("enter");
+        response.sendRedirect(request.getContextPath() + "/enter");
     }
 
     @Override

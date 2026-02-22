@@ -25,7 +25,7 @@
 <!-- Top navigation bar -->
 <div class="topbar">
   <!-- Back button -->
-  <a class="back" href="homeStudent" title="Voltar">
+  <a class="back" href="${pageContext.request.contextPath}/student/home" title="Voltar">
     <img src="${pageContext.request.contextPath}/assets/left.svg" alt="Voltar" width="15px"> Voltar
   </a>
 
