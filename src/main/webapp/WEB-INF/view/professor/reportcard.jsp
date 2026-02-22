@@ -32,7 +32,7 @@
     <!-- Top navigation bar -->
     <div class="topbar">
         <!-- Back button -->
-        <a class="back" href="reportCardStudentsList" title="Voltar">
+        <a class="back" href="reportCardStudentsList?grade=<%=student.getSerie()%>" title="Voltar">
             <img src="${pageContext.request.contextPath}/assets/left.svg" alt="Voltar" width="15px"> Voltar
         </a>
 
