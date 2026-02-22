@@ -94,7 +94,6 @@
         </p>
 
         <!-- Overlay + Popup -->
-         <form name="logoutProfessor">
             <div class="overlay" id="logoutOverlay">
                 <div class="logout-modal">
                     <div class="logout-icon"><img src="${pageContext.request.contextPath}/assets/info-circle-4.svg" alt="" width="40px"></div>
@@ -102,11 +101,10 @@
     
                     <div class="logout-actions">
                         <button class="btn-cancel" id="cancelLogout">Voltar</button>
-                        <button class="btn-danger" id="confirmLogout" type="submit">Sair</button>
+                        <a href="logoutProfessor"><button class="btn-danger" id="confirmLogout" type="submit">Sair</button></a>
                     </div>
                 </div>
             </div>
-         </form>
     </main>
 
 </body>
