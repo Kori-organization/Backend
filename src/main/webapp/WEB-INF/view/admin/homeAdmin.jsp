@@ -32,14 +32,14 @@
         <h2>Professores</h2>
       </div>
 
-      <div class="menu-item active2 three" onclick="window.location='${pageContext.request.contextPath}/admin/informations'">
+      <div class="menu-item active2 three" onclick="window.location='informationsAdmin'">
         <img src="${pageContext.request.contextPath}/assets/info-circle-white.svg" alt="Professores">
         <h2>Informações</h2>
       </div>
     </div>
 
     <!-- Logout -->
-    <div class="logout" onclick="window.location='${pageContext.request.contextPath}/admin/logout'">
+    <div class="logout" onclick="window.location='logoutAdmin'">
       <img src="${pageContext.request.contextPath}/assets/icon-logout.svg" width="38">
     </div>
   </aside>
@@ -84,7 +84,7 @@
 
         <!-- Shortcuts -->
         <div class="shortcuts-container">
-          <div class="card shortcut-card" onclick="window.location='dowloadRegulation?point=${pageContext.request.contextPath}/admin/home'">
+          <div class="card shortcut-card" onclick="window.location='dowloadRegulation?point=homeAdmin'">
             <img src="${pageContext.request.contextPath}/assets/document.svg" alt="School rules" class="shortcut-icon">
             <div>Ver regulamento escolar</div>
           </div>

@@ -28,9 +28,9 @@ public class Filter implements jakarta.servlet.Filter {
 
         if (session != null) {
             if (session.getAttribute("admin") != null) {
-                res.sendRedirect("/admin/home");
+                res.sendRedirect("homeAdmin");
             } else if (session.getAttribute("student") != null) {
-                res.sendRedirect("/student/home");
+                res.sendRedirect("homeStudent");
             } else if (session.getAttribute("teacher") != null) {
                 // Also add the professor's homepage path.
                 // After adding the path, delete the line below.

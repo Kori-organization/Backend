@@ -7,19 +7,19 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {
-        "/admin/home",
-        "/admin/informations",
-        "/admin/logout"})
+        "/homeAdmin",
+        "/informationsAdmin",
+        "/logoutAdmin"})
 public class AdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getServletPath();
         switch (path) {
-            case "/admin/home":
+            case "/homeAdmin":
                 request.getRequestDispatcher("/WEB-INF/view/admin/homeAdmin.jsp").forward(request,response);
-            case "/admin/informations":
+            case "/informationsAdmin":
                 request.getRequestDispatcher("/WEB-INF/view/admin/information.jsp").forward(request,response);
-            case "/admin/logout":
+            case "/logoutAdmin":
                 logout(request,response);
         }
     }
@@ -29,7 +29,7 @@ public class AdminController extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
-        response.sendRedirect(request.getContextPath() + "/enter");
+        response.sendRedirect("enter");
     }
 
     @Override

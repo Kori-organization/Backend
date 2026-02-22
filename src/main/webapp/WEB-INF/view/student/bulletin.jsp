@@ -19,7 +19,7 @@
     <!-- Sidebar navigation -->
     <aside class="sidebar">
         <div class="sidebar-menu">
-            <div class="menu-item active2 one" onclick="window.location='${pageContext.request.contextPath}/student/home'">
+            <div class="menu-item active2 one" onclick="window.location='homeStudent'">
                 <img src="${pageContext.request.contextPath}/assets/home-3.svg">
                 <h2>Início</h2>
             </div>
@@ -27,17 +27,17 @@
                 <img src="${pageContext.request.contextPath}/assets/greeting-2.svg">
                 <h2>Boletim</h2>
             </div>
-            <div class="menu-item active2 two" onclick="window.location='${pageContext.request.contextPath}/student/observations'">
+            <div class="menu-item active2 two" onclick="window.location='observationsStudent'">
                 <img src="${pageContext.request.contextPath}/assets/notes.svg">
                 <h2>Observações</h2>
             </div>
-            <div class="menu-item active2 three" onclick="window.location='${pageContext.request.contextPath}/student/information'">
+            <div class="menu-item active2 three" onclick="window.location='informationsStudent'">
                 <img src="${pageContext.request.contextPath}/assets/info-circle.svg">
                 <h2>Informações</h2>
             </div>
         </div>
         <!-- User profile section -->
-        <div class="profile" onclick="window.location='${pageContext.request.contextPath}/student/profile'">
+        <div class="profile" onclick="window.location='profileStudent'">
             <img src="${pageContext.request.contextPath}/assets/user.svg" width="38">
         </div>
     </aside>
@@ -65,7 +65,7 @@
 
             <!-- Final status card -->
             <div class="final-status">
-                <img src="${pageContext.request.contextPath}/assets/download.svg" class="download-icon" alt="Download" onclick="window.location='${pageContext.request.contextPath}/student/createPDF'">
+                <img src="${pageContext.request.contextPath}/assets/download.svg" class="download-icon" alt="Download" onclick="window.location='createPDF'">
                 Situação final: <%=reportCard.getFinalSituation()%>.
             </div>
 

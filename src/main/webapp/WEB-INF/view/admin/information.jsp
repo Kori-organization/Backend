@@ -13,7 +13,7 @@
   <!-- Sidebar navigation -->
   <aside class="sidebar">
     <div class="sidebar-menu">
-      <div class="menu-item active2 one" onclick="window.location='${pageContext.request.contextPath}/admin/home'">
+      <div class="menu-item active2 one" onclick="window.location='homeAdmin'">
         <img src="${pageContext.request.contextPath}/assets/home-white.svg">
         <h2>Início</h2>
       </div>
@@ -32,7 +32,7 @@
     </div>
 
     <!-- Logout -->
-    <div class="logout" onclick="window.location='${pageContext.request.contextPath}/admin/logout'">
+    <div class="logout" onclick="window.location='logoutAdmin'">
       <img src="${pageContext.request.contextPath}/assets/icon-logout.svg" width="38">
     </div>
   </aside>
@@ -63,7 +63,7 @@
       <img src="${pageContext.request.contextPath}/assets/text-information.svg" alt="">
     </div>
 
-    <button class="info-button" onclick="window.location='${pageContext.request.contextPath}/admin/home'">
+    <button class="info-button" onclick="window.location='homeAdmin'">
       Ir para Início
     </button>
   </main>

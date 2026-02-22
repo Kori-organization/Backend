@@ -82,7 +82,7 @@ public class LoginController extends HttpServlet {
             emailOrUser = emailOrUser.split("@")[1];
             if (new AdministratorDAO().loginValid(emailOrUser, password)) {
                 request.getSession().setAttribute("admin",new AdministratorDAO().selectAdministratorForUsername(emailOrUser));
-                response.sendRedirect(request.getContextPath() + "/admin/home");
+                response.sendRedirect("homeAdmin");
             } else {
                 accountNotFound(request,response);
             }
@@ -95,7 +95,7 @@ public class LoginController extends HttpServlet {
         } else if (emailOrUser.matches("^[A-Za-z0-9._+-]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$|^$")) {
             if (new StudentDAO().loginValid(emailOrUser, password)) {
                 request.getSession().setAttribute("student",new StudentDAO().selectStudentForEmail(emailOrUser));
-                response.sendRedirect(request.getContextPath() + "/student/home");
+                response.sendRedirect("homeStudent");
             } else {
                 accountNotFound(request,response);
             }

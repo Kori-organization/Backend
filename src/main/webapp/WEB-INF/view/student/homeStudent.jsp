@@ -26,24 +26,24 @@
         <h2>Início</h2>
       </div>
 
-      <div class="menu-item active2 one" onclick="window.location='${pageContext.request.contextPath}/student/reportCard'">
+      <div class="menu-item active2 one" onclick="window.location='reportCardStudent'">
         <img src="${pageContext.request.contextPath}/assets/greeting.svg" alt="Boletim">
         <h2>Boletim</h2>
       </div>
 
       <div class="menu-item active2 two">
-        <img src="${pageContext.request.contextPath}/assets/notes.svg" alt="Observações" onclick="window.location='${pageContext.request.contextPath}/student/observations'">
+        <img src="${pageContext.request.contextPath}/assets/notes.svg" alt="Observações" onclick="window.location='observationsStudent'">
         <h2>Observações</h2>
       </div>
 
       <div class="menu-item active2 three">
-        <img src="${pageContext.request.contextPath}/assets/info-circle.svg" alt="Professores" onclick="window.location='${pageContext.request.contextPath}/student/information'">
+        <img src="${pageContext.request.contextPath}/assets/info-circle.svg" alt="Professores" onclick="window.location='informationsStudent'">
         <h2>Informações</h2>
       </div>
     </div>
 
     <!-- User profile -->
-    <div class="profile" onclick="window.location='${pageContext.request.contextPath}/student/profile'" >
+    <div class="profile" onclick="window.location='profileStudent'" >
       <img src="${pageContext.request.contextPath}/assets/user.svg" alt="Profile picture" width="38px">
     </div>
   </aside>
@@ -89,7 +89,7 @@
 
         <!-- Shortcuts -->
         <div class="shortcuts-container">
-          <div class="card shortcut-card" onclick="window.location='dowloadRegulation?point=${pageContext.request.contextPath}/student/home'">
+          <div class="card shortcut-card" onclick="window.location='dowloadRegulation?point=homeStudent'">
             <img src="${pageContext.request.contextPath}/assets/support.svg" alt="School rules" class="shortcut-icon">
             <div>Ver regulamento escolar</div>
           </div>

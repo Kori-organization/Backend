@@ -13,15 +13,15 @@
     <!-- Sidebar navigation -->
     <aside class="sidebar">
         <div class="sidebar-menu">
-            <div class="menu-item active2 one" onclick="window.location='${pageContext.request.contextPath}/student/home'">
+            <div class="menu-item active2 one" onclick="window.location='homeStudent'">
                 <img src="${pageContext.request.contextPath}/assets/home-3.svg">
                 <h2>Início</h2>
             </div>
             <div class="menu-item active2 two">
-                <img src="${pageContext.request.contextPath}/assets/greeting.svg" onclick="window.location='${pageContext.request.contextPath}/student/reportCard'">
+                <img src="${pageContext.request.contextPath}/assets/greeting.svg" onclick="window.location='reportCardStudent'">
                 <h2>Boletim</h2>
             </div>
-            <div class="menu-item active2 three" onclick="window.location='${pageContext.request.contextPath}/student/observations'">
+            <div class="menu-item active2 three" onclick="window.location='observationsStudent'">
                 <img src="${pageContext.request.contextPath}/assets/notes.svg">
                 <h2>Observações</h2>
             </div>
@@ -31,7 +31,7 @@
             </div>
         </div>
         <!-- User profile section -->
-        <div class="profile" onclick="window.location='${pageContext.request.contextPath}/student/profile'">
+        <div class="profile" onclick="window.location='profileStudent'">
             <img src="${pageContext.request.contextPath}/assets/user.svg" width="38">
         </div>
     </aside>
@@ -62,7 +62,7 @@
             <img src="${pageContext.request.contextPath}/assets/text-information.svg" alt="">
         </div>
 
-        <button class="info-button" onclick="window.location='${pageContext.request.contextPath}/student/home'">
+        <button class="info-button" onclick="window.location='homeStudent'">
             Ir para Início
         </button>
 

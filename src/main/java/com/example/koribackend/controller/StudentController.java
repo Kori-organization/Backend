@@ -10,35 +10,33 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.List;
 
 @WebServlet(urlPatterns = {
-        "/student/home",
-        "/student/reportCard",
-        "/student/observations",
-        "/student/createPDF",
-        "/student/information",
-        "/student/profile"})
+        "/homeStudent",
+        "/reportCardStudent",
+        "/observationsStudent",
+        "/createPDF",
+        "/informationsStudent",
+        "/profileStudent"})
 public class StudentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getServletPath();
         switch (path) {
-            case "/student/home":
+            case "/homeStudent":
                 request.getRequestDispatcher("/WEB-INF/view/student/homeStudent.jsp").forward(request,response);
-            case "/student/reportCard":
+            case "/reportCardStudent":
                 showBulletin(request,response);
-            case "/student/observations":
+            case "/observationsStudent":
                 showObservations(request,response);
-            case "/student/createPDF":
+            case "/createPDF":
                 int enrollment = ((Student) request.getSession(false).getAttribute("student")).getEnrollment();
                 request.setAttribute("enrollment",enrollment);
                 request.getRequestDispatcher("createReportCardPDF").forward(request,response);
-            case "/student/information":
+            case "/informationsStudent":
                 request.getRequestDispatcher("/WEB-INF/view/student/information.jsp").forward(request,response);
-            case "/student/profile":
+            case "/profileStudent":
                 request.getRequestDispatcher("/WEB-INF/view/student/profile.jsp").forward(request,response);
         }
     }

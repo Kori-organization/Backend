@@ -2,6 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+  <%
+    Student student = (Student) session.getAttribute("student");
+  %>
   <!-- Character encoding -->
   <meta charset="utf-8" />
 
@@ -9,23 +12,20 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
   <!-- Page title -->
-  <title>Alunos do 1º Ano — Observações</title>
+  <title><%=student.getName()%></title>
 
   <!-- Favicon -->
   <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
 
   <!-- Main stylesheet -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/student/profile.css">
-  <%
-    Student student = (Student) session.getAttribute("student");
-  %>
 </head>
 <body>
 
 <!-- Top navigation bar -->
 <div class="topbar">
   <!-- Back button -->
-  <a class="back" href="${pageContext.request.contextPath}/student/home" title="Voltar">
+  <a class="back" href="homeStudent" title="Voltar">
     <img src="${pageContext.request.contextPath}/assets/left.svg" alt="Voltar" width="15px"> Voltar
   </a>
 
