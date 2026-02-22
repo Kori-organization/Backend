@@ -11,13 +11,17 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @WebServlet(urlPatterns = {
         "/homeAdmin",
         "/informationsAdmin",
         "/logoutAdmin",
         "/createStudent",
-        "/createProfessor"})
+        "/createProfessor",
+        "/showProfessors",
+        "/deleteProfessor",
+        "/editProfessor"})
 public class AdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,7 +36,28 @@ public class AdminController extends HttpServlet {
             case "/logoutAdmin":
                 logout(request,response);
                 break;
+            case "/showProfessors":
+                showProfessors(request,response);
+                break;
+            case "/deleteProfessor":
+                deleteProfessor(request,response);
+                break;
         }
+    }
+
+    private void deleteProfessor(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        boolean result = new ProfessorDAO().deleteById(id);
+        request.setAttribute("name",name);
+        request.setAttribute("resultDeleteProfessor",String.valueOf(result));
+        request.getRequestDispatcher("showProfessors").forward(request,response);
+    }
+
+    private void showProfessors(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<Professor> professors = new ProfessorDAO().selectProfessorAll();
+        request.setAttribute("professors",professors);
+        request.getRequestDispatcher("/WEB-INF/view/admin/teacher.jsp").forward(request,response);
     }
 
     private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -53,7 +78,22 @@ public class AdminController extends HttpServlet {
             case "/createProfessor":
                 createProfessor(request,response);
                 break;
+            case "/editProfessor":
+                editProfessor(request,response);
+                break;
         }
+    }
+
+    private void editProfessor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("idEdit"));
+        String user = request.getParameter("userEdit");
+        String name = request.getParameter("nameEdit");
+        String subject = request.getParameter("subjectEdit");
+        String password = request.getParameter("passwordEdit");
+        boolean result = new ProfessorDAO().updateProfessor(new Professor(id,user,password,name,subject));
+        request.setAttribute("name",name);
+        request.setAttribute("resultEditProfessor",String.valueOf(result));
+        showProfessors(request,response);
     }
 
     private void createProfessor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

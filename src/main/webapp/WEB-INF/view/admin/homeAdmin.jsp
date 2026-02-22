@@ -31,7 +31,7 @@
         <h2>Alunos</h2>
       </div>
 
-      <div class="menu-item active2 two" onclick="window.location='teacher.html'">
+      <div class="menu-item active2 two" onclick="window.location='showProfessors'">
         <img src="${pageContext.request.contextPath}/assets/user-solo.svg" alt="Professores">
         <h2>Professores</h2>
       </div>
