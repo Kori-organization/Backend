@@ -168,7 +168,7 @@ const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).+$/;
         if (!toastWrapTeacher) return;
         const toast = document.createElement('div');
         toast.className = `toast ${type}`;
-        const icon = type === 'error' ? '../Assets/error-icon.svg' : '../Assets/check-icon.svg';
+        const icon = type === 'error' ? contextPath + '/assets/error-icon.svg' : contextPath + '/assets/check-icon.svg';
         toast.innerHTML = `
             <img src="${icon}" style="width:30px;height:22px">
             <div class="toast-text">

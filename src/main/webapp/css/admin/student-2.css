@@ -1,0 +1,837 @@
+/* Import Google Font: Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;700&display=swap');
+
+/* Global CSS variables */
+:root {
+    --sidebar-blue: #092831;
+    --page-bg: #FAF6EB;
+    --card-bg: #FFFFFF;
+    --muted: #6b7280;
+    --text: #0f1724;
+    --accent: #F5C659;
+    --radius: 18px;
+    --soft-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+    --success: #8EE07D;
+    --danger: #FF6B6B;
+}
+
+/* Reset box model */
+* {
+    box-sizing: border-box
+}
+
+/* Body base styles */
+body {
+    margin: 0;
+    font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+    background: var(--sidebar-blue);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+}
+
+/* Top navigation bar */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    background: var(--sidebar-blue);
+    display: flex;
+    align-items: center;
+    padding: 12px 80px;
+    z-index: 20;
+}
+
+/* Back button style */
+.topbar .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #FFD76B;
+    padding: 15px 30px;
+    border-radius: 999px;
+    color: #021018;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform .18s ease, box-shadow .18s;
+}
+
+/* Back button hover effect */
+.topbar .back:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Greeting image (right side) */
+.img-greeting {
+    margin-left: auto;
+    cursor: pointer;
+    transition: transform .18s ease;
+}
+
+/* Greeting image hover animation */
+.img-greeting:hover {
+    transform: scale(1.03);
+}
+
+/* Main content container */
+main {
+    margin-top: 160px;
+    background: var(--page-bg);
+    border-top-left-radius: 52px;
+    border-top-right-radius: 52px;
+    padding: 74px;
+    box-shadow: 0 8px 30px rgba(2, 6, 23, 0.12);
+    min-height: calc(100vh - 140px);
+}
+
+/* Page title */
+h1 {
+    margin: 15px 0 38px 6px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #21303a;
+}
+
+/* Search input container */
+.search-box {
+    flex: 1;
+    max-width: 720px;
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 8px 10px 8px 18px;
+    border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(16, 24, 40, 0.04);
+    border: 1px solid rgba(2, 6, 23, 0.03);
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+/* Search input field */
+.search-box input {
+    border: 0;
+    outline: 0;
+    flex: 1;
+    font-size: 13px;
+    color: var(--muted);
+    background: transparent;
+}
+
+/* Search button */
+.search-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    border: none;
+    background: #FFBECC;
+    cursor: pointer;
+    transition: transform .16s ease
+}
+
+/* Search button hover */
+.search-btn:hover {
+    transform: scale(1.04)
+}
+
+/* Inherit font for form elements */
+button,
+input,
+textarea,
+select {
+    font-family: inherit
+}
+
+/* Table container */
+.table {
+    margin-top: 6px
+}
+
+/* Table header row */
+.table .header {
+    display: grid;
+    grid-template-columns: 150px 1fr 1.5fr 180px 180px;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--muted);
+    padding: 8px 18px;
+    align-items: center;
+}
+
+/* Student row card */
+.student-row {
+    margin-top: 12px;
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 14px 18px;
+    display: grid;
+    grid-template-columns: 150px 1fr 1.5fr 180px 180px;
+    gap: 12px;
+    align-items: center;
+    box-shadow: var(--soft-shadow);
+    border: 1px solid rgba(2, 6, 23, 0.03);
+}
+
+/* Student ID */
+.student-row .matricula {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0f1724;
+}
+
+/* Student name */
+.student-row .nome {
+    font-size: 14px;
+    font-weight: 600;
+    color: #21303a;
+    letter-spacing: .1px;
+}
+
+/* Student email */
+.student-row .email {
+    font-size: 13px;
+    color: #1f2a33;
+    opacity: .8;
+}
+
+/* Admission date */
+.student-row .admissao {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: left;
+}
+
+
+.btn-observacoes {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 22px;
+    border-radius: 999px;
+
+    background: #F5C659;
+    color: #021018;
+    font-size: 13px;
+    font-weight: 600;
+
+    border: none;
+    cursor: pointer;
+    margin-left: 110px;
+    box-shadow: 0 6px 14px rgba(245, 198, 89, 0.25);
+    transition: transform .15s ease;
+}
+
+.btn-observacoes:hover {
+    transform: scale(1.02);
+}
+
+.btn-observacoes img {
+    display: block;
+}
+
+/* Overlay background */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 80;
+    padding: 20px;
+}
+
+/* Show overlay */
+.overlay.show {
+    display: flex;
+}
+
+/* Popup menu */
+.popup-menu {
+    position: absolute;
+    width: 210px;
+    background: white;
+    border-radius: 20px;
+    padding: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 100;
+}
+
+/* Show popup */
+.popup-menu.show {
+    display: flex;
+}
+
+/* Popup items */
+.popup-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background .15s ease;
+}
+
+.popup-item:hover {
+    background: #f4f4f4;
+}
+
+/* Edit highlight */
+.popup-item.edit {
+    background: #CDE7EE;
+    font-weight: 600;
+}
+
+.confirm-card {
+    width: min(450px, 86vw);
+    background: #fff;
+    border-radius: 34px;
+    padding: 28px 28px 24px;
+    box-shadow: 0 18px 40px rgba(2, 6, 23, 0.35);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+}
+
+/* pink circle icon */
+.confirm-icon-inner {
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    background: #FFC8C8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 6px 12px rgba(255, 255, 255, 0.6);
+}
+
+.confirm-icon-inner img {
+    width: 40px;
+    height: 40px;
+    filter: none;
+}
+
+/* Title */
+.confirm-title {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.22;
+    color: #0f1724;
+    font-weight: 700;
+}
+
+/* Buttons */
+.confirm-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 6px;
+}
+
+/* Shared button */
+.btn {
+    min-width: 140px;
+    padding: 12px 22px;
+    border-radius: 28px;
+    font-weight: 700;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(2, 6, 23, 0.08);
+}
+
+/* Cancel (gray) */
+.btn-cancel {
+    background: #ECECEC;
+    color: #374151;
+    border: 1px solid rgba(2, 6, 23, 0.04);
+}
+
+/* Delete (red) */
+.btn-delete {
+    background: #ff3b30;
+    color: #fff;
+    border: 0;
+}
+
+/* ---------- Toast container (teacher) ---------- */
+.toast-wrap-teacher {
+    position: fixed;
+    left: 28px;
+    bottom: 28px;
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    min-width: 240px;
+    max-width: 400px;
+    background: #ffffff;
+    color: #111827;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transform-origin: bottom left;
+    transform: scale(1.4);
+    animation: toastIn 220ms ease;
+    height: 65px;
+}
+
+/* Toast types */
+.toast.success {
+    border-left: 4px solid #22c55e;
+}
+
+.toast.error {
+    border-left: 4px solid #ef4444;
+}
+
+/* Toast content */
+.toast-text {
+    margin-top: 10px;
+}
+
+.toast-text h4 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.toast-text p {
+    margin-top: 2px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #6b7280;
+}
+
+/* Hide animation */
+.toast.hide {
+    opacity: 0;
+    transform: translateY(8px) scale(1.4);
+    transition: opacity 240ms ease, transform 240ms ease;
+}
+
+/* ---------- EDIT TEACHER MODAL ---------- */
+
+.edit-card {
+    width: min(720px, 92vw);
+    height: 400px;
+    background: #ffffff;
+    border-radius: 26px;
+    box-shadow: 0 18px 40px rgba(2, 6, 23, 0.35);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.edit-header {
+    background: #E59AAA;
+    padding: 18px 30px;
+    height: 100px;
+    border-radius: 14px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.edit-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #08202a;
+    margin: 0;
+}
+
+/* Form */
+form {
+    margin-left: 30px;
+    margin-right: 30px;
+    flex: 1;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Row layout */
+.edit-row {
+    display: flex;
+    gap: 18px;
+    width: 100%;
+}
+
+/* Field */
+.edit-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Smaller field (Usuário) */
+.edit-field {
+    flex: 1;
+}
+
+/* Label */
+.edit-field label {
+    font-weight: 700;
+    margin-bottom: 6px;
+    font-size: 15px;
+}
+
+/* Inputs */
+.edit-field input {
+    width: 100%;
+    height: 48px;
+    border-radius: 999px;
+    border: none;
+    background: #efefef;
+    padding: 0 16px;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+}
+
+/* Password */
+.password-input-wrap {
+    position: relative;
+    width: 100%;
+}
+
+.password-input-wrap input {
+    width: 100%;
+    padding-right: 44px;
+}
+
+/* Eye icon */
+.password-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* Buttons */
+.edit-actions {
+    display: flex;
+    gap: 14px;
+    margin-top: auto;
+    padding: 0 30px 25px 30px;
+}
+
+.btn-edit-cancel {
+    flex: 1;
+    height: 48px;
+    border-radius: 999px;
+    border: none;
+    background: #ECECEC;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform .18s ease;
+}
+
+.btn-edit-save {
+    flex: 1;
+    height: 48px;
+    border-radius: 999px;
+    border: none;
+    background: #F5C659;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform .18s ease;
+}
+
+/* CONFIRMATION MODAL */
+
+.confirm-modal {
+    width: 420px;
+    background: #ffffff;
+    border-radius: 42px;
+    padding: 40px 40px 36px;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+    animation: fadeIn 0.25s ease;
+}
+
+/* Icon */
+.confirm-icon-edit {
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 26px;
+    border-radius: 50%;
+    background: #FCE9B8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.confirm-icon-edit img {
+    width: 47px;
+    height: 47px;
+}
+
+/* Title */
+.confirm-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0e2b36;
+    line-height: 1.25;
+    margin-bottom: 42px;
+}
+
+/* Buttons */
+.confirm-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.confirm-buttons .btn-confirm {
+    flex: 1;
+    height: 54px;
+    border-radius: 999px;
+    border: none;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* Cancel */
+.btn-confirm.btn-cancel {
+    background: #eeeeee;
+    color: #8b8b8b;
+}
+
+/* Confirm */
+.btn-confirm.btn-save {
+    background: #F5C659;
+    color: #0e2b36;
+}
+
+/* Edit student modal styles (to match screenshot) */
+.edit-student-card {
+    width: min(920px, 96vw);
+    max-width: 920px;
+    background: #fff;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+}
+
+/* header color like screenshot */
+.edit-student-header {
+    background: #53BDD9;
+    /* teal from screenshot */
+    padding: 38px 44px;
+}
+
+.edit-student-header h2 {
+    margin: 0;
+    font-size: 36px;
+    font-weight: 700;
+    color: #08202a;
+}
+
+.edit-student-header h2 span {
+    color: #08202a;
+}
+
+/* form layout */
+.edit-student-form {
+    padding: 28px 42px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.row-2 {
+    display: flex;
+    gap: 24px;
+}
+
+.row-3 {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+/* fields */
+.field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.field.small {
+    flex: 0.8;
+    min-width: 160px;
+}
+
+.field.xsmall {
+    flex: 0.45;
+    min-width: 100px;
+}
+
+.field label {
+    font-weight: 700;
+    font-size: 14px;
+    color: #21303a;
+}
+
+.field input {
+    height: 56px;
+    border-radius: 999px;
+    border: none;
+    background: #f3f3f3;
+    padding: 0 20px;
+    font-size: 15px;
+    outline: none;
+}
+
+/* password */
+.password-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-wrap input {
+    padding-right: 52px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+/* actions row */
+.edit-student-actions {
+    display: flex;
+    gap: 18px;
+    padding: 18px 42px 34px;
+}
+
+.btn-edit-cancel,
+.btn-edit-save {
+    flex: 1;
+    height: 52px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-edit-cancel {
+    background: #ECECEC;
+    color: #374151;
+}
+
+.btn-edit-save {
+    background: #F5C659;
+    color: #0e2b36;
+    box-shadow: 0 16px 40px rgba(245, 198, 89, 0.25);
+}
+
+.field select {
+    height: 56px;
+    border-radius: 999px;
+    border: none;
+    background: #f3f3f3;
+    padding: 0 20px;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    font-family: inherit;
+    font-size: 14px;
+    background: white;
+}
+
+/* top row: Nome and Email same size */
+.row-2 .field {
+    flex: 1;
+}
+
+/* bottom row proportions */
+.row-3 .field.small {
+    flex: 0.5;
+}
+
+.row-3 .field.xsmall {
+    flex: 0.5;
+}
+
+.row-3 .field.t1 {
+    flex: 1;
+}
+
+
+/* small overlay show class behavior */
+.overlay.show {
+    display: flex;
+}
+
+/* Delete in red */
+.popup-item.delete {
+    color: #ff3b30;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f2f2f2;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e6b53b;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #e6b53b;
+}

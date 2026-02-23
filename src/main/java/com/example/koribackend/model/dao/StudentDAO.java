@@ -280,7 +280,6 @@ public class StudentDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return false;
     }
 
@@ -444,5 +443,54 @@ public class StudentDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public ArrayList<Student> selectStudentForSerie(int serie) {
+        ArrayList<Student> students = new ArrayList<>();
+
+        String sql = "SELECT enrollment, email, issue_Date, password, name, serie FROM students WHERE serie = ?";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+
+        ) {
+            stmt.setInt(1,serie);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Student student = new Student();
+                student.setEnrollment(rs.getInt("enrollment"));
+                student.setEmail(rs.getString("email"));
+                student.setIssueDate(rs.getDate("issue_Date"));
+                student.setPassword(rs.getString("password"));
+                student.setName(rs.getString("name"));
+                student.setSerie(rs.getInt("serie"));
+                students.add(student);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return students;
+    }
+
+    public boolean updateStudent(Student student) {
+        String sql = "UPDATE students set email = ?, issue_date = ?, password = ?, name = ?, serie = ? WHERE enrollment = ?";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+        ) {
+            stmt.setString(1,student.getEmail());
+            stmt.setDate(2,student.getIssueDate());
+            stmt.setString(3,student.getPassword());
+            stmt.setString(4,student.getName());
+            stmt.setInt(5,student.getSerie());
+            stmt.setInt(6,student.getEnrollment());
+            return stmt.executeUpdate() >= 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 }

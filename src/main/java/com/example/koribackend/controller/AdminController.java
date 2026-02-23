@@ -23,7 +23,9 @@ import java.util.ArrayList;
         "/deleteProfessor",
         "/editProfessor",
         "/showClass",
-        "/selectClass"})
+        "/selectClass",
+        "/deleteStudent",
+        "/updateStudent"})
 public class AdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -50,12 +52,32 @@ public class AdminController extends HttpServlet {
             case "/selectClass":
                 selectClass(request,response);
                 break;
+            case "/deleteStudent":
+                deleteStudent(request,response);
+                break;
         }
     }
 
+    private void deleteStudent(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int enrollment = Integer.parseInt(request.getParameter("enrollment"));
+        String name = request.getParameter("name");
+        boolean result = new StudentDAO().deleteStudent(enrollment);
+        request.setAttribute("resultDeleteStudent",String.valueOf(result));
+        request.setAttribute("name",name);
+        request.getRequestDispatcher("selectClass").forward(request,response);
+    }
     private void selectClass(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        int serie = Integer.parseInt(request.getParameter("serie"));
+        String serieString = request.getParameter("serie");
+        int serie = -1;
+        if (serieString != null) {
+            serie = Integer.parseInt(serieString);
+        } else {
+            serie = (int) request.getSession().getAttribute("serie");
+        }
         request.getSession().setAttribute("serie",serie);
+        ArrayList<Student> students = new StudentDAO().selectStudentForSerie(serie);
+        request.setAttribute("students",students);
+        request.getRequestDispatcher("/WEB-INF/view/admin/student-2.jsp").forward(request,response);
     }
 
     private void deleteProfessor(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -94,7 +116,23 @@ public class AdminController extends HttpServlet {
             case "/editProfessor":
                 editProfessor(request,response);
                 break;
+            case "/updateStudent":
+                updateStudent(request,response);
+                break;
         }
+    }
+
+    private void updateStudent(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int enrollment = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        Date admission = Date.valueOf(LocalDate.parse(request.getParameter("admission")));
+        int serie = Integer.parseInt(request.getParameter("serie"));
+        String password = request.getParameter("password");
+        boolean result = new StudentDAO().updateStudent(new Student(enrollment,email,admission,password,name,serie));
+        request.setAttribute("resultEditStudent",String.valueOf(result));
+        request.setAttribute("name",name);
+        selectClass(request,response);
     }
 
     private void editProfessor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -114,7 +152,6 @@ public class AdminController extends HttpServlet {
         String name = request.getParameter("name");
         String subject = request.getParameter("subject");
         String password = request.getParameter("password");
-
         boolean result = new ProfessorDAO().createAccount(new Professor(user, password, name, subject));
         request.setAttribute("resultProfessor",String.valueOf(result));
         request.getRequestDispatcher("/WEB-INF/view/admin/homeAdmin.jsp").forward(request,response);

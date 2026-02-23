@@ -55,35 +55,35 @@
 
       <div class="cards-grid">
 
-        <div class="grade-card pink" onclick="window.location='student-2.html'">
+        <div class="grade-card pink" onclick="window.location='selectClass?serie=1'">
           <div class="card-label">
             <h2>1º Ano</h2>
             <p>Clique para cadastrar notas desta turma.</p>
           </div>
         </div>
 
-        <div class="grade-card green" onclick="window.location='student-2.html'">
+        <div class="grade-card green" onclick="window.location='selectClass?serie=2'">
           <div class="card-label">
             <h2>2º Ano</h2>
             <p>Clique para cadastrar notas desta turma.</p>
           </div>
         </div>
 
-        <div class="grade-card blue" onclick="window.location='student-2.html'">
+        <div class="grade-card blue" onclick="window.location='selectClass?serie=3'">
           <div class="card-label">
             <h2>3º Ano</h2>
             <p>Clique para cadastrar notas desta turma.</p>
           </div>
         </div>
 
-        <div class="grade-card yellow" onclick="window.location='student-2.html'">
+        <div class="grade-card yellow" onclick="window.location='selectClass?serie=4'">
           <div class="card-label">
             <h2>4º Ano</h2>
             <p>Clique para cadastrar notas desta turma.</p>
           </div>
         </div>
 
-        <div class="grade-card gray" onclick="window.location='student-2.html'">
+        <div class="grade-card gray" onclick="window.location='selectClass?serie=5'">
           <div class="card-label">
             <h2>5º Ano</h2>
             <p>Clique para cadastrar notas desta turma.</p>
