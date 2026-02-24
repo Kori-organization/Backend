@@ -71,6 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmSaveBtn = document.getElementById('confirmTeacherSend');
     const confirmSaveCancelBtn = document.getElementById('confirmTeacherCancel');
 
+    const buttonFilter = document.getElementById('buttonFilter')
+    const inputFilter = document.getElementById('inputFilter')
+
     let activeRow = null;
 
     // =========================
@@ -136,11 +139,9 @@ document.addEventListener('DOMContentLoaded', () => {
     popupObservations?.addEventListener('click', (e) => {
         e.stopPropagation();
         popupMenu.classList.remove('show');
-
         if (!activeRow) return;
-
         const matricula = activeRow.querySelector('.matricula')?.textContent.trim();
-        window.location.href = `observation.html?matricula=${encodeURIComponent(matricula)}`;
+        window.location.href = `observationsStudentAdmin?enrollment=${encodeURIComponent(matricula)}`;
     });
 
     // =========================
@@ -251,4 +252,12 @@ document.addEventListener('DOMContentLoaded', () => {
             closeOverlay(confirmSaveOverlay);
         }
     });
+
+    // =========================
+    // Filter
+    // =========================
+    buttonFilter.addEventListener('click', () => {
+        const textFilter = inputFilter.value.trim();
+        window.location = `selectClass?filter=${encodeURIComponent(textFilter)}`
+    })
 });

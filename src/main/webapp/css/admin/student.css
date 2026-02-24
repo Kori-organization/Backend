@@ -389,35 +389,35 @@ img {
 
 .grade-card.pink {
     background-color: #FFD6DF;
-    background-image: url("../../Assets/star-t1.svg"); /* pink star image */
+    background-image: url("../../assets/star-t1.svg"); /* pink star image */
     background-size: 75%;
     background-position: right;
 }
 
 .grade-card.green {
     background-color: #C9D97A;
-    background-image: url("../../Assets/star-t2.svg"); /* green star image */
+    background-image: url("../../assets/star-t2.svg"); /* green star image */
     background-size: 75%;
     background-position: right;
 }
 
 .grade-card.blue {
     background-color: #9ED6E2;
-    background-image: url("../../Assets/star-t3.svg"); /* blue star image */
+    background-image: url("../../assets/star-t3.svg"); /* blue star image */
     background-size: 75%;
     background-position: right;
 }
 
 .grade-card.yellow {
     background-color: #F6D890;
-    background-image: url("../../Assets/star-t4.svg"); /* yellow star image */
+    background-image: url("../../assets/star-t4.svg"); /* yellow star image */
     background-size: 75%;
     background-position: right;
 }
 
 .grade-card.gray {
     background-color: #D6D6D6;
-    background-image: url("../../Assets/star-t5.svg"); /* gray star image */
+    background-image: url("../../assets/star-t5.svg"); /* gray star image */
     background-size: 75%;
     background-position: right;
 }

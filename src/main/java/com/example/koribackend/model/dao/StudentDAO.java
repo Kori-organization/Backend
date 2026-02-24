@@ -474,6 +474,67 @@ public class StudentDAO {
         return students;
     }
 
+    public ArrayList<Student> selectStudentForSerieAndEnrollment(int serie, int enrollment) {
+        ArrayList<Student> students = new ArrayList<>();
+
+        String sql = "SELECT enrollment, email, issue_Date, password, name, serie FROM students WHERE serie = ? AND enrollment = ?";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+
+        ) {
+            stmt.setInt(1,serie);
+            stmt.setInt(2,enrollment);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Student student = new Student();
+                student.setEnrollment(rs.getInt("enrollment"));
+                student.setEmail(rs.getString("email"));
+                student.setIssueDate(rs.getDate("issue_Date"));
+                student.setPassword(rs.getString("password"));
+                student.setName(rs.getString("name"));
+                student.setSerie(rs.getInt("serie"));
+                students.add(student);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return students;
+    }
+
+    public ArrayList<Student> selectStudentForSerieAndEmailOrName(int serie, String emailOrName) {
+        ArrayList<Student> students = new ArrayList<>();
+
+        String sql = "SELECT enrollment, email, issue_Date, password, name, serie FROM students WHERE serie = ? AND (email ILIKE ? OR name ILIKE ?)";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+
+        ) {
+            stmt.setInt(1,serie);
+            stmt.setString(2,emailOrName + "%");
+            stmt.setString(3,emailOrName + "%");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Student student = new Student();
+                student.setEnrollment(rs.getInt("enrollment"));
+                student.setEmail(rs.getString("email"));
+                student.setIssueDate(rs.getDate("issue_Date"));
+                student.setPassword(rs.getString("password"));
+                student.setName(rs.getString("name"));
+                student.setSerie(rs.getInt("serie"));
+                students.add(student);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return students;
+    }
+
     public boolean updateStudent(Student student) {
         String sql = "UPDATE students set email = ?, issue_date = ?, password = ?, name = ?, serie = ? WHERE enrollment = ?";
 

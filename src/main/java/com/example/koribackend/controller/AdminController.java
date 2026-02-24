@@ -1,5 +1,7 @@
 package com.example.koribackend.controller;
 
+import com.example.koribackend.dto.StudentObservationsDTO;
+import com.example.koribackend.model.dao.ObservationDAO;
 import com.example.koribackend.model.dao.ProfessorDAO;
 import com.example.koribackend.model.dao.StudentDAO;
 import com.example.koribackend.model.entity.Professor;
@@ -25,7 +27,9 @@ import java.util.ArrayList;
         "/showClass",
         "/selectClass",
         "/deleteStudent",
-        "/updateStudent"})
+        "/updateStudent",
+        "/observationsStudentAdmin",
+        "/deleteObservation"})
 public class AdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -55,7 +59,35 @@ public class AdminController extends HttpServlet {
             case "/deleteStudent":
                 deleteStudent(request,response);
                 break;
+            case "/observationsStudentAdmin":
+                observationsStudent(request,response);
+                break;
+            case "/deleteObservation":
+                deleteObservation(request,response);
+                break;
         }
+    }
+
+    private void deleteObservation(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        boolean result = new ObservationDAO().deleteObservation(id);
+        request.setAttribute("resultDeleteObservation",String.valueOf(result));
+        observationsStudent(request,response);
+    }
+
+    private void observationsStudent(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int enrollment = -1;
+        if (request.getParameter("enrollment") != null) {
+            enrollment = Integer.parseInt(request.getParameter("enrollment"));
+        } else {
+            enrollment = (int) request.getSession(false).getAttribute("enrollment");
+        }
+        request.getSession().setAttribute("enrollment",enrollment);
+        Student student = new StudentDAO().selectStudentByEnrollment(enrollment);
+        StudentObservationsDTO studentObservationsDTO = new StudentObservationsDTO(student.getEnrollment(),student.getName(),student.getEmail(),student.getSerie());
+        studentObservationsDTO.getAllObservations();
+        request.setAttribute("studentObservationsDTO",studentObservationsDTO);
+        request.getRequestDispatcher("/WEB-INF/view/admin/observation.jsp").forward(request,response);
     }
 
     private void deleteStudent(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -74,9 +106,23 @@ public class AdminController extends HttpServlet {
         } else {
             serie = (int) request.getSession().getAttribute("serie");
         }
+
+        String filter = request.getParameter("filter");
+        ArrayList<Student> students = null;
+        if (filter == null) { filter = ""; }
+        filter = filter.trim();
+
+        if (filter.equals("")) {
+            students = new StudentDAO().selectStudentForSerie(serie);
+        } else if (filter.matches("^[0-9]+$")) {
+            students = new StudentDAO().selectStudentForSerieAndEnrollment(serie,Integer.parseInt(filter));
+        } else {
+            students = new StudentDAO().selectStudentForSerieAndEmailOrName(serie,filter);
+        }
+
         request.getSession().setAttribute("serie",serie);
-        ArrayList<Student> students = new StudentDAO().selectStudentForSerie(serie);
         request.setAttribute("students",students);
+        request.setAttribute("filter",filter);
         request.getRequestDispatcher("/WEB-INF/view/admin/student-2.jsp").forward(request,response);
     }
 

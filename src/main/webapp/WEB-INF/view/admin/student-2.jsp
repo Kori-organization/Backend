@@ -22,6 +22,7 @@
     ArrayList<Student> students = (ArrayList<Student>) request.getAttribute("students");
     String resultDeleteStudent = (String) request.getAttribute("resultDeleteStudent");
     String resultEditStudent = (String) request.getAttribute("resultEditStudent");
+    String filter = (String) request.getAttribute("filter");
   %>
 </head>
 <body>
@@ -36,12 +37,12 @@
 
 <main>
   <!-- Page title -->
-  <h1>Alunos do ${empty sessionScope.serie ? "1" : sessionScope.serie}º Ano</h1>
+  <h1>Alunos do ${empty sessionScope.serie ? "" : sessionScope.serie}º Ano</h1>
 
   <!-- Search box -->
   <div class="search-box">
-    <input type="text" placeholder="Pesquisar Aluno..." aria-label="Pesquisar Aluno">
-    <button class="search-btn" title="Pesquisar" aria-label="Pesquisar">
+    <input type="text" placeholder="Pesquisar Aluno..." aria-label="Pesquisar Aluno" id="inputFilter" value="<%=filter%>">
+    <button class="search-btn" title="Pesquisar" aria-label="Pesquisar" id="buttonFilter">
       <img src="${pageContext.request.contextPath}/assets/icon-search.svg" width="17" alt="Pesquisar">
     </button>
   </div>
@@ -167,11 +168,10 @@
 
             <option value="">Selecionar turma</option>
 
-            <option value="1">1º Ano</option>
-            <option value="2">2º Ano</option>
-            <option value="3">3º Ano</option>
-            <option value="4">4º Ano</option>
-            <option value="5">5º Ano</option>
+            <% int serie = (int) request.getSession(false).getAttribute("serie"); %>
+            <% for (int i = 1; i <= 5; i++) { %>
+              <option value="<%=i%>"<%=serie == i ? " selected" : ""%>><%=i%>° Ano</option>
+            <% } %>
 
           </select>
         </div>
