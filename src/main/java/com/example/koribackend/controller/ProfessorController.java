@@ -1,6 +1,7 @@
 package com.example.koribackend.controller;
 
 import com.example.koribackend.dto.StudentDTO;
+import com.example.koribackend.model.dao.GradeDAO;
 import com.example.koribackend.model.dao.ObservationDAO;
 import com.example.koribackend.model.dao.ReportCardDAO;
 import com.example.koribackend.model.dao.StudentDAO;
@@ -30,84 +31,148 @@ import java.util.List;
         "/informationProfessor",
         "/profileProfessor",
         "/logoutProfessor",
-        "/studentReportCard"})
+        "/studentReportCard",
+        "/addGrades",
+        "/addRec"})
 public class ProfessorController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getServletPath();
 
-        if (path.equals("/homeProfessor")) {
-            String subjectName = ((Professor) request.getSession(false).getAttribute("professor")).getSubjectName();
-            request.setAttribute("raking",new StudentDAO().selectClassRanking(subjectName));
-            request.getRequestDispatcher("WEB-INF/view/professor/homeProfessor.jsp").forward(request,response);
-        } else if (path.equals("/observationGrades")) {
-            request.getRequestDispatcher("WEB-INF/view/professor/observation-grades.jsp").forward(request,response);
-        } else if (path.equals("/obsStudentsList")) {
-            String enrollment = request.getParameter("studentId") == null ? "" : request.getParameter("studentId");
-            showStudentsObservationList(request, response, Integer.parseInt(request.getParameter("grade")), enrollment);
-        } else if (path.equals("/obsStudent")) {
-            showStudentObservation(request, response, Integer.parseInt(request.getParameter("studentId")));
-        } else if (path.equals("/reportCardGrades")) {
-            request.getRequestDispatcher("WEB-INF/view/professor/reportcard-grades.jsp").forward(request, response);
-        } else if (path.equals("/reportCardStudentsList")) {
-            String enrollment = request.getParameter("studentId") == null ? "" : request.getParameter("studentId");
-            showStudentsReportCardList(request, response, Integer.parseInt(request.getParameter("grade")), enrollment);
-        } else if (path.equals("/informationProfessor")) {
-            request.getRequestDispatcher("WEB-INF/view/professor/information.jsp").forward(request, response);
-        } else if (path.equals("/profileProfessor")) {
-            request.getRequestDispatcher("WEB-INF/view/professor/profile.jsp").forward(request, response);
-        } else if (path.equals("/logoutProfessor")) {
-            logout(request, response);
-        } else if (path.equals("/studentReportCard")) {
-            showStudentReportCard(request, response, Integer.parseInt(request.getParameter("studentId")));
+        switch (path) {
+            case "/homeProfessor":
+                String subjectName = ((Professor) request.getSession(false).getAttribute("professor")).getSubjectName();
+                request.setAttribute("raking",new StudentDAO().selectClassRanking(subjectName));
+                request.getRequestDispatcher("WEB-INF/view/professor/homeProfessor.jsp").forward(request,response);
+                break;
+            case "/observationGrades":
+                request.getRequestDispatcher("WEB-INF/view/professor/observation-grades.jsp").forward(request,response);
+                break;
+            case "/obsStudentsList":
+                showStudentsObservationList(request, response);
+                break;
+            case "/obsStudent":
+                showStudentObservation(request, response);
+                break;
+            case "/reportCardGrades":
+                request.getRequestDispatcher("WEB-INF/view/professor/reportcard-grades.jsp").forward(request, response);
+                break;
+            case "/reportCardStudentsList":
+                showStudentsReportCardList(request, response);
+                break;
+            case "/informationProfessor":
+                request.getRequestDispatcher("WEB-INF/view/professor/information.jsp").forward(request, response);
+                break;
+            case "/profileProfessor":
+                request.getRequestDispatcher("WEB-INF/view/professor/profile.jsp").forward(request, response);
+                break;
+            case "/logoutProfessor":
+                logout(request, response);
+                break;
+            case "/studentReportCard":
+                showStudentReportCard(request, response, Integer.parseInt(request.getParameter("studentId")));
+                break;
         }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getServletPath();
 
-        if (path.equals("/addObservation")) {
-            addObservation(request, response, Integer.parseInt(request.getParameter("studentId")));
+        switch (path) {
+            case "/addObservation":
+                addObservation(request, response);
+                break;
+            case "/addGrades":
+                addGrades(request,response);
+                break;
+            case "/addRec":
+                addRec(request,response);
+                break;
         }
     }
 
-    private void showStudentsObservationList(HttpServletRequest request, HttpServletResponse response, int grade, String enrollment) throws ServletException, IOException {
-        List<Student> students = new ArrayList<>();
-        if (enrollment.equals("")) {
-            students = new StudentDAO().selectStudentAllByGrade(grade);
+    private void addRec(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
+        double rec = request.getParameter("rec").equals("") ? -1 : Double.parseDouble(request.getParameter("rec"));
+        int enrollment = Integer.parseInt(request.getParameter("enrollment"));
+        String subject = request.getParameter("subject");
+        boolean result = new GradeDAO().updateRec(rec,enrollment,subject);
+        request.setAttribute("resultEditRec",String.valueOf(result));
+        showStudentsReportCardList(request,response);
+    }
+
+    private void addGrades(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        double n1 = request.getParameter("n1").equals("") ? -1 : Double.parseDouble(request.getParameter("n1"));
+        double n2 = request.getParameter("n2").equals("") ? -1 : Double.parseDouble(request.getParameter("n2"));
+        int enrollment = Integer.parseInt(request.getParameter("enrollment"));
+        String subject = request.getParameter("subject");
+        boolean result = new GradeDAO().updateGrades(n1, n2, enrollment,subject);
+        request.setAttribute("resultEditGrades",String.valueOf(result));
+        showStudentsReportCardList(request,response);
+    }
+
+    private void showStudentsObservationList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int grade;
+        if (request.getSession(false).getAttribute("grade") != null) {
+            grade = (int) request.getSession(false).getAttribute("grade");
         } else {
-            students = new StudentDAO().selectStudentsByEnrollment(Integer.parseInt(enrollment));
+            grade = Integer.parseInt(request.getParameter("grade"));
+        }
+        request.getSession().setAttribute("grade",grade);
+        String filter = request.getParameter("filter") == null ? "" : request.getParameter("filter");
+        List<Student> students;
+        if (filter.equals("")) {
+            students = new StudentDAO().selectStudentAllByGrade(grade);
+        } else if (filter.matches("^[0-9]+$")) {
+            students = new StudentDAO().selectStudentsByEnrollment(Integer.parseInt(filter));
+        } else {
+            students = new StudentDAO().selectStudentsByNameOrEmail(filter,grade);
         }
         request.setAttribute("students", students);
-        request.setAttribute("grade", grade);
         request.getRequestDispatcher("WEB-INF/view/professor/obs-students-list.jsp").forward(request, response);
     }
 
-    private void showStudentObservation(HttpServletRequest request, HttpServletResponse response, int studentId) throws ServletException, IOException {
-        Student student = new StudentDAO().selectStudentByEnrollment(studentId);
-        List<Observation> observations = new ObservationDAO().selectObservationsForStudent(studentId);
+    private void showStudentObservation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int enrollment;
+        if (request.getSession(false).getAttribute("enrollmentObs") != null) {
+            enrollment = (int) request.getSession(false).getAttribute("enrollmentObs");
+        } else {
+            enrollment = Integer.parseInt(request.getParameter("enrollment"));
+        }
+        request.getSession().setAttribute("enrollmentObs",enrollment);
+        Student student = new StudentDAO().selectStudentByEnrollment(enrollment);
+        List<Observation> observations = new ObservationDAO().selectObservationsForStudent(enrollment);
         request.setAttribute("student", student);
         request.setAttribute("observations", observations);
         request.getRequestDispatcher("WEB-INF/view/professor/obs-student.jsp").forward(request,response);
     }
 
-    private void showStudentsReportCardList(HttpServletRequest request, HttpServletResponse response, int grade, String enrollment) throws ServletException, IOException {
-        List<StudentDTO> students = new ArrayList<>();
-        if (enrollment.equals("")) {
-            students = new StudentDAO().selectStudentDTOAllByGrade(grade, ((Professor) request.getSession().getAttribute("professor")).getSubjectName());
+    private void showStudentsReportCardList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int grade;
+        if (request.getSession(false).getAttribute("grade") != null) {
+            grade = (int) request.getSession(false).getAttribute("grade");
         } else {
-            students = new StudentDAO().selectStudentDTOByEnrollment(Integer.parseInt(enrollment), ((Professor) request.getSession().getAttribute("professor")).getSubjectName());
+            grade = Integer.parseInt(request.getParameter("grade"));
+        }
+        request.getSession().setAttribute("grade",grade);
+        String filter = request.getParameter("filter") == null ? "" : request.getParameter("filter");
+        List<StudentDTO> students;
+        if (filter.equals("")) {
+            students = new StudentDAO().selectStudentDTOAllByGrade(grade, ((Professor) request.getSession().getAttribute("professor")).getSubjectName());
+        } else if (filter.matches("^[0-9]+$")) {
+            students = new StudentDAO().selectStudentDTOByEnrollment(Integer.parseInt(filter), ((Professor) request.getSession().getAttribute("professor")).getSubjectName());
+        } else {
+            students = new StudentDAO().selectStudentDTOByNameOrEmail(filter, ((Professor) request.getSession().getAttribute("professor")).getSubjectName());
         }
         request.setAttribute("students", students);
-        request.setAttribute("grade", grade);
+        request.setAttribute("filter",filter);
         request.getRequestDispatcher("WEB-INF/view/professor/reportcard-students-list.jsp").forward(request, response);
     }
 
-    private void addObservation(HttpServletRequest request, HttpServletResponse response, int studentId) throws ServletException, IOException {
+    private void addObservation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int enrollment = (int) request.getSession(false).getAttribute("enrollmentObs");
         String observation = request.getParameter("observation");
-        boolean insertResult = new ObservationDAO().insertObservation(studentId, observation);
-        if (insertResult) {
-            response.sendRedirect("obsStudent?studentId=" + studentId);
-        }
+        boolean result = new ObservationDAO().insertObservation(enrollment, observation);
+        request.setAttribute("resultAddObs",String.valueOf(result));
+        showStudentObservation(request,response);
     }
 
     private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -1,15 +1,13 @@
 package com.example.koribackend.model.dao;
 
 import com.example.koribackend.model.entity.Professor;
-import com.example.koribackend.model.entity.Student;
-import com.example.koribackend.util.ConnectionFactory;
+import com.example.koribackend.config.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProfessorDAO {
 

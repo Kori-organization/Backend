@@ -60,6 +60,10 @@ public class ReportCard {
     }
 
     public String toString() {
-        return "ID: " + this.id + " Grader: " + this.grader + " Student name: " + this.studentName + " Final situation: " + this.finalSituation;
+        String text = "";
+        for (Grade grade : grader) {
+            text += grade;
+        }
+        return "ID: " + this.id + " Grader: " + this.grader + " Student name: " + this.studentName + " Final situation: " + this.finalSituation + "Grader: \n" + text;
     }
 }

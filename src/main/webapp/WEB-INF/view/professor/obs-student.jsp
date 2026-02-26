@@ -9,6 +9,7 @@
     Student student = (Student) request.getAttribute("student");
     List<Observation> observations = (List<Observation>) request.getAttribute("observations");
     int counter = 2;
+    String resultAddObs = (String) request.getAttribute("resultAddObs");
 %>
 
 <!doctype html>
@@ -97,7 +98,7 @@
     </div>
 
     <!-- POPUP 1 -->
-    <form action="addObservation" method="post">
+    <form action="addObservation" method="post" id="formAddObservation">
         <div id="observationOverlay" class="overlay" aria-hidden="true">
             <div class="modal observation-modal" role="dialog" aria-modal="true" aria-labelledby="obsTitle">
     
@@ -117,8 +118,7 @@
                 <!-- content -->
                 <div class="observation-content">
                     <label for="observationInput">Escreva a observação para o aluno.</label>
-    
-                    <input type="hidden" name="studentId" value="<%=student.getEnrollment()%>">
+
                     <textarea id="observationInput" placeholder="" maxlength="1000" name="observation"></textarea>
     
                     <p class="admin-warning">
@@ -166,7 +166,7 @@
                         Voltar
                     </button>
     
-                    <button id="confirmObsSend" class="btn-confirm btn-save" type="submit">
+                    <button id="confirmObsSend" class="btn-confirm btn-save" type="button">
                         Salvar
                     </button>
     
@@ -182,6 +182,15 @@
     <div id="toastWrap" class="toast-wrap"></div>
 
 </body>
+<script>
+    const contextPath = "<%=request.getContextPath()%>"
+</script>
 <script src="${pageContext.request.contextPath}/js/professor/obs-student.js"></script>
-
+<script>
+    <% if ("true".equals(resultAddObs)) { %>
+        showToast("success", "Observação salva com sucesso", "A observação foi registrada com êxito.");
+    <% } else if ("false".equals(resultAddObs)) { %>
+        showToast("error", "Erro ao salvar observação", "Algo deu de errado ao salvar a observação. Tente novamente.");
+    <% } %>
+</script>
 </html>

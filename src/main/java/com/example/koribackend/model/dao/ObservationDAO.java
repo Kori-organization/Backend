@@ -1,7 +1,7 @@
 package com.example.koribackend.model.dao;
 
 import com.example.koribackend.model.entity.Observation;
-import com.example.koribackend.util.ConnectionFactory;
+import com.example.koribackend.config.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

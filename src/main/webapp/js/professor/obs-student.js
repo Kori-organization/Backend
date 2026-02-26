@@ -4,6 +4,8 @@ const botoesCopiar = document.querySelectorAll(".copy-btn");
 // Select toast element
 const toast = document.getElementById("copyToast");
 
+const formAddObservation = document.getElementById("formAddObservation");
+
 botoesCopiar.forEach(botao => {
     botao.addEventListener("click", () => {
 
@@ -85,11 +87,9 @@ confirmObsSend.addEventListener("click", () => {
     confirmObservationOverlay.classList.remove("show");
     observationOverlay.classList.remove("show");
 
-    showToast(
-    "success",
-    "Observação salva com sucesso",
-    "A observação foi registrada com êxito."
-);
+    formAddObservation.submit();
+
+
 
 });
 
@@ -101,8 +101,8 @@ function showToast(type = 'success', title = '', subtitle = '') {
 
     const iconSrc =
         type === 'error'
-            ? '../assets/error-icon.svg'
-            : '../assets/check-icon.svg';
+            ? contextPath + '/assets/error-icon.svg'
+            : contextPath + '/assets/check-icon.svg';
 
     toast.innerHTML = `
         <img src="${iconSrc}" class="toast-icon" alt="">
@@ -128,3 +128,5 @@ function showToast(type = 'success', title = '', subtitle = '') {
     }, AUTO_HIDE_MS);
 
 }
+
+window.showToast = showToast;

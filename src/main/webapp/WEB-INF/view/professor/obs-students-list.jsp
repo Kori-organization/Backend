@@ -3,7 +3,6 @@
 <%@ page import="java.util.List" %>
 <%
         List<Student> students = (List<Student>) request.getAttribute("students");
-        int grade = (Integer) request.getAttribute("grade");
 %>
 
 <!doctype html>
@@ -17,7 +16,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
 
     <!-- Page title -->
-    <title>Alunos do <%=grade%>º Ano — Observações</title>
+    <title>Alunos do ${sessionScope.grade}º Ano — Observações</title>
 
     <!-- Favicon -->
     <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
@@ -43,12 +42,11 @@
 
     <main>
         <!-- Page title -->
-        <h1>Alunos do <%=grade%>º Ano</h1>
+        <h1>Alunos do ${sessionScope.grade}º Ano</h1>
 
-        <form action="obsStudentsList">
+        <form action="obsStudentsList" method="get">
             <div class="search-box">
-                <input type="hidden" name="grade" value="<%=grade%>">
-                <input type="text" placeholder="Pesquisar Aluno..." aria-label="Pesquisar Aluno" name="studentId">
+                <input type="text" placeholder="Pesquisar Aluno..." aria-label="Pesquisar Aluno" name="filter">
                 <button class="search-btn" title="Pesquisar" aria-label="Pesquisar" type="submit">
                     <img src="${pageContext.request.contextPath}/assets/icon-search.svg" width="17" alt="Pesquisar">
                 </button>
@@ -72,14 +70,14 @@
             <%
                for (Student student: students) {%>
 
-            <div class="student-row" role="row" onclick="window.location='obsStudent?studentId=<%= student.getEnrollment() %>'">
+            <div class="student-row" role="row">
                 <div class="matricula"><%=student.getEnrollment()%></div>
                 <div class="nome"><%=student.getName()%></div>
                 <div class="email"><%=student.getEmail()%></div>
                 <div class="admissao"><%=student.getIssueDate()%></div>
 
                 <!-- Action buttons -->
-                <div class="actions">
+                <div class="actions" onclick="window.location='obsStudent?enrollment=<%=student.getEnrollment()%>'">
                     <button class="btn-observacoes">
                         <img src="${pageContext.request.contextPath}/assets/notes-5.svg" width="18" alt="">
                         Observações

@@ -1,10 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.koribackend.dto.StudentDTO" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.example.koribackend.model.entity.Professor" %>
 <%
         List<StudentDTO> students = (List<StudentDTO>) request.getAttribute("students");
-        int grade = (Integer) request.getAttribute("grade");
+        int grade = (int) session.getAttribute("grade");
         String dataState = "";
+        String subject = ((Professor) session.getAttribute("professor")).getSubjectName();
+        String resultEditGrades = (String) request.getAttribute("resultEditGrades");
+        String resultEditRec = (String) request.getAttribute("resultEditRec");
 %>
 <!doctype html>
 <html lang="pt-BR">
@@ -44,10 +48,10 @@
         <h1>Alunos do <%=grade%>º Ano</h1>
 
         <!-- Search box -->
-        <form action="reportCardStudentsList">
+        <form action="reportCardStudentsList" method="get">
             <div class="search-box">
                 <input type="hidden" name="grade" value="<%=grade%>">
-                <input type="text" placeholder="Pesquisar Aluno..." aria-label="Pesquisar Aluno" name="studentId">
+                <input type="text" value="${empty requestScope.filter ? "" : requestScope.filter}" placeholder="Pesquisar Aluno..." aria-label="Pesquisar Aluno" name="filter">
                 <button class="search-btn" title="Pesquisar" aria-label="Pesquisar" type="submit">
                     <img src="${pageContext.request.contextPath}/assets/icon-search.svg" width="17" alt="Pesquisar">
                 </button>
@@ -78,12 +82,18 @@
             if (student.getGrade1() == -1 || student.getGrade2() == -1) {
                 dataState = "no-notes";
             } else if ((student.getGrade1() + student.getGrade2()) / 2 < 7) {
-                dataState = "needs-recovery";
+                if (student.getRec() == -1) {
+                    dataState = "needs-recovery";
+                } else {
+                    if ( (((student.getGrade1() + student.getGrade2()) / 2) + student.getRec()) / 2 >= 7 ) {
+                        dataState = "complete";
+                    }
+                }
             } else {
                 dataState = "complete";
             }
         %>
-            <div class="student-row" role="row" data-state="<%=dataState%>">
+            <div class="student-row" role="row" data-state="<%=dataState%>" data-n1="<%=String.format("%.1f",student.getGrade1())%>" data-n2="<%=String.format("%.1f",student.getGrade2())%>" data-rec="<%=String.format("%.1f",student.getRec())%>" data-enrollment="<%=student.getEnrollment()%>">
                 <div class="matricula"><%=student.getEnrollment()%></div>
                 <div class="nome"><%=student.getName()%></div>
                 <div class="email"><%=student.getEmail()%></div>
@@ -109,65 +119,69 @@
 
     <!-- Grade modal overlay -->
     <div id="gradeOverlay" class="overlay" aria-hidden="true">
-        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="gradeTitle">
+        <form id="formEdit" action="addGrades" method="post">
+            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="gradeTitle">
 
-            <!-- Modal header -->
-            <div class="modal-top">
-                <div class="student-info">
-                    <h2 id="gradeTitle">Nome do Aluno</h2>
-                    <p id="gradeEmail">email@exemplo.com</p>
-                </div>
-
-                <!-- Student metadata -->
-                <div class="meta">
-                    <div>Série: <strong id="gradeSerie">1º Ano</strong></div>
-                    <div>Matrícula: <strong id="gradeMat">—</strong></div>
-                </div>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <div class="notes-col">
-
-                    <!-- Grades inputs -->
-                    <div class="notes-2">
-                        <div class="field">
-                            <div class="label">Digite a Nota 1</div>
-                            <div class="note-row">
-                                <input id="nota1" class="note-input" type="number" min="0" max="10" step="0.1"
-                                    placeholder="—" />
-                            </div>
-                        </div>
-
-                        <div class="field">
-                            <div class="label">Digite a Nota 2</div>
-                            <div class="note-row">
-                                <input id="nota2" class="note-input" type="number" min="0" max="10" step="0.1"
-                                    placeholder="—" />
-                            </div>
-                        </div>
+                <!-- Modal header -->
+                <div class="modal-top">
+                    <div class="student-info">
+                        <h2 id="gradeTitle">Nome do Aluno</h2>
+                        <p id="gradeEmail">email@exemplo.com</p>
                     </div>
 
-                    <!-- Admin warning -->
-                    <div id="saveHint" class="admin-note">
-                        Atenção: somente um administrador poderá alterar as notas digitadas acima.
+                    <!-- Student metadata -->
+                    <div class="meta">
+                        <div>Série: <strong id="gradeSerie">1º Ano</strong></div>
+                        <div>Matrícula: <strong id="gradeMat">—</strong></div>
                     </div>
                 </div>
 
-                <!-- Average grade display -->
-                <div class="average-box">
-                    <div class="title">Média do aluno</div>
-                    <div id="avgValue" class="value">—</div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                        <div class="notes-col">
+                            <input type="hidden" name="enrollment" id="enrollmentGrades">
+                            <input type="hidden" name="subject" value="<%=subject%>">
+                            <!-- Grades inputs -->
+                            <div class="notes-2">
+                                <div class="field">
+                                    <div class="label">Digite a Nota 1</div>
+                                    <div class="note-row">
+                                        <input id="nota1" class="note-input" name="n1" type="number" min="0" max="10" step="0.1"
+                                            placeholder="—" />
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <div class="label">Digite a Nota 2</div>
+                                    <div class="note-row">
+                                        <input id="nota2" class="note-input" name="n2" type="number" min="0" max="10" step="0.1"
+                                            placeholder="—" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Admin warning -->
+                            <div id="saveHint" class="admin-note">
+                                Atenção: somente um administrador poderá alterar as notas digitadas acima.
+                            </div>
+                        </div>
+
+                    <!-- Average grade display -->
+                    <div class="average-box">
+                        <div class="title">Média do aluno</div>
+                        <div id="avgValue" class="value">—</div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button id="btnBack" type="button" class="btn ghost">Voltar</button>
+                    <button id="btnSaveNote" type="button" class="btn primary">Salvar nota</button>
                 </div>
             </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button id="btnBack" class="btn ghost">Voltar</button>
-                <button id="btnSaveNote" class="btn primary">Salvar nota</button>
-            </div>
-        </div>
+        </form>
     </div>
+
 
     <!-- Confirmation modal -->
     <div id="confirmOverlay" class="overlay" aria-hidden="true">
@@ -207,60 +221,63 @@
 
     <!-- Recovery modal -->
     <div id="recoveryOverlay" class="overlay" aria-hidden="true">
-        <div class="modal" role="dialog" aria-modal="true">
-
-            <!-- Header -->
-            <div class="modal-top" style="background-color: #C0CF5B;">
-                <div class="student-info">
-                    <h2 id="recoveryTitle">Nome do Aluno</h2>
-                    <p id="recoveryEmail">email@exemplo.com</p>
-                </div>
-
-                <div class="meta">
-                    <div>Série: <strong id="recoverySerie">1º Ano</strong></div>
-                    <div>Matrícula: <strong id="recoveryMat">—</strong></div>
-                </div>
-            </div>
-
-            <!-- Body -->
-            <div class="modal-body">
-                <div class="notes-col">
-                    <div class="notes-2">
-                        <div class="field">
-                            <div class="label">Nota 1</div>
-                            <input id="recNota1" class="note-input" disabled placeholder="—">
-                        </div>
-
-                        <div class="field">
-                            <div class="label">Nota 2</div>
-                            <input id="recNota2" class="note-input" disabled placeholder="—">
-                        </div>
-
-                        <div class="field">
-                            <div class="label">Média</div>
-                            <input id="recMedia" class="note-input" disabled placeholder="—">
-                        </div>
+        <form action="addRec" method="post" id="formEditRec">
+            <div class="modal" role="dialog" aria-modal="true">
+                <input type="hidden" name="enrollment" id="enrollmentRec">
+                <input type="hidden" name="subject" value="<%=subject%>">
+                <!-- Header -->
+                <div class="modal-top" style="background-color: #C0CF5B;">
+                    <div class="student-info">
+                        <h2 id="recoveryTitle">Nome do Aluno</h2>
+                        <p id="recoveryEmail">email@exemplo.com</p>
                     </div>
 
-                    <div class="field" style="margin-left: 35px;">
-                        <div class="label">Digite a nota de recuperação</div>
-                        <input id="recInput" class="note-input" type="number" min="0" max="10" step="0.1"
-                            placeholder="—">
+                    <div class="meta">
+                        <div>Série: <strong id="recoverySerie">1º Ano</strong></div>
+                        <div>Matrícula: <strong id="recoveryMat">—</strong></div>
                     </div>
                 </div>
 
-                <div class="average-box">
-                    <div class="title" style="font-size: 14px;">Média final do aluno</div>
-                    <div id="recFinal" class="value">—</div>
+                <!-- Body -->
+                <div class="modal-body">
+                    <div class="notes-col">
+                        <div class="notes-2">
+                            <div class="field">
+                                <div class="label">Nota 1</div>
+                                <input id="recNota1" class="note-input" disabled placeholder="—">
+                            </div>
+
+                            <div class="field">
+                                <div class="label">Nota 2</div>
+                                <input id="recNota2" class="note-input" disabled placeholder="—">
+                            </div>
+
+                            <div class="field">
+                                <div class="label">Média</div>
+                                <input id="recMedia" class="note-input" disabled placeholder="—">
+                            </div>
+                        </div>
+
+                        <div class="field" style="margin-left: 35px;">
+                            <div class="label">Digite a nota de recuperação</div>
+                            <input id="recInput" class="note-input" name="rec" type="number" min="0" max="10" step="0.1"
+                                placeholder="—">
+                        </div>
+                    </div>
+
+                    <div class="average-box">
+                        <div class="title" style="font-size: 14px;">Média final do aluno</div>
+                        <div id="recFinal" class="value">—</div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="modal-footer" style="margin-top: -30px;">
+                    <button id="recBack" type="button" class="btn ghost">Voltar</button>
+                    <button id="recToConfirm" type="button" class="btn primary">Salvar nota</button>
                 </div>
             </div>
-
-            <!-- Footer -->
-            <div class="modal-footer" style="margin-top: -30px;">
-                <button id="recBack" class="btn ghost">Voltar</button>
-                <button id="recToConfirm" class="btn primary">Salvar nota</button>
-            </div>
-        </div>
+        </form>
     </div>
 
     <!-- Recovery Confirmation modal -->
@@ -282,14 +299,27 @@
             </p>
 
             <div class="confirm-actions">
-                <button id="confirmRecoveryCancel" class="btn ghost">Voltar</button>
-                <button id="confirmRecoverySend" class="btn primary">Salvar</button>
+                <button id="confirmRecoveryCancel" type="button" class="btn ghost">Voltar</button>
+                <button id="confirmRecoverySend" type="button" class="btn primary">Salvar</button>
             </div>
         </div>
     </div>
 </body>
 
 <!-- Main JavaScript file -->
-    <script src="${pageContext.request.contextPath}/js/professor/bulletin-students-list.js"></script>
-
+<script>
+    const contextPath = "<%=request.getContextPath()%>"
+</script>
+<script src="${pageContext.request.contextPath}/js/professor/bulletin-students-list.js"></script>
+<script>
+    <% if ("true".equals(resultEditGrades)) { %>
+        showToast('success', 'Nota salva com sucesso.', 'A nota foi salva com êxito.');
+    <% } else if ("false".equals(resultEditGrades)) { %>
+        showToast('error', 'Não foi possível salvar a nota.', 'Verifique sua conexão e tente novamente.');
+    <% } else if ("true".equals(resultEditRec)) { %>
+        showToast('success', 'Recuperação salva', 'A nota foi registrada com sucesso');
+    <% } else if ("false".equals(resultEditRec)) { %>
+        showToast('error', 'Erro ao salvar', 'Verifique sua conexão e tente novamente');
+    <% } %>
+</script>
 </html>

@@ -39,7 +39,7 @@
     </div>
 
     <!-- Logout -->
-    <div class="logout" onclick="window.location='/logoutAdmin'">
+    <div class="logout" onclick="window.location='logoutAdmin'">
       <img src="${pageContext.request.contextPath}/assets/icon-logout.svg" width="38">
     </div>
   </aside>

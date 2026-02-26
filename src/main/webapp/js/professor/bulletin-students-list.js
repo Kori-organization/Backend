@@ -31,6 +31,9 @@ const confirmAvg = document.getElementById('confirmAvg');
 // Currently selected student row
 let currentRow = null;
 
+let formEdit = document.getElementById("formEdit");
+let formEditRec = document.getElementById("formEditRec");
+
 
 // ===== GLOBAL CLICK HANDLER =====
 
@@ -50,14 +53,22 @@ document.addEventListener('click', (e) => {
 function openGradeModal(row) {
     currentRow = row;
 
+    const nota1 = row.dataset.n1.replace(",",".");
+    const nota2 = row.dataset.n2.replace(",",".");
+    const enrollment = row.dataset.enrollment;
+    console.log(enrollment)
+
     gradeTitle.textContent = row.querySelector('.nome').textContent.trim();
     gradeEmail.textContent = row.querySelector('.email').textContent.trim();
     gradeMat.textContent = row.querySelector('.matricula').textContent.trim();
 
+    document.getElementById("nota1").value = nota1 !== "-1.0" ? nota1 : "";
+    document.getElementById("nota2").value = nota2 !== "-1.0" ? nota2 : "";
+    document.getElementById("enrollmentGrades").value = enrollment;
+
+    calcAvg();
+
     // Reset inputs and UI
-    nota1Input.value = '';
-    nota2Input.value = '';
-    avgValue.textContent = '—';
     saveHint.style.display = 'none';
 
     // Show modal
@@ -113,7 +124,6 @@ function calcAvg() {
         avgValue.textContent = '—';
         return;
     }
-
     avgValue.textContent = calculateAverageValue();
 }
 
@@ -162,34 +172,7 @@ document.getElementById('confirmSend').addEventListener('click', () => {
     btn.disabled = true;
     btn.textContent = 'Enviando...';
 
-    // Simulate async request
-    setTimeout(() => {
-        const success = Math.random() < 0.88;
-
-        if (success) {
-            showToast('success', 'Nota salva com sucesso.', 'A nota foi salva com êxito.');
-
-            // Store average on row dataset
-            if (currentRow) {
-                currentRow.dataset.average = calculateAverageValue();
-                currentRow.style.boxShadow = '0 10px 28px rgba(2,6,23,0.06)';
-            }
-
-            closeConfirmModal();
-            closeGradeModal();
-        } else {
-            showToast(
-                'error',
-                'Não foi possível salvar a nota.',
-                'Verifique sua conexão e tente novamente.'
-            );
-            closeConfirmModal();
-        }
-
-        // Reset button state
-        btn.disabled = false;
-        btn.textContent = 'Tem certeza?';
-    }, 720);
+    formEdit.submit();
 });
 
 
@@ -215,8 +198,8 @@ function showToast(type = 'success', title = '', subtitle = '') {
 
     const iconSrc =
         type === 'error'
-            ? '../Assets/error-icon.svg'
-            : '../Assets/check-icon.svg';
+            ? contextPath + '/assets/error-icon.svg'
+            : contextPath + '/assets/check-icon.svg';
 
     toast.innerHTML = `
         <img src="${iconSrc}" class="toast-icon" alt="">
@@ -340,19 +323,20 @@ document.addEventListener('click', (e) => {
 function openRecoveryModal(row) {
     currentRecoveryRow = row;
 
-    // Get stored grades if available
-    const savedN1 = row.dataset.nota1 ?? '';
-    const savedN2 = row.dataset.nota2 ?? '';
+    const nota1 = row.dataset.n1.replace(",",".");
+    const nota2 = row.dataset.n2.replace(",",".");
+    const enrollment = row.dataset.enrollment;
 
     // Fill grade inputs
-    recNota1.value = savedN1;
-    recNota2.value = savedN2;
+    recNota1.value = nota1;
+    recNota2.value = nota2;
+    document.getElementById("enrollmentRec").value = enrollment;
 
     // Calculate media if possible
     let mediaVal;
 
-    if (savedN1 || savedN2)
-        mediaVal = computeAverageFromNotes(savedN1, savedN2);
+    if (nota1 || nota2)
+        mediaVal = computeAverageFromNotes(nota1, nota2);
     else if (row.dataset.average)
         mediaVal = parseGradeVal(row.dataset.average);
     else
@@ -487,39 +471,7 @@ confirmRecoverySend.addEventListener('click', () => {
     btn.disabled = true;
     btn.textContent = 'Salvando...';
 
-    setTimeout(() => {
-        const success = Math.random() < 0.92;
-        if (success) {
-            if (currentRecoveryRow) {
-                currentRecoveryRow.dataset.recovery = recInput.value;
-                currentRecoveryRow.dataset.averageFinal = recFinal.textContent;
-                if (recNota1.value)
-                    currentRecoveryRow.dataset.nota1 = recNota1.value;
-                if (recNota2.value)
-                    currentRecoveryRow.dataset.nota2 = recNota2.value;
-                currentRecoveryRow.style.boxShadow =
-                    '0 10px 28px rgba(2,6,23,0.06)';
-            }
-            showToast(
-                'success',
-                'Recuperação salva',
-                'A nota foi registrada com sucesso'
-            );
-            confirmRecoveryOverlay.classList.remove('show');
-            recoveryOverlay.classList.remove('show');
-        }
-        else {
-            showToast(
-                'error',
-                'Erro ao salvar',
-                'Verifique sua conexão e tente novamente'
-            );
-            confirmRecoveryOverlay.classList.remove('show');
-        }
-
-        btn.disabled = false;
-        btn.textContent = 'Salvar';
-    }, 720);
+    formEditRec.submit();
 });
 
 // ===== CLOSE RECOVERY MODAL ON OUTSIDE CLICK =====
@@ -571,3 +523,5 @@ function applyRowUIState(row) {
 document.querySelectorAll('.student-row').forEach(row => {
     applyRowUIState(row);
 });
+
+window.showToast = showToast;

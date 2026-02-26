@@ -2,7 +2,7 @@ package com.example.koribackend.model.dao;
 
 import com.example.koribackend.model.entity.Grade;
 import com.example.koribackend.model.entity.ReportCard;
-import com.example.koribackend.util.ConnectionFactory;
+import com.example.koribackend.config.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,4 +52,48 @@ public class ReportCardDAO {
         return reportCard;
     }
 
+    public void updateSituation(int idStudent) {
+        // SQL query
+        String sql1 = "    SELECT CASE WHEN SUM(CASE WHEN situacao = 'Em andamento' THEN 1 ELSE 0 END) > 0 THEN 'Em andamento' WHEN SUM(CASE WHEN situacao = 'Reprovado' THEN 1 ELSE 0 END) > 0 THEN 'Reprovado' WHEN SUM(CASE WHEN situacao = 'Recuperação' THEN 1 ELSE 0 END) > 0 THEN\n" +
+                "'Em andamento' ELSE 'Aprovado' END AS situacao_final FROM (SELECT CASE WHEN g.grade1 IS NULL OR g.grade2 IS NULL THEN 'Em andamento' WHEN (g.grade1 + g.grade2) / 2 >= 7 THEN 'Aprovado' WHEN g.rec IS NOT NULL THEN CASE WHEN ((g.grade1 + g.grade2) / 2 + g.rec) / 2 >= 7 THEN" +
+                "'Aprovado' ELSE 'Reprovado' END ELSE 'Recuperação' END AS situacao FROM students s LEFT JOIN report_card rc ON rc.student_id = s.enrollment LEFT JOIN grade_rep gr ON gr.rep_id = rc.id LEFT JOIN grades g ON g.id = gr.grade_id WHERE s.enrollment = ?) t;";
+        String sql2 = "UPDATE report_card SET final_situation = ? WHERE student_id = ?";
+
+        // Execute query
+        Connection conn = null;
+        try {
+            conn = ConnectionFactory.getConnection();
+            conn.setAutoCommit(false);
+
+            String situation = "";
+            try (PreparedStatement psmt1 = conn.prepareStatement(sql1)) {
+                psmt1.setInt(1, idStudent);
+                try (ResultSet rs = psmt1.executeQuery()) {
+                    if (rs.next()) {
+                        situation = rs.getString(1);
+                    }
+                }
+            }
+
+            try (PreparedStatement psmt2 = conn.prepareStatement(sql2)) {
+                psmt2.setString(1,situation);
+                psmt2.setInt(2, idStudent);
+                psmt2.execute();
+            }
+            conn.commit();
+        } catch (Exception e) {
+            try {
+                if (conn != null) conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.setAutoCommit(true);
+                    conn.close();
+                }
+            } catch (Exception ignored) {}
+        }
+    }
 }

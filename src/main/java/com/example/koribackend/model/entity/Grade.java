@@ -58,6 +58,6 @@ public class Grade {
     }
 
     public String toString() {
-        return "ID: " + this.id + "\nGrade 1: " + this.grade1 + "\nGrade 2: " + this.grade2 + "\nSubject: " + this.subject + "\nRecuperation: " + this.rec;
+        return "ID: " + this.id + "\tGrade 1: " + this.grade1 + "\tGrade 2: " + this.grade2 + "\tSubject: " + this.subject + "\tRecuperation: " + this.rec;
     }
 }
