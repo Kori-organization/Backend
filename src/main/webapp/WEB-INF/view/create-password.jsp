@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Criar nova senha – Kori</title>
+  <title>Kori - Criar nova senha</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/create-password.css">
   <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
 </head>

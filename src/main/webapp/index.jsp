@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login – Kori</title>
+    <title>Kori - Login</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel="icon" href="assets/logo-top.svg" type="image/png">
 </head>

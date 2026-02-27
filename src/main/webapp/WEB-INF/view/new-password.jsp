@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senha alterada – Kori</title>
+    <title>Kori - Senha alterada</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/new-password.css">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
 </head>

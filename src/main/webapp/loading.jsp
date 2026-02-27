@@ -10,7 +10,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kori - Carregando</title>
+    <link rel="icon" type="image/png" href="assets/logo-top.svg">
+    <title id="title">Carregando</title>
 
     <style>
         body {
@@ -184,6 +185,27 @@
     window.onpopstate = function () {
         history.go(1);
     };
+    function load() {
+        let text = ''
+        const title = document.getElementById("title");
+        switch (title.innerHTML) {
+            case "Carregando":
+                text = "Carregando.";
+                break;
+            case "Carregando.":
+                text = "Carregando..";
+                break;
+            case "Carregando..":
+                text = "Carregando...";
+                break;
+            case "Carregando...":
+                text = "Carregando"
+                break;
+        }
+        title.innerHTML = text;
+        setTimeout(load,500)
+    }
+    load()
 </script>
 </body>
 </html>
