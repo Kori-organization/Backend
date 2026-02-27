@@ -129,8 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!activeRow) return;
 
-        const matricula = activeRow.querySelector('.matricula')?.textContent.trim();
-        window.location.href = `bulletin.html?matricula=${encodeURIComponent(matricula)}`;
+        const enrollment = activeRow.querySelector('.matricula')?.textContent.trim();
+        window.location.href = `showReportCardStudent?enrollmentBulletin=${encodeURIComponent(enrollment)}`;
     });
 
     // =========================

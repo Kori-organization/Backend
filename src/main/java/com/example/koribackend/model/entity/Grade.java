@@ -15,6 +15,13 @@ public class Grade {
         this.rec = rec;
     }
 
+    public Grade(double grade1, double grade2, String subject, double rec) {
+        this.grade1 = grade1;
+        this.grade2 = grade2;
+        this.subject = subject;
+        this.rec = rec;
+    }
+
     public Grade() { }
 
     public int getId() {

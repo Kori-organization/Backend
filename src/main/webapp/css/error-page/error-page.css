@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+:root {
+    --bg: #FDF6E3;
+    --text: #102C3D;
+    --muted: #8b98a0;
+    --accent: #F5C659;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    user-select: none;
+}
+
+/* Background circles */
+.bg-shape {
+    position: fixed;
+    border-radius: 50%;
+    opacity: 0.75;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.bg-blue {
+    width: 680px;
+    height: 680px;
+    background: #9dd9e0;
+    top: -160px;
+    left: 40px;
+}
+
+.bg-pink {
+    width: 720px;
+    height: 720px;
+    background: #f2a7b1;
+    top: -260px;
+    right: 20px;
+}
+
+.bg-yellow {
+    width: 380px;
+    height: 380px;
+    background: #f6d38b;
+    bottom: 140px;
+    right: 360px;
+}
+
+.bg-red {
+    width: 420px;
+    height: 420px;
+    background: #f79b96;
+    left: 20px;
+    bottom: 60px;
+}
+
+/* Container */
+.container {
+    width: 50%;
+    max-width: 1200px;
+    background: linear-gradient(135deg, #f6fbff, #fff2cc);
+    border-radius: 20px;
+    padding: 64px 56px;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+    border: 0.5px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(18px);
+    margin: 0 auto;
+}
+
+.big-x {
+    width: 300px;
+    margin-top: 180px;
+    margin-right: 1000px;
+    height: auto;
+    position: fixed;
+    filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.25));
+}
+
+.right {
+    flex: 1;
+    color: var(--text);
+}
+
+.right h1 {
+    font-size: 64px;
+    line-height: 1;
+    margin-bottom: 8px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.right h2 {
+    font-size: 22px;
+    margin-bottom: 18px;
+    color: var(--text);
+    font-weight: 600;
+}
+
+.right p {
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 520px;
+    margin-bottom: 28px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 26px;
+    border-radius: 28px;
+    background: var(--accent);
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 8px 18px rgba(245, 198, 89, 0.28);
+    transition: transform .18s ease;
+}
+
+.btn:hover {
+    transform: scale(1.02);
+}
+
+.small {
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 13px;
+}

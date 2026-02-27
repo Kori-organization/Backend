@@ -1,0 +1,464 @@
+/* Import Google Font: Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;700&display=swap');
+
+/* Global CSS variables */
+:root {
+    --sidebar-blue: #092831;
+    --page-bg: #FAF6EB;
+    --card-bg: #FFFFFF;
+    --muted: #6b7280;
+    --text: #0f1724;
+    --accent: #F5C659;
+    --radius: 18px;
+    --soft-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+    --success: #8EE07D;
+    --danger: #FF6B6B;
+}
+
+/* Reset box model */
+* {
+    box-sizing: border-box
+}
+
+/* Body base styles */
+body {
+    margin: 0;
+    font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+    background: var(--sidebar-blue);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+}
+
+/* Top navigation bar */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    background: var(--sidebar-blue);
+    display: flex;
+    align-items: center;
+    padding: 12px 80px;
+    z-index: 20;
+}
+
+/* Back button style */
+.topbar .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #FFD76B;
+    padding: 15px 30px;
+    border-radius: 999px;
+    color: #021018;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform .18s ease, box-shadow .18s;
+}
+
+/* Back button hover effect */
+.topbar .back:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Greeting image (right side) */
+.img-greeting {
+    margin-left: auto;
+    cursor: pointer;
+    transition: transform .18s ease;
+}
+
+/* Greeting image hover animation */
+.img-greeting:hover {
+    transform: scale(1.03);
+}
+
+/* Main content container */
+main {
+    margin-top: 160px;
+    background: var(--page-bg);
+    border-top-left-radius: 52px;
+    border-top-right-radius: 52px;
+    padding: 74px;
+    box-shadow: 0 8px 30px rgba(2, 6, 23, 0.12);
+    min-height: calc(100vh - 140px);
+}
+
+/* Final status card */
+.final-status {
+    position: absolute;
+    right: 120px;
+    height: 180px;
+    top: -10px;
+    background: #FFFFFF;
+    padding: 29px 32px;
+    border-radius: 49px;
+    font-weight: 600;
+    z-index: 1;
+    font-size: 21px;
+    margin-top: 357px;
+    margin-right: 87px;
+    display: flex;
+    gap: 15px;
+}
+
+.download-icon {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    margin-top: 2px;
+    transition: transform 0.2s ease;
+}
+
+.download-icon:hover {
+    transform: scale(1.05);
+}
+
+
+/* Report card grid */
+.bulletin {
+    position: relative;
+    display: flex;
+    gap: 6px;
+    background: #FFFFFF;
+    border-radius: 28px;
+    width: fit-content;
+    z-index: 2;
+    padding-top: 15px;
+    padding-right: 30px;
+    border-top-left-radius: 60px;
+    margin-left: 210px;
+    margin-top: 187px;
+    transform: scale(1.20);
+    margin-bottom: 50px;
+}
+
+/* Bulletin title */
+.bulletin-title {
+    position: relative;
+    margin-left: 90px;
+    margin-right: 140px;
+    color: #102C3D;
+}
+
+.bulletin-year {
+    position: absolute;
+    right: 0;
+    top: 10px;
+    font-size: 28px;
+    font-weight: 600;
+    color: #102C3D;
+    margin-top: -11px;
+}
+
+/* Bulletin columns */
+.bcol {
+    padding: 16px;
+    border-radius: 22px;
+    min-width: 160px;
+    margin-right: -30px;
+}
+
+/* Column headers with unique rounded corners */
+.bcol.left h3 {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 12px;
+    background-color: #ECECEC;
+    padding-top: 32%;
+    width: 145px;
+    height: 110px;
+    margin-top: -20px;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 30px;
+}
+
+.bcol.left2 h3 {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 12px;
+    background-color: #ECECEC;
+    padding-top: 22%;
+    width: 145px;
+    height: 110px;
+    margin-top: -20px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.bcol.left3 h3 {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 12px;
+    background-color: #ECECEC;
+    padding-top: 22%;
+    width: 145px;
+    height: 110px;
+    margin-top: -20px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.bcol.right3 h3 {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 12px;
+    background-color: #ECECEC;
+    padding-top: 22%;
+    width: 145px;
+    height: 110px;
+    margin-top: -20px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.bcol.right2 h3 {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 12px;
+    background-color: #ECECEC;
+    padding-top: 32%;
+    width: 145px;
+    height: 110px;
+    margin-top: -20px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.bcol.right h3 {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 12px;
+    background-color: #ECECEC;
+    padding-top: 32%;
+    width: 145px;
+    height: 110px;
+    margin-top: -20px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 60px;
+}
+
+/* Badge styles for semester labels */
+.badge {
+    display: block;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 12px;
+    margin: 0 auto 6px;
+    width: fit-content;
+}
+
+.badge.yellow {
+    background: #F5C65966;
+}
+
+.badge.pink {
+    background: #FFD3DF;
+}
+
+/* Grade items */
+.bitem {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 3px solid #D6D6D6;
+    font-weight: 600;
+    background-color: #F6F6F6;
+}
+
+.bitem.top {
+    margin-top: -20px;
+}
+
+.bitem.bottom {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    height: 70px;
+}
+
+.bitem:last-child {
+    border: none;
+}
+
+.subject {
+    justify-content: center;
+    padding-left: 0;
+    text-align: center;
+}
+
+/* Color coding for grades */
+.red {
+    color: #ff3b30;
+}
+
+.green {
+    color: #8CA11C;
+}
+
+.yellow {
+    color: #d4a017;
+}
+
+/* Small overlay show class behavior */
+.overlay.show {
+    display: flex;
+}
+
+/* Delete in red */
+.popup-item.delete {
+    color: #ff3b30;
+}
+
+.nota {
+    width: 60px;
+    height: 38px;
+    text-align: center;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+    background: #fff;
+    font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+}
+
+.save-btn {
+    margin-left: 1180px;
+    margin-top: 60px;
+
+    padding: 20px 50px;
+    border-radius: 999px;
+    border: none;
+
+    background: #F5C659;
+    color: #102C3D;
+
+    font-weight: 600;
+    font-size: 15px;
+    width: 230px;
+    font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+    cursor: pointer;
+    transition: background .2s, transform .15s;
+}
+
+.save-btn:hover {
+    background: #e9bb4e;
+}
+
+.nota.warning {
+    border: 2px solid #F5C659;
+    background: #fffaf0;
+}
+
+.nota.warning:focus {
+    box-shadow: 0 0 0 2px rgba(245, 198, 89, 0.4);
+}
+
+/* Chrome, Edge, Safari */
+.nota::-webkit-outer-spin-button,
+.nota::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.toast {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    background: #FF6B6B;
+    color: #fff;
+    padding: 16px 22px;
+    border-radius: 14px;
+    font-weight: 600;
+    box-shadow: 0 10px 25px rgba(0,0,0,.15);
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity .3s ease, transform .3s ease;
+    z-index: 9999;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f2f2f2;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e6b53b;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #e6b53b;
+}
+
+.toast-wrap {
+    position: fixed;
+    left: 28px;
+    bottom: 28px;
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.toastDown {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    min-width: 240px;
+    max-width: 400px;
+    background: #ffffff;
+    color: #111827;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transform-origin: bottom left;
+    transform: scale(1.4);
+    animation: toastIn 220ms ease;
+    height: 65px;
+}
+
+/* Toast types */
+.toastDown.success {
+    border-left: 4px solid #22c55e;
+}
+
+.toastDown.error {
+    border-left: 4px solid #ef4444;
+}
+
+.toast-text {
+    margin-top: 10px;
+}
+
+.toast-text h4 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.toast-text p {
+    margin-top: 2px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #6b7280;
+}
+
+.toastDown.hide {
+    opacity: 0;
+    transform: translateY(8px) scale(1.4);
+    transition: opacity 240ms ease, transform 240ms ease;
+}

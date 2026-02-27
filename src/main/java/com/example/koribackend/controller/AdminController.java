@@ -1,10 +1,10 @@
 package com.example.koribackend.controller;
 
 import com.example.koribackend.dto.StudentObservationsDTO;
-import com.example.koribackend.model.dao.ObservationDAO;
-import com.example.koribackend.model.dao.ProfessorDAO;
-import com.example.koribackend.model.dao.StudentDAO;
+import com.example.koribackend.model.dao.*;
+import com.example.koribackend.model.entity.Grade;
 import com.example.koribackend.model.entity.Professor;
+import com.example.koribackend.model.entity.ReportCard;
 import com.example.koribackend.model.entity.Student;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -29,7 +29,9 @@ import java.util.ArrayList;
         "/deleteStudent",
         "/updateStudent",
         "/observationsStudentAdmin",
-        "/deleteObservation"})
+        "/deleteObservation",
+        "/showReportCardStudent",
+        "/addGradesReportCard"})
 public class AdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -65,7 +67,23 @@ public class AdminController extends HttpServlet {
             case "/deleteObservation":
                 deleteObservation(request,response);
                 break;
+            case "/showReportCardStudent":
+                showReportCardStudent(request,response);
+                break;
         }
+    }
+
+    private void showReportCardStudent(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int enrollment;
+        if (request.getSession(false).getAttribute("enrollmentBulletin") != null) {
+            enrollment = (int) request.getSession(false).getAttribute("enrollmentBulletin");
+        } else {
+            enrollment = Integer.parseInt(request.getParameter("enrollmentBulletin"));
+        }
+        request.getSession().setAttribute("enrollmentBulletin",enrollment);
+        ReportCard reportCard = new ReportCardDAO().selectReportCard(enrollment);
+        request.setAttribute("reportCard",reportCard);
+        request.getRequestDispatcher("WEB-INF/view/admin/bulletin.jsp").forward(request,response);
     }
 
     private void deleteObservation(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -165,7 +183,32 @@ public class AdminController extends HttpServlet {
             case "/updateStudent":
                 updateStudent(request,response);
                 break;
+            case "/addGradesReportCard":
+                addGradesReportCard(request,response);
+                break;
         }
+    }
+
+    private void addGradesReportCard(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        ArrayList<Grade> grades = new ArrayList<>();
+        int enrollment = (int) request.getSession(false).getAttribute("enrollmentBulletin");
+        int size = Integer.parseInt(request.getParameter("size")) + 1;
+        int count = 1;
+        while (count != size) {
+            String subject = request.getParameter(String.format("subject_%d",count));
+            String n1Param = request.getParameter(String.format("n1_%d", count));
+            String n2Param = request.getParameter(String.format("n2_%d", count));
+            String recParam = request.getParameter(String.format("rec_%d", count));
+
+            double n1 = (n1Param == null || n1Param.isBlank()) ? -1 : Double.parseDouble(n1Param);
+            double n2 = (n2Param == null || n2Param.isBlank()) ? -1 : Double.parseDouble(n2Param);
+            double rec = (recParam == null || recParam.isBlank()) ? -1 : Double.parseDouble(recParam);
+            grades.add(new Grade(n1,n2,subject,rec));
+            count++;
+        }
+        boolean result = new GradeDAO().updateAllGrades(grades,enrollment);
+        request.setAttribute("resultAddAllGrades",String.valueOf(result));
+        showReportCardStudent(request,response);
     }
 
     private void updateStudent(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
