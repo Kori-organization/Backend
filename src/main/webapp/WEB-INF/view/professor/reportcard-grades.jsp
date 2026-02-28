@@ -61,6 +61,10 @@
                 <div class="cards-grid">
 
                     <div class="grade-card pink" onclick="window.location='reportCardStudentsList?grade=1'">
+                        <div class="card-icon">
+                            <img src="${pageContext.request.contextPath}/assets/bulletin-pink.svg" alt="Ícone 1º Ano">
+                        </div>
+
                         <div class="card-label">
                             <h2>1º Ano</h2>
                             <p>Clique para cadastrar notas desta turma.</p>
@@ -68,6 +72,10 @@
                     </div>
 
                     <div class="grade-card green" onclick="window.location='reportCardStudentsList?grade=2'">
+                        <div class="card-icon">
+                            <img src="${pageContext.request.contextPath}/assets/bulletin-green.svg" alt="Ícone 2º Ano">
+                        </div>
+
                         <div class="card-label">
                             <h2>2º Ano</h2>
                             <p>Clique para cadastrar notas desta turma.</p>
@@ -75,6 +83,10 @@
                     </div>
 
                     <div class="grade-card blue" onclick="window.location='reportCardStudentsList?grade=3'">
+                        <div class="card-icon">
+                            <img src="${pageContext.request.contextPath}/assets/bulletin-blue.svg" alt="Ícone 3º Ano">
+                        </div>
+
                         <div class="card-label">
                             <h2>3º Ano</h2>
                             <p>Clique para cadastrar notas desta turma.</p>
@@ -82,6 +94,10 @@
                     </div>
 
                     <div class="grade-card yellow" onclick="window.location='reportCardStudentsList?grade=4'">
+                        <div class="card-icon">
+                            <img src="${pageContext.request.contextPath}/assets/bulletin-yellow.svg" alt="Ícone 4º Ano">
+                        </div>
+
                         <div class="card-label">
                             <h2>4º Ano</h2>
                             <p>Clique para cadastrar notas desta turma.</p>
@@ -89,6 +105,10 @@
                     </div>
 
                     <div class="grade-card gray" onclick="window.location='reportCardStudentsList?grade=5'">
+                        <div class="card-icon">
+                            <img src="${pageContext.request.contextPath}/assets/bulletin-gray.svg" alt="Ícone 5º Ano">
+                        </div>
+
                         <div class="card-label">
                             <h2>5º Ano</h2>
                             <p>Clique para cadastrar notas desta turma.</p>

@@ -50,10 +50,10 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: #FFD76B;
+    background: #F5C659;
     padding: 15px 30px;
     border-radius: 999px;
-    color: #021018;
+    color: #102C3D;
     font-weight: 600;
     text-decoration: none;
     transition: transform .18s ease, box-shadow .18s;
@@ -93,6 +93,7 @@ h1 {
     font-size: 36px;
     font-weight: 700;
     margin-bottom: 60px;
+    color: #102C3D;
 }
 
 /* Profile card */
@@ -111,7 +112,7 @@ h1 {
 .profile-hero {
     position: relative;
     height: 120px;
-    background: linear-gradient(90deg, #F9B0C4 0%, #FFD1DB 100%);
+    background: #F9B0C4;
     border-top-left-radius: 32px;
     border-top-right-radius: 32px;
     display: flex;
@@ -119,15 +120,15 @@ h1 {
     padding: 20px 40px;
 }
 
-/* decorative angled sheen on the right of the hero */
+/* Decorative angled sheen on the right of the hero */
 .profile-hero .hero-sheen {
     position: absolute;
     right: 70px;
     top: 0;
     width: 36%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06));
-    clip-path: polygon(15% 0, 100% 0, 85% 100%, 0% 100%);
+    background: #FFD9E2;
+    clip-path: polygon(30% 0, 100% 0, 70% 100%, 0% 100%);
     pointer-events: none;
 }
 
@@ -160,36 +161,36 @@ h1 {
     margin-bottom: 22px;
 }
 
-/* label style */
+/* Label style */
 .profile-col .label {
     font-size: 13px;
-    color: var(--muted);
+    color: black;
     margin-bottom: 6px;
     font-weight: 600;
 }
 
-/* value style (stronger) */
+/* Value style (stronger) */
 .profile-col .value {
     font-size: 18px;
-    color: #071018;
+    color: black;
     font-weight: 700;
 }
 
-/* name bigger */
+/* Name bigger */
 .profile-col .value.name {
     font-size: 26px;
     letter-spacing: -0.3px;
     width: 400px;
 }
 
-/* email slightly larger and line-break friendly */
+/* Email slightly larger and line-break friendly */
 .profile-col .value.email {
     font-size: 18px;
     word-break: break-all;
     width: 600px;
 }
 
-/* right column meta rows */
+/* Right column meta rows */
 .profile-right {
     margin-right: 90px;
 }
@@ -212,16 +213,16 @@ h1 {
     margin-top: 6px;
 }
 
-/* help link under the card */
+/* Help link under the card */
 .profile-help {
     text-align: center;
     font-size: 13px;
-    color: var(--muted);
-        margin-top: 40px;
+    color: #102C3D;
+    margin-top: 40px;
 }
 
 .profile-help .support-link {
-    color: #63707a;
+    color: #102C3D;
     text-decoration: underline;
 }
 
@@ -249,12 +250,13 @@ h1 {
     margin: 0 auto;
     background: none;
     border: none;
-    color: #ff3b3b;
+    color: #FF3737;
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
     margin-top: -30px;
     transition: opacity .2s ease;
+    font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
 }
 
 .logout-btn:hover {
@@ -322,7 +324,7 @@ h1 {
     color: #fff;
 }
 
-/* Animação */
+/* Animation */
 @keyframes scaleIn {
     from {
         transform: scale(0.9);

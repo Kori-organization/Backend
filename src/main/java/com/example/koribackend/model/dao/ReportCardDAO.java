@@ -10,62 +10,107 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Data Access Object for Report Cards.
+ * Manages the retrieval of student grades and the logic for calculating
+ * the final academic situation.
+ */
 public class ReportCardDAO {
 
+    /**
+     * Retrieves a complete ReportCard for a specific student.
+     * Combines student details with a list of all subjects and their respective grades.
+     */
     public ReportCard selectReportCard(int idStudent) {
         ReportCard reportCard = null;
 
-        // SQL query
-        String sql1 = "SELECT sj.id, sj.name, g.grade1, g.grade2, g.rec FROM subjects sj LEFT JOIN ( SELECT g.* FROM grades g JOIN grade_rep gr ON gr.grade_id = g.id JOIN report_card rc ON rc.id = gr.rep_id WHERE rc.student_id = ?) g ON g.subject_id = sj.id ORDER BY sj.id";
-        String sql2 = "SELECT rc.id, s.name, rc.final_situation, s.serie FROM students s JOIN report_card rc ON s.enrollment = rc.student_id WHERE enrollment = ?";
+        // SQL1: Fetches all subjects and joins with grades specifically for this student
+        String sql1 = "SELECT sj.id, sj.name, g.grade1, g.grade2, g.rec FROM subjects sj " +
+                "LEFT JOIN (SELECT g.* FROM grades g JOIN grade_rep gr ON gr.grade_id = g.id " +
+                "JOIN report_card rc ON rc.id = gr.rep_id WHERE rc.student_id = ?) g " +
+                "ON g.subject_id = sj.id ORDER BY sj.id";
 
-        // Execute query
+        // SQL2: Fetches basic report card info and student identity
+        String sql2 = "SELECT rc.id, s.name, rc.final_situation, s.serie FROM students s " +
+                "JOIN report_card rc ON s.enrollment = rc.student_id WHERE enrollment = ?";
+
         try (
                 Connection conn = ConnectionFactory.getConnection();
                 PreparedStatement stmt1 = conn.prepareStatement(sql1);
                 PreparedStatement stmt2 = conn.prepareStatement(sql2)
         ) {
-            stmt1.setInt(1,idStudent);
-            stmt2.setInt(1,idStudent);
+            stmt1.setInt(1, idStudent);
+            stmt2.setInt(1, idStudent);
+
             ResultSet rs1 = stmt1.executeQuery();
             ResultSet rs2 = stmt2.executeQuery();
+
             ArrayList<Grade> grades = new ArrayList<>();
+
+            // Map result set to Grade entities
             while (rs1.next()) {
                 Grade grade = new Grade();
                 grade.setId(rs1.getInt(1));
                 grade.setSubject(rs1.getString(2));
+
+                // Handle null grades by assigning -1 to represent "Not Graded"
                 grade.setGrade1(rs1.getDouble(3));
                 if (rs1.wasNull()) { grade.setGrade1(-1); }
+
                 grade.setGrade2(rs1.getDouble(4));
                 if (rs1.wasNull()) { grade.setGrade2(-1); }
+
                 grade.setRec(rs1.getDouble(5));
                 if (rs1.wasNull()) { grade.setRec(-1); }
+
                 grades.add(grade);
             }
+
+            // If the report card exists, assemble the final object
             if (rs2.next()) {
-                reportCard = new ReportCard(rs2.getInt(1),grades,rs2.getString(2),rs2.getString(3),rs2.getInt(4));
+                reportCard = new ReportCard(rs2.getInt(1), grades, rs2.getString(2), rs2.getString(3), rs2.getInt(4));
             }
         } catch (SQLException e) {
-            // Handle error
             e.printStackTrace();
         }
         return reportCard;
     }
 
+    /**
+     * Calculates and updates the student's final situation (Aprovado, Reprovado, or Em andamento).
+     * This method uses a complex SQL CASE statement to evaluate all subject averages at once.
+     */
     public void updateSituation(int idStudent) {
-        // SQL query
-        String sql1 = "    SELECT CASE WHEN SUM(CASE WHEN situacao = 'Em andamento' THEN 1 ELSE 0 END) > 0 THEN 'Em andamento' WHEN SUM(CASE WHEN situacao = 'Reprovado' THEN 1 ELSE 0 END) > 0 THEN 'Reprovado' WHEN SUM(CASE WHEN situacao = 'Recuperação' THEN 1 ELSE 0 END) > 0 THEN\n" +
-                "'Em andamento' ELSE 'Aprovado' END AS situacao_final FROM (SELECT CASE WHEN g.grade1 IS NULL OR g.grade2 IS NULL THEN 'Em andamento' WHEN (g.grade1 + g.grade2) / 2 >= 7 THEN 'Aprovado' WHEN g.rec IS NOT NULL THEN CASE WHEN ((g.grade1 + g.grade2) / 2 + g.rec) / 2 >= 7 THEN" +
-                "'Aprovado' ELSE 'Reprovado' END ELSE 'Recuperação' END AS situacao FROM students s LEFT JOIN report_card rc ON rc.student_id = s.enrollment LEFT JOIN grade_rep gr ON gr.rep_id = rc.id LEFT JOIN grades g ON g.id = gr.grade_id WHERE s.enrollment = ?) t;";
+        // SQL1 logic:
+        // 1. If any subject is missing N1 or N2 -> 'Em andamento'
+        // 2. If average < 7 and no recovery -> 'Recuperação'
+        // 3. If recovery exists, check new average -> 'Aprovado' or 'Reprovado'
+        // 4. Finally, aggregate all results: if one subject is 'Em andamento', the whole card is 'Em andamento'
+        String sql1 = "SELECT CASE " +
+                "WHEN SUM(CASE WHEN situacao = 'Em andamento' THEN 1 ELSE 0 END) > 0 THEN 'Em andamento' " +
+                "WHEN SUM(CASE WHEN situacao = 'Reprovado' THEN 1 ELSE 0 END) > 0 THEN 'Reprovado' " +
+                "WHEN SUM(CASE WHEN situacao = 'Recuperação' THEN 1 ELSE 0 END) > 0 THEN 'Em andamento' " +
+                "ELSE 'Aprovado' END AS situacao_final FROM (" +
+                "SELECT CASE " +
+                "WHEN g.grade1 IS NULL OR g.grade2 IS NULL THEN 'Em andamento' " +
+                "WHEN (g.grade1 + g.grade2) / 2 >= 7 THEN 'Aprovado' " +
+                "WHEN g.rec IS NOT NULL THEN " +
+                "CASE WHEN ((g.grade1 + g.grade2) / 2 + g.rec) / 2 >= 7 THEN 'Aprovado' ELSE 'Reprovado' END " +
+                "ELSE 'Recuperação' END AS situacao " +
+                "FROM students s " +
+                "LEFT JOIN report_card rc ON rc.student_id = s.enrollment " +
+                "LEFT JOIN grade_rep gr ON gr.rep_id = rc.id " +
+                "LEFT JOIN grades g ON g.id = gr.grade_id WHERE s.enrollment = ?) t;";
+
         String sql2 = "UPDATE report_card SET final_situation = ? WHERE student_id = ?";
 
-        // Execute query
         Connection conn = null;
         try {
             conn = ConnectionFactory.getConnection();
-            conn.setAutoCommit(false);
+            conn.setAutoCommit(false); // Transaction ensures consistent state
 
             String situation = "";
+            // Step 1: Calculate the new global situation
             try (PreparedStatement psmt1 = conn.prepareStatement(sql1)) {
                 psmt1.setInt(1, idStudent);
                 try (ResultSet rs = psmt1.executeQuery()) {
@@ -75,19 +120,22 @@ public class ReportCardDAO {
                 }
             }
 
+            // Step 2: Update the report_card table with the result
             try (PreparedStatement psmt2 = conn.prepareStatement(sql2)) {
-                psmt2.setString(1,situation);
+                psmt2.setString(1, situation);
                 psmt2.setInt(2, idStudent);
                 psmt2.execute();
             }
             conn.commit();
         } catch (Exception e) {
+            // Rollback if calculation or update fails
             try {
                 if (conn != null) conn.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         } finally {
+            // Cleanup connection
             try {
                 if (conn != null) {
                     conn.setAutoCommit(true);

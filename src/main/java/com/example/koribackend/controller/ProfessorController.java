@@ -1,5 +1,6 @@
 package com.example.koribackend.controller;
 
+// Import DTOs, DAOs, and Entity models for academic and behavioral data
 import com.example.koribackend.dto.StudentDTO;
 import com.example.koribackend.model.dao.GradeDAO;
 import com.example.koribackend.model.dao.ObservationDAO;
@@ -17,9 +18,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
+// Map multiple endpoints related to professor actions and student management
 @WebServlet(urlPatterns = {
         "/homeProfessor",
         "/obsStudentsList",
@@ -35,11 +36,14 @@ import java.util.List;
         "/addGrades",
         "/addRec"})
 public class ProfessorController extends HttpServlet {
+
+    // Handle navigation and data retrieval for the professor interface
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getServletPath();
 
         switch (path) {
             case "/homeProfessor":
+                // Fetch the subject assigned to the logged-in professor and display the class ranking
                 String subjectName = ((Professor) request.getSession(false).getAttribute("professor")).getSubjectName();
                 request.setAttribute("raking",new StudentDAO().selectClassRanking(subjectName));
                 request.getRequestDispatcher("WEB-INF/view/professor/homeProfessor.jsp").forward(request,response);
@@ -74,6 +78,7 @@ public class ProfessorController extends HttpServlet {
         }
     }
 
+    // Handle data submission such as observations and grade updates
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getServletPath();
 
@@ -90,7 +95,9 @@ public class ProfessorController extends HttpServlet {
         }
     }
 
+    // Update the recovery (remedial) grade for a specific student and subject
     private void addRec(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
+        // Parse the recovery grade, defaulting to -1 if the input is empty
         double rec = request.getParameter("rec").equals("") ? -1 : Double.parseDouble(request.getParameter("rec"));
         int enrollment = Integer.parseInt(request.getParameter("enrollment"));
         String subject = request.getParameter("subject");
@@ -99,7 +106,9 @@ public class ProfessorController extends HttpServlet {
         showStudentsReportCardList(request,response);
     }
 
+    // Update standard grades (n1 and n2) for a specific student and subject
     private void addGrades(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        // Parse input grades and handle empty values as -1
         double n1 = request.getParameter("n1").equals("") ? -1 : Double.parseDouble(request.getParameter("n1"));
         double n2 = request.getParameter("n2").equals("") ? -1 : Double.parseDouble(request.getParameter("n2"));
         int enrollment = Integer.parseInt(request.getParameter("enrollment"));
@@ -109,8 +118,10 @@ public class ProfessorController extends HttpServlet {
         showStudentsReportCardList(request,response);
     }
 
+    // Display a list of students for behavioral observation filtering by grade level or search criteria
     private void showStudentsObservationList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int grade;
+        // Check session for grade level to maintain state during filtering
         if (request.getSession(false).getAttribute("grade") != null) {
             grade = (int) request.getSession(false).getAttribute("grade");
         } else {
@@ -119,6 +130,8 @@ public class ProfessorController extends HttpServlet {
         request.getSession().setAttribute("grade",grade);
         String filter = request.getParameter("filter") == null ? "" : request.getParameter("filter");
         List<Student> students;
+
+        // Execute search logic based on whether the filter is empty, numeric (enrollment), or text-based
         if (filter.equals("")) {
             students = new StudentDAO().selectStudentAllByGrade(grade);
         } else if (filter.matches("^[0-9]+$")) {
@@ -130,6 +143,7 @@ public class ProfessorController extends HttpServlet {
         request.getRequestDispatcher("WEB-INF/view/professor/obs-students-list.jsp").forward(request, response);
     }
 
+    // Fetch and display specific behavioral notes for a single student
     private void showStudentObservation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int enrollment;
         if (request.getSession(false).getAttribute("enrollmentObs") != null) {
@@ -145,6 +159,7 @@ public class ProfessorController extends HttpServlet {
         request.getRequestDispatcher("WEB-INF/view/professor/obs-student.jsp").forward(request,response);
     }
 
+    // Display student list specifically formatted for report card and grade management
     private void showStudentsReportCardList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int grade;
         if (request.getSession(false).getAttribute("grade") != null) {
@@ -155,6 +170,8 @@ public class ProfessorController extends HttpServlet {
         request.getSession().setAttribute("grade",grade);
         String filter = request.getParameter("filter") == null ? "" : request.getParameter("filter");
         List<StudentDTO> students;
+
+        // Retrieve student DTOs including performance data for the specific subject
         if (filter.equals("")) {
             students = new StudentDAO().selectStudentDTOAllByGrade(grade, ((Professor) request.getSession().getAttribute("professor")).getSubjectName());
         } else if (filter.matches("^[0-9]+$")) {
@@ -167,6 +184,7 @@ public class ProfessorController extends HttpServlet {
         request.getRequestDispatcher("WEB-INF/view/professor/reportcard-students-list.jsp").forward(request, response);
     }
 
+    // Insert a new behavioral observation for a student and refresh the view
     private void addObservation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int enrollment = (int) request.getSession(false).getAttribute("enrollmentObs");
         String observation = request.getParameter("observation");
@@ -175,6 +193,7 @@ public class ProfessorController extends HttpServlet {
         showStudentObservation(request,response);
     }
 
+    // Invalidate the session and redirect the professor back to the login screen
     private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -183,6 +202,7 @@ public class ProfessorController extends HttpServlet {
         response.sendRedirect("enter");
     }
 
+    // Retrieve and display the full academic report card for a specific student
     private void showStudentReportCard(HttpServletRequest request, HttpServletResponse response, int enrollment) throws ServletException, IOException {
         ReportCard reportCard = new ReportCardDAO().selectReportCard(enrollment);
         Student student = new StudentDAO().selectStudentByEnrollment(enrollment);

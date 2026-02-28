@@ -50,10 +50,10 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: #FFD76B;
+    background: #F5C659;
     padding: 15px 30px;
     border-radius: 999px;
-    color: #021018;
+    color: #102C3D;
     font-weight: 600;
     text-decoration: none;
     transition: transform .18s ease, box-shadow .18s;
@@ -142,6 +142,7 @@ main {
     position: relative;
     margin-left: 90px;
     margin-right: 140px;
+    color: #102C3D;
 }
 
 .bulletin-year {

@@ -114,7 +114,6 @@ function showToast(type = 'success', title = '', subtitle = '') {
 
     toastWrap.appendChild(toast);
 
-    // tempo total visível
     const AUTO_HIDE_MS = 4000;
 
     setTimeout(() => {

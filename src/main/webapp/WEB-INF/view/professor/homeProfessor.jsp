@@ -6,13 +6,10 @@
 <html lang="pt-BR">
 
 <head>
-    <!-- Basic page settings -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Kori – Início</title>
     <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
-
-    <!-- Main stylesheet -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/professor/home-screen.css">
     <%
         Professor professor = (Professor) session.getAttribute("professor");
@@ -37,13 +34,13 @@
                     <h2>Boletim</h2>
                 </div>
 
-                <div class="menu-item active2 two">
-                    <img src="${pageContext.request.contextPath}/assets/notes.svg" alt="Observações" onclick="window.location='observationGrades'">
+                <div class="menu-item active2 two" onclick="window.location='observationGrades'">
+                    <img src="${pageContext.request.contextPath}/assets/notes.svg" alt="Observações">
                     <h2>Observações</h2>
                 </div>
 
-                <div class="menu-item active2 three">
-                    <img src="${pageContext.request.contextPath}/assets/info-circle.svg" alt="Professores" onclick="window.location='informationProfessor'">
+                <div class="menu-item active2 three" onclick="window.location='informationProfessor'">
+                    <img src="${pageContext.request.contextPath}/assets/info-circle.svg" alt="Professores">
                     <h2>Informações</h2>
                 </div>
             </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kori – Estudante</title>
+    <title>Kori – Informações</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/student/information.css">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
 </head>
@@ -17,8 +17,8 @@
                 <img src="${pageContext.request.contextPath}/assets/home-3.svg">
                 <h2>Início</h2>
             </div>
-            <div class="menu-item active2 two">
-                <img src="${pageContext.request.contextPath}/assets/greeting.svg" onclick="window.location='reportCardStudent'">
+            <div class="menu-item active2 two" onclick="window.location='reportCardStudent'">
+                <img src="${pageContext.request.contextPath}/assets/greeting.svg">
                 <h2>Boletim</h2>
             </div>
             <div class="menu-item active2 three" onclick="window.location='observationsStudent'">

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kori – Boletim</title>
+  <title>Kori – Alunos</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/student.css">
   <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
 </head>
@@ -42,7 +42,7 @@
     <div class="color"></div>
 
     <div class="top-main">
-      <div class="logo-container" onclick="location.reload()">
+      <div class="logo-container" onclick="window.location='homeAdmin'">
         <img src="${pageContext.request.contextPath}/assets/logo.svg" width="180">
       </div>
       <div class="home-button" onclick="location.reload()">

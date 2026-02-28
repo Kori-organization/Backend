@@ -375,6 +375,7 @@ img {
     margin-bottom: 35px;
     margin-left: 25px;
     margin-top: 180px;
+    color: #102C3D;
 }
 
 .cards-grid {
@@ -384,6 +385,28 @@ img {
     margin-left: 85px;
     margin-top: 60px;
     transform: scale(1.1);
+}
+
+.grade-card {
+    position: relative;
+}
+
+.card-icon {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-icon img {
+    width: 35px;
+    height: 35px;
 }
 
 /* Card base */
@@ -421,45 +444,46 @@ img {
     font-size: 26px;
     font-weight: 600;
     margin-bottom: 4px;
+    color: #102C3D;
 }
 
 .card-label p {
     font-size: 10px;
     font-weight: 600;
-    color: #6b7280;
+    color: #102C3D;
 }
 
 .grade-card.pink {
-    background-color: #FFD6DF;
-    background-image: url("../../assets/star-t1.svg"); /* pink star image */
+    background-color: rgba(251, 216, 222, 1);
+    background-image: url("../../assets/star-t1.svg"); /* Pink star image */
     background-size: 75%;
     background-position: right;
 }
 
 .grade-card.green {
-    background-color: #C9D97A;
-    background-image: url("../../assets/star-t2.svg"); /* green star image */
+    background-color: rgba(200, 211, 114, 1);
+    background-image: url("../../assets/star-t2.svg"); /* Green star image */
     background-size: 75%;
     background-position: right;
 }
 
 .grade-card.blue {
-    background-color: #9ED6E2;
-    background-image: url("../../assets/star-t3.svg"); /* blue star image */
+    background-color: rgba(174, 217, 224, 1);
+    background-image: url("../../assets/star-t3.svg"); /* Blue star image */
     background-size: 75%;
     background-position: right;
 }
 
 .grade-card.yellow {
-    background-color: #F6D890;
-    background-image: url("../../assets/star-t4.svg"); /* yellow star image */
+    background-color: rgba(248, 222, 161, 1);
+    background-image: url("../../assets/star-t4.svg"); /* Yellow star image */
     background-size: 75%;
     background-position: right;
 }
 
 .grade-card.gray {
-    background-color: #D6D6D6;
-    background-image: url("../../assets/star-t5.svg"); /* gray star image */
+    background-color: rgba(209, 209, 209, 1);
+    background-image: url("../../assets/star-t5.svg"); /* Gray star image */
     background-size: 75%;
     background-position: right;
 }

@@ -5,35 +5,49 @@ import jakarta.mail.*;
 import jakarta.mail.internet.*;
 import java.util.Properties;
 
+/**
+ * Utility class for handling email operations using Jakarta Mail.
+ */
 public class JavaMail {
 
+    // Load environment variables from .env file
     private static Dotenv dotenv = Dotenv.load();
+    // Retrieve the email password from environment variables
     private static String senha = dotenv.get("EMAIL_PASSWORD");
 
 
     public static boolean sendPasswordRecovery(String email, String token, String baseURL) {
+        // Set up SMTP server properties
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
 
+        // Create a mail session with authentication
         Session session = Session.getInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("korieducation@gmail.com",senha);
+                return new PasswordAuthentication("korieducation@gmail.com", senha);
             }
         });
+
+        // Enable debug mode to see mail logs in console
         session.setDebug(true);
 
         try {
+            // Initialize the email message
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("korieducation@gmail.com"));
             message.setRecipients(
                     Message.RecipientType.TO,
                     InternetAddress.parse(email)
             );
+
+            // Generate the recovery link
             String link = baseURL + "/checkToken?token=" + token;
             message.setSubject("Recuperação de senha - Kori");
+
+            // Define the HTML body content with inline CSS styling
             String formatacao = "<body style='margin:0; padding:0; background-color:#ffffff; font-family:Arial, Helvetica, sans-serif; user-select:none;'>" +
                     "<div style='width:100%; display:flex; justify-content:center; padding:40px 0;'>" +
                     "    <div style='width:500px; max-width:90%; background-color:#FAF6EB; border:6.12px solid #53BDD9; border-radius:28px; overflow:hidden;'>" +
@@ -78,11 +92,14 @@ public class JavaMail {
                     "</div>" +
                     "</body>";
 
+            // Set content type to HTML and charset to UTF-8
             message.setContent(formatacao, "text/html; charset=UTF-8");
 
+            // Attempt to send the message
             Transport.send(message);
             return true;
         } catch (MessagingException e) {
+            // Log the error if sending fails
             e.printStackTrace();
             return false;
         }

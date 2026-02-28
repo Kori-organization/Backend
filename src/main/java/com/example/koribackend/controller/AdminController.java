@@ -1,5 +1,6 @@
 package com.example.koribackend.controller;
 
+// Import Data Transfer Objects, DAOs, and Entity models
 import com.example.koribackend.dto.StudentObservationsDTO;
 import com.example.koribackend.model.dao.*;
 import com.example.koribackend.model.entity.Grade;
@@ -15,6 +16,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+// Map multiple administrative URL patterns to this single controller
 @WebServlet(urlPatterns = {
         "/homeAdmin",
         "/informationsAdmin",
@@ -33,6 +35,8 @@ import java.util.ArrayList;
         "/showReportCardStudent",
         "/addGradesReportCard"})
 public class AdminController extends HttpServlet {
+
+    // Handle incoming GET requests and route them to specific internal methods
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getServletPath();
@@ -73,19 +77,23 @@ public class AdminController extends HttpServlet {
         }
     }
 
+    // Retrieve and display the report card for a specific student
     private void showReportCardStudent(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int enrollment;
+        // Check if enrollment exists in the session; otherwise, get it from the request parameter
         if (request.getSession(false).getAttribute("enrollmentBulletin") != null) {
             enrollment = (int) request.getSession(false).getAttribute("enrollmentBulletin");
         } else {
             enrollment = Integer.parseInt(request.getParameter("enrollmentBulletin"));
         }
         request.getSession().setAttribute("enrollmentBulletin",enrollment);
+        // Fetch report card data via DAO
         ReportCard reportCard = new ReportCardDAO().selectReportCard(enrollment);
         request.setAttribute("reportCard",reportCard);
         request.getRequestDispatcher("WEB-INF/view/admin/bulletin.jsp").forward(request,response);
     }
 
+    // Remove a specific behavioral observation and refresh the view
     private void deleteObservation(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
         boolean result = new ObservationDAO().deleteObservation(id);
@@ -93,6 +101,7 @@ public class AdminController extends HttpServlet {
         observationsStudent(request,response);
     }
 
+    // Load and display all observations associated with a student
     private void observationsStudent(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int enrollment = -1;
         if (request.getParameter("enrollment") != null) {
@@ -101,6 +110,7 @@ public class AdminController extends HttpServlet {
             enrollment = (int) request.getSession(false).getAttribute("enrollment");
         }
         request.getSession().setAttribute("enrollment",enrollment);
+        // Map student data to a DTO containing observations
         Student student = new StudentDAO().selectStudentByEnrollment(enrollment);
         StudentObservationsDTO studentObservationsDTO = new StudentObservationsDTO(student.getEnrollment(),student.getName(),student.getEmail(),student.getSerie());
         studentObservationsDTO.getAllObservations();
@@ -108,6 +118,7 @@ public class AdminController extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/view/admin/observation.jsp").forward(request,response);
     }
 
+    // Remove a student record from the database
     private void deleteStudent(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int enrollment = Integer.parseInt(request.getParameter("enrollment"));
         String name = request.getParameter("name");
@@ -116,6 +127,8 @@ public class AdminController extends HttpServlet {
         request.setAttribute("name",name);
         request.getRequestDispatcher("selectClass").forward(request,response);
     }
+
+    // Filter students by grade level (serie) and optional search criteria
     private void selectClass(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String serieString = request.getParameter("serie");
         int serie = -1;
@@ -130,6 +143,7 @@ public class AdminController extends HttpServlet {
         if (filter == null) { filter = ""; }
         filter = filter.trim();
 
+        // Branch search logic based on whether the filter is empty, numeric (enrollment), or text (name/email)
         if (filter.equals("")) {
             students = new StudentDAO().selectStudentForSerie(serie);
         } else if (filter.matches("^[0-9]+$")) {
@@ -144,6 +158,7 @@ public class AdminController extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/view/admin/student-2.jsp").forward(request,response);
     }
 
+    // Remove a professor from the database
     private void deleteProfessor(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
@@ -153,12 +168,14 @@ public class AdminController extends HttpServlet {
         request.getRequestDispatcher("showProfessors").forward(request,response);
     }
 
+    // Fetch all professors and forward to the management view
     private void showProfessors(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Professor> professors = new ProfessorDAO().selectProfessorAll();
         request.setAttribute("professors",professors);
         request.getRequestDispatcher("/WEB-INF/view/admin/teacher.jsp").forward(request,response);
     }
 
+    // Invalidate the current session and redirect to the login page
     private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -167,6 +184,7 @@ public class AdminController extends HttpServlet {
         response.sendRedirect("enter");
     }
 
+    // Handle incoming POST requests for data creation and modification
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getServletPath();
@@ -189,17 +207,20 @@ public class AdminController extends HttpServlet {
         }
     }
 
+    // Batch process and update multiple subject grades for a student
     private void addGradesReportCard(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         ArrayList<Grade> grades = new ArrayList<>();
         int enrollment = (int) request.getSession(false).getAttribute("enrollmentBulletin");
         int size = Integer.parseInt(request.getParameter("size")) + 1;
         int count = 1;
+        // Loop through the submitted parameters to collect grades for each subject
         while (count != size) {
             String subject = request.getParameter(String.format("subject_%d",count));
             String n1Param = request.getParameter(String.format("n1_%d", count));
             String n2Param = request.getParameter(String.format("n2_%d", count));
             String recParam = request.getParameter(String.format("rec_%d", count));
 
+            // Parse values while handling empty strings as -1 (null equivalent)
             double n1 = (n1Param == null || n1Param.isBlank()) ? -1 : Double.parseDouble(n1Param);
             double n2 = (n2Param == null || n2Param.isBlank()) ? -1 : Double.parseDouble(n2Param);
             double rec = (recParam == null || recParam.isBlank()) ? -1 : Double.parseDouble(recParam);
@@ -211,6 +232,7 @@ public class AdminController extends HttpServlet {
         showReportCardStudent(request,response);
     }
 
+    // Update existing student details
     private void updateStudent(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int enrollment = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
@@ -224,6 +246,7 @@ public class AdminController extends HttpServlet {
         selectClass(request,response);
     }
 
+    // Update existing professor details
     private void editProfessor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("idEdit"));
         String user = request.getParameter("userEdit");
@@ -236,6 +259,7 @@ public class AdminController extends HttpServlet {
         showProfessors(request,response);
     }
 
+    // Register a new professor in the system
     private void createProfessor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String user = request.getParameter("user");
         String name = request.getParameter("name");
@@ -246,6 +270,7 @@ public class AdminController extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/view/admin/homeAdmin.jsp").forward(request,response);
     }
 
+    // Register a new student in the system
     private void createStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
         String email = request.getParameter("email");

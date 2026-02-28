@@ -93,7 +93,7 @@ h1 {
     margin: 15px 0 38px 6px;
     font-size: 28px;
     font-weight: 700;
-    color: #21303a;
+    color: #092831;
 }
 
 /* Search input container */
@@ -144,7 +144,7 @@ button,
 input,
 textarea,
 select {
-    font-family: inherit
+    font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
 }
 
 /* Table container */
@@ -158,7 +158,7 @@ select {
     grid-template-columns: 150px 1fr 1.5fr 180px 180px;
     gap: 20px;
     font-size: 13px;
-    color: var(--muted);
+    color: #879396;
     padding: 8px 18px;
     align-items: center;
 }
@@ -181,7 +181,7 @@ select {
 .student-row .matricula {
     font-size: 13px;
     font-weight: 600;
-    color: #0f1724;
+    color: #102C3D;
 }
 
 /* Student name */
@@ -306,7 +306,7 @@ select {
     gap: 18px;
 }
 
-/* pink circle icon */
+/* Pink circle icon */
 .confirm-icon-inner {
     width: 86px;
     height: 86px;
@@ -645,10 +645,9 @@ form {
     flex-direction: column;
 }
 
-/* header color like screenshot */
+/* Header color like screenshot */
 .edit-student-header {
     background: #53BDD9;
-    /* teal from screenshot */
     padding: 38px 44px;
 }
 
@@ -663,7 +662,7 @@ form {
     color: #08202a;
 }
 
-/* form layout */
+/* Form layout */
 .edit-student-form {
     padding: 28px 42px;
     display: flex;
@@ -682,7 +681,7 @@ form {
     align-items: flex-end;
 }
 
-/* fields */
+/* Fields */
 .field {
     flex: 1;
     display: flex;
@@ -716,7 +715,7 @@ form {
     outline: none;
 }
 
-/* password */
+/* Password */
 .password-input-wrap {
     position: relative;
     display: flex;
@@ -737,7 +736,7 @@ form {
     cursor: pointer;
 }
 
-/* actions row */
+/* Actions row */
 .edit-student-actions {
     display: flex;
     gap: 18px;
@@ -789,12 +788,12 @@ select {
     background: white;
 }
 
-/* top row: Nome and Email same size */
+/* Top row: Nome and Email same size */
 .row-2 .field {
     flex: 1;
 }
 
-/* bottom row proportions */
+/* Bottom row proportions */
 .row-3 .field.small {
     flex: 0.5;
 }
@@ -808,7 +807,7 @@ select {
 }
 
 
-/* small overlay show class behavior */
+/* Small overlay show class behavior */
 .overlay.show {
     display: flex;
 }

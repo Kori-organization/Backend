@@ -2,13 +2,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <!-- Basic page settings -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Kori – Início</title>
   <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
-
-  <!-- Main stylesheet -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/student/home-screen.css">
   <%
     Student student = (Student) session.getAttribute("student");
@@ -31,13 +28,13 @@
         <h2>Boletim</h2>
       </div>
 
-      <div class="menu-item active2 two">
-        <img src="${pageContext.request.contextPath}/assets/notes.svg" alt="Observações" onclick="window.location='observationsStudent'">
+      <div class="menu-item active2 two" onclick="window.location='observationsStudent'">
+        <img src="${pageContext.request.contextPath}/assets/notes.svg" alt="Observações">
         <h2>Observações</h2>
       </div>
 
-      <div class="menu-item active2 three">
-        <img src="${pageContext.request.contextPath}/assets/info-circle.svg" alt="Professores" onclick="window.location='informationsStudent'">
+      <div class="menu-item active2 three" onclick="window.location='informationsStudent'">
+        <img src="${pageContext.request.contextPath}/assets/info-circle.svg" alt="Professores">
         <h2>Informações</h2>
       </div>
     </div>
@@ -79,7 +76,7 @@
               observações dos <br>
               professores para você.
             </p>
-            <h2>Ver observações</h2>
+            <h2 onclick="window.location='observationsStudent'">Ver observações</h2>
           </div>
 
           <div class="monster-container">

@@ -1,11 +1,14 @@
+/* Google Font import */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
+/* Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Body */
 body {
     height: 100vh;
     background: #fbf6e6;
@@ -14,8 +17,10 @@ body {
     align-items: center;
     font-family: "Montserrat", sans-serif;
     overflow: hidden;
+    user-select: none;
 }
 
+/* Background shapes */
 .shape {
     position: absolute;
     border-radius: 50%;
@@ -54,55 +59,79 @@ body {
     right: 380px;
 }
 
+/* Card */
 .login-card {
+    position: relative;
     width: 420px;
     padding: 70px 60px;
     border-radius: 28px;
-    background: rgba(255,255,255,0.35);
+    background: rgba(255, 255, 255, 0.35);
     backdrop-filter: blur(30px);
-    border: 1px solid rgba(255,255,255,0.6);
-    text-align: center;
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    z-index: 10;
 }
 
+/* Logo */
 .logo {
+    text-align: center;
     margin-bottom: 30px;
     cursor: pointer;
 }
 
+/* Success header */
 .success-header {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     gap: 14px;
     margin-bottom: 20px;
 }
 
 .success-icon {
-    width: 48px;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
 }
 
+/* Title */
 .login-card h1 {
     font-size: 24px;
     font-weight: 600;
     color: #102c3d;
 }
 
+/* Texts */
 .subtitle {
     font-size: 13px;
+    color: #102C3D;
+    line-height: 1.5;
     margin-bottom: 28px;
-    color: #102c3d;
+}
+
+.resend-text {
+    font-size: 13px;
+    color: #102C3D;
+    margin-bottom: 14px;
+}
+
+.subtitle,
+.resend-text {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .subtitle span {
     display: block;
     font-weight: 600;
+    color: #102c3d;
+    margin-top: 4px;
+    word-break: break-all;
 }
 
-.resend-text {
-    font-size: 13px;
-    margin-bottom: 14px;
-}
 
+/* Button */
 button {
     width: 100%;
     padding: 13px;
@@ -119,10 +148,24 @@ button:hover {
     background: #eab84b;
 }
 
+/* Back button */
 .back-button {
     position: fixed;
-    bottom: 24px;
-    left: 24px;
     width: 150px;
     height: 52px;
+    bottom: 24px;
+    left: 24px;
+    border-radius: 999px;
+    border: none;
+    background: #f5c659;
+    font-family: "Montserrat", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #102c3d;
+    cursor: pointer;
+    z-index: 20;
+}
+
+.back-button:hover {
+    background: #eab84b;
 }

@@ -22,7 +22,7 @@
 
 body {
     margin: 0;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
     background: var(--sidebar-color);
     color: var(--text-color);
     overflow-x: hidden;
@@ -231,7 +231,7 @@ img {
     margin-right: -32px;
     width: calc(100% - 0px);
     margin-left: 200px;
-     min-width: 780px;
+    min-height: 780px;
 }
 
 /* Top visual element */
@@ -299,7 +299,7 @@ h1 {
     margin: 175px 0 38px 6px;
     font-size: 28px;
     font-weight: 700;
-    color: #21303a;
+    color: #102C3D;
 }
 
 /* Inherit font for form elements */
@@ -307,7 +307,7 @@ button,
 input,
 textarea,
 select {
-    font-family: inherit
+    font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
 }
 
 .first-h1 {
@@ -328,7 +328,7 @@ select {
     grid-template-columns: 150px 1fr 1.5fr 180px 180px;
     gap: 20px;
     font-size: 16px;
-    color: var(--muted);
+    color: #879396;
     padding: 8px 18px;
     align-items: center;
 }
@@ -347,34 +347,35 @@ select {
     border: 1px solid rgba(2, 6, 23, 0.03);
     height: 70px;
     margin-bottom: 10px;
+    color: #102C3D;
 }
 
 /* Student ID */
 .student-row .teacher-username {
     font-size: 17px;
     font-weight: 630;
-    color: #0f1724;
+    color: #102C3D;
 }
 
 /* Student name */
 .student-row .teacher-name {
     font-size: 17px;
     font-weight: 630;
-    color: #0f1724;
+    color: #102C3D;
 }
 
 /* Student email */
 .student-row .teacher-subject {
     font-size: 17px;
     font-weight: 630;
-    color: #0f1724;
+    color: #102C3D;
 }
 
 /* Admission date */
 .student-row .teacher-password {
     font-size: 22px;
     font-weight: 630;
-    color: #0f1724;
+    color: #102C3D;
 }
 
 .actions {
@@ -422,7 +423,7 @@ select {
     gap: 18px;
 }
 
-/* pink circle icon */
+/* Pink circle icon */
 .confirm-icon-inner {
     width: 86px;
     height: 86px;

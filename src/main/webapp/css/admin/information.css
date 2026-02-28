@@ -22,7 +22,7 @@
 
 body {
     margin: 0;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
     background: var(--sidebar-color);
     color: var(--text-color);
     overflow-x: hidden;
@@ -266,7 +266,7 @@ img {
     margin-left: 453px;
 }
 
-/* caixas */
+/* Boxs */
 .info-box {
     position: absolute;
     padding: 18px 42px;
@@ -278,19 +278,19 @@ img {
     text-align: center;
 }
 
-/* posição caixa 1 */
+/* Box 1 */
 .box1 {
     top: -400px;
     left: 670px;
 }
 
-/* posição caixa 2 */
+/* Box 2 */
 .box2 {
     top: -280px;
     left: 820px;
 }
 
-/* botão */
+/* Button */
 .info-button {
     position: absolute;
     top: 720px;
@@ -303,6 +303,7 @@ img {
     font-size: 22px;
     cursor: pointer;
     transition: transform 0.18s ease;
+    color: #102C3D;
 }
 
 .info-button:hover {

@@ -2,18 +2,27 @@ package com.example.koribackend.dto;
 
 import java.sql.Date;
 
+/**
+ * Data Transfer Object that aggregates Student details and specific Grade data.
+ * This is primarily used by the Professor views to show a list of students
+ * alongside their current grades in a specific subject.
+ */
 public class StudentDTO {
+    // Personal information fields
     private int enrollment;
     private String email;
     private Date issueDate;
     private String password;
     private String name;
     private int serie;
+
+    // Academic performance fields for a specific subject
     private double grade1;
     private double grade2;
     private String subject;
     private double rec;
 
+    // Constructor used when the enrollment ID is already known (retrieving from DB)
     public StudentDTO(int enrollment, String email, Date issueDate, String password, String name, int serie, double grade1, double grade2, String subject, double rec) {
         this.enrollment = enrollment;
         this.email = email;
@@ -27,6 +36,7 @@ public class StudentDTO {
         this.rec = rec;
     }
 
+    // Constructor used for new records where the ID hasn't been generated yet
     public StudentDTO(String email, Date issueDate, String password, String name, int serie, double grade1, double grade2, String subject, double rec) {
         this.email = email;
         this.issueDate = issueDate;
@@ -39,8 +49,11 @@ public class StudentDTO {
         this.rec = rec;
     }
 
+    // Empty constructor for framework compatibility
     public StudentDTO() {
     }
+
+    // --- Standard Getters and Setters ---
 
     public int getEnrollment() {
         return enrollment;
@@ -122,7 +135,18 @@ public class StudentDTO {
         this.rec = rec;
     }
 
+    // Overridden toString method for debugging and logging object state
+    @Override
     public String toString() {
-        return "Enrollment: " + this.enrollment + "\nEmail: " + this.email + "\nIssue date: " + this.issueDate + "\nPassword: " + this.password + "\nName: " + this.name + "\nSerie: " + this.serie + "\nGrade 1: " + this.grade1 + "\nGrade 2: " + this.grade2 + "\nRec grade: " + this.rec + "\nSubject: " + this.subject;
+        return "Enrollment: " + this.enrollment +
+                "\nEmail: " + this.email +
+                "\nIssue date: " + this.issueDate +
+                "\nPassword: " + this.password +
+                "\nName: " + this.name +
+                "\nSerie: " + this.serie +
+                "\nGrade 1: " + this.grade1 +
+                "\nGrade 2: " + this.grade2 +
+                "\nRec grade: " + this.rec +
+                "\nSubject: " + this.subject;
     }
 }

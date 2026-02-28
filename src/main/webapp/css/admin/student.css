@@ -22,7 +22,7 @@
 
 body {
     margin: 0;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
     background: var(--sidebar-color);
     color: var(--text-color);
     overflow-x: hidden;
@@ -357,6 +357,7 @@ img {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    color: #092831;
 }
 
 .grade-card:hover {
@@ -379,45 +380,46 @@ img {
     font-size: 26px;
     font-weight: 600;
     margin-bottom: 4px;
+    color: #092831;
 }
 
 .card-label p {
     font-size: 10px;
     font-weight: 600;
-    color: #6b7280;
+    color: #092831;
 }
 
 .grade-card.pink {
-    background-color: #FFD6DF;
-    background-image: url("../../assets/star-t1.svg"); /* pink star image */
+    background-color: rgba(251, 216, 222, 1);
+    background-image: url("../../assets/star-t1.svg"); /* Pink star image */
     background-size: 75%;
     background-position: right;
 }
 
 .grade-card.green {
-    background-color: #C9D97A;
-    background-image: url("../../assets/star-t2.svg"); /* green star image */
+    background-color: rgba(200, 211, 114, 1);
+    background-image: url("../../assets/star-t2.svg"); /* Green star image */
     background-size: 75%;
     background-position: right;
 }
 
 .grade-card.blue {
-    background-color: #9ED6E2;
-    background-image: url("../../assets/star-t3.svg"); /* blue star image */
+    background-color: rgba(174, 217, 224, 1);
+    background-image: url("../../assets/star-t3.svg"); /* Blue star image */
     background-size: 75%;
     background-position: right;
 }
 
 .grade-card.yellow {
-    background-color: #F6D890;
-    background-image: url("../../assets/star-t4.svg"); /* yellow star image */
+    background-color: rgba(248, 222, 161, 1);
+    background-image: url("../../assets/star-t4.svg"); /* Yellow star image */
     background-size: 75%;
     background-position: right;
 }
 
 .grade-card.gray {
-    background-color: #D6D6D6;
-    background-image: url("../../assets/star-t5.svg"); /* gray star image */
+    background-color: rgba(209, 209, 209, 1);
+    background-image: url("../../assets/star-t5.svg"); /* Gray star image */
     background-size: 75%;
     background-position: right;
 }

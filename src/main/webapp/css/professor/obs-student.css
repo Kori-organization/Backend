@@ -50,10 +50,10 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: #FFD76B;
+    background: #F5C659;
     padding: 15px 30px;
     border-radius: 999px;
-    color: #021018;
+    color: #102C3D;
     font-weight: 600;
     text-decoration: none;
     transition: transform .18s ease, box-shadow .18s;
@@ -93,6 +93,7 @@ main {
     margin-left: 115px;
     margin-bottom: 58px;
     max-width: calc(100% - 140px);
+    color: #102C3D;
 }
 
 .student-card {
@@ -117,13 +118,13 @@ main {
 
 .student-name {
     font-size: 38px;
-    color: #0e2b36;
+    color: #102C3D;
     margin: 0;
 }
 
 .student-email {
     margin: 0;
-    color: rgba(3,18,23,0.65);
+    color: #102C3D;
     font-size: 20px;
 }
 
@@ -147,18 +148,18 @@ main {
 .info-pill .series {
     font-size: 28px;
     font-weight: 700;
-    color: #102c3d;
+    color: #102C3D;
 }
 
 .info-pill .matricula {
     font-size: 16px;
-    color: rgba(3,18,23,0.6);
+    color: #102C3D;
 }
 
 .student-note {
     margin-top: 18px;
     margin-left: 6px;
-    color: rgba(3,18,23,0.7);
+    color: #102C3D;
     font-size: 14px;
 }
 
@@ -171,10 +172,11 @@ main {
 .obs-header h1{
     font-size: 32px;
     margin-bottom: 5px;
+    color: #102C3D;
 }
 
 .obs-header p{
-    color: var(--muted-color);
+    color: #102C3D;
     font-size: 16px;
     font-weight: 600;
 }
@@ -233,7 +235,7 @@ main {
 
     font-size: 14px;
     font-weight: 600;
-    color: #1f2937;
+    color: #102C3D;
 
     background-size: cover;
     background-position: center;
@@ -285,31 +287,31 @@ main {
 
 .pink {
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)),
-        url("../../assets/intersect-pink.svg");
+            linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)),
+            url("../../assets/intersect-pink.svg");
 }
 
 .p2 {
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2));
+            linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2));
 }
 
 .yellow {
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),
-        url("../../assets/intersect-yellow.svg");
+            linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),
+            url("../../assets/intersect-yellow.svg");
 }
 
 .blue {
     background-image:
-        linear-gradient(rgba(254, 223, 223, 0.3), rgba(254, 226, 226, 0.3)),
-        url("../../assets/intersect-blue.svg");
+            linear-gradient(rgba(254, 223, 223, 0.3), rgba(254, 226, 226, 0.3)),
+            url("../../assets/intersect-blue.svg");
 }
 
 .green {
     background-image:
-        linear-gradient(rgba(254, 223, 223, 0.3), rgba(254, 226, 226, 0.3)),
-        url("../../assets/intersect-green.svg");
+            linear-gradient(rgba(254, 223, 223, 0.3), rgba(254, 226, 226, 0.3)),
+            url("../../assets/intersect-green.svg");
 }
 
 .copy-toast {
@@ -446,7 +448,7 @@ main {
     box-shadow: 0 30px 80px rgba(0,0,0,0.25);
 }
 
-/* icon circle */
+/* Icon circle */
 .confirm-icon {
     width: 100px;
     height: 100px;
@@ -462,7 +464,7 @@ main {
     width: 40px;
 }
 
-/* title */
+/* Title */
 .confirm-title {
     font-size: 28px;
     font-weight: 700;
@@ -470,7 +472,7 @@ main {
     margin-bottom: 20px;
 }
 
-/* name pill */
+/* Name pill */
 .confirm-name {
     background: #e5e5e5;
     padding: 10px 22px;
@@ -479,21 +481,21 @@ main {
     margin-bottom: 20px;
 }
 
-/* warning */
+/* Warning */
 .confirm-warning {
     font-size: 14px;
     color: rgba(3,18,23,0.7);
     margin-bottom: 30px;
 }
 
-/* buttons container */
+/* Buttons container */
 .confirm-buttons {
     display: flex;
     gap: 20px;
     width: 100%;
 }
 
-/* buttons */
+/* Buttons */
 .btn-confirm {
     flex: 1;
     border: none;
@@ -504,12 +506,12 @@ main {
     cursor: pointer;
 }
 
-/* cancel */
+/* Cancel */
 .btn-cancel {
     background: #d9d9d9;
 }
 
-/* save */
+/* Save */
 .btn-save {
     background: #F5C659;
 }
@@ -539,7 +541,7 @@ main {
     transition: all .35s ease;
 }
 
-/* success / error left border */
+/* Success / error left border */
 .toast.success {
     border-left: 8px solid #8EE07D;
 }
@@ -548,14 +550,14 @@ main {
     border-left: 8px solid #FF6B6B;
 }
 
-/* icon area */
+/* Icon area */
 .toast-icon {
     width: 56px;
     height: 56px;
     flex-shrink: 0;
 }
 
-/* text area */
+/* Text area */
 .toast-text h4 {
     margin: 0;
     font-size: 18px;
@@ -569,14 +571,14 @@ main {
     color: #6b7280;
 }
 
-/* hide class used to animate exit */
+/* Hide class used to animate exit */
 .toast.hide {
     opacity: 0;
     transform: translateX(-12px);
     transition: all .35s ease;
 }
 
-/* entry animation */
+/* Entry animation */
 @keyframes slideIn {
     from {
         opacity: 0;

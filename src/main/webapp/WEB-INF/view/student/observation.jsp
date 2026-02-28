@@ -24,16 +24,16 @@
                     <img src="${pageContext.request.contextPath}/assets/home-3.svg">
                     <h2>Início</h2>
                 </div>
-                <div class="menu-item active2 two">
-                    <img src="${pageContext.request.contextPath}/assets/greeting.svg" onclick="window.location='reportCardStudent'">
+                <div class="menu-item active2 two" onclick="window.location='reportCardStudent'">
+                    <img src="${pageContext.request.contextPath}/assets/greeting.svg">
                     <h2>Boletim</h2>
                 </div>
                 <div class="menu-item active" onclick="location.reload()">
                     <img src="${pageContext.request.contextPath}/assets/notes-2.svg">
                     <h2>Observações</h2>
                 </div>
-                <div class="menu-item active2 three">
-                    <img src="${pageContext.request.contextPath}/assets/info-circle.svg" onclick="window.location='informationsStudent'">
+                <div class="menu-item active2 three" onclick="window.location='informationsStudent'">
+                    <img src="${pageContext.request.contextPath}/assets/info-circle.svg">
                     <h2>Informações</h2>
                 </div>
             </div>
@@ -50,7 +50,7 @@
 
             <!-- Top header with logo and home button -->
             <div class="top-main">
-                <div class="logo-container" onclick="location.reload()">
+                <div class="logo-container" onclick="window.location='homeStudent'">
                     <img src="${pageContext.request.contextPath}/assets/logo.svg" alt="Kori Logo" width="180">
                 </div>
                 <div class="home-button" onclick="location.reload()">

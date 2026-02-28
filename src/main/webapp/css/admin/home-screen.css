@@ -22,7 +22,7 @@
 
 body {
     margin: 0;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
     background: var(--sidebar-color);
     color: var(--text-color);
     overflow-x: hidden;
@@ -329,7 +329,7 @@ img {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: var(--pink-color);
+    background: #F5C65940;
     margin-bottom: 20px;
     height: 280px;
     padding-left: 30px;
@@ -339,6 +339,7 @@ img {
     margin: 0;
     margin-top: 15px;
     font-size: 40px;
+    color: #102C3D;
 }
 
 /* List */
@@ -419,7 +420,7 @@ img {
 }
 
 .shortcut-card {
-    background: var(--green-color);
+    background: #C1D25166;
     border-radius: 18px;
     padding: 22px;
     font-size: 18px;
@@ -433,13 +434,13 @@ img {
     margin-bottom: 10px;
 }
 
-.card.shortcut-card>* {
+.card.shortcut-card {
     transition: transform 0.18s ease;
     cursor: pointer;
 }
 
-.card.shortcut-card:hover>* {
-    transform: scale(1.05);
+.card.shortcut-card:hover {
+    transform: scale(1.015);
 }
 
 /* Actions */
@@ -499,6 +500,7 @@ img {
     height: 200px;
     padding-right: 80px;
     margin-top: -21px;
+    color: #092831;
 }
 
 .calendar-header {
@@ -507,6 +509,7 @@ img {
     justify-content: space-between;
     margin-bottom: 18px;
     font-size: 23px;
+    color: #092831;
 }
 
 .calendar-header button {
@@ -524,6 +527,7 @@ img {
     gap: 6px;
     margin-left: -10px;
     height: 300px;
+    color: #092831;
 }
 
 .day {
@@ -601,6 +605,7 @@ img {
 .teachers-card {
     margin-top: 0px;
     height: 380px;
+    color: #092831;
 }
 
 .user-group-teacher {
@@ -617,6 +622,7 @@ img {
     margin-top: 5px;
     margin-bottom: 20px;
     font-size: 22px;
+    color: #092831;
 }
 
 .teacher {

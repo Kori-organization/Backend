@@ -4,19 +4,11 @@
 <html>
 
 <head>
-  <!-- Character encoding -->
+
   <meta charset="utf-8" />
-
-  <!-- Responsive viewport -->
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-
-  <!-- Page title -->
-  <title>Alunos do 1º Ano — Observações</title>
-
-  <!-- Favicon -->
+  <title>Kori — Alunos</title>
   <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
-
-  <!-- Main stylesheet -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/student-2.css">
   <%
     ArrayList<Student> students = (ArrayList<Student>) request.getAttribute("students");

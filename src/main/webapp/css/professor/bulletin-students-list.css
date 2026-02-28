@@ -50,10 +50,10 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: #FFD76B;
+    background: #F5C659;
     padding: 15px 30px;
     border-radius: 999px;
-    color: #021018;
+    color: #102C3D;
     font-weight: 600;
     text-decoration: none;
     transition: transform .18s ease, box-shadow .18s;
@@ -93,7 +93,7 @@ h1 {
     margin: 15px 0 38px 6px;
     font-size: 28px;
     font-weight: 700;
-    color: #21303a;
+    color: #102C3D;
 }
 
 /* Search input container */
@@ -144,7 +144,7 @@ button,
 input,
 textarea,
 select {
-    font-family: inherit
+    font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
 }
 
 /* Table container */
@@ -158,9 +158,19 @@ select {
     grid-template-columns: 150px 1fr 1.5fr 180px 180px;
     gap: 20px;
     font-size: 13px;
-    color: var(--muted);
+    color: #879396;
     padding: 8px 18px;
     align-items: center;
+}
+
+.bulletin {
+    width: 35px;
+    transition: transform .18s ease;
+    cursor: pointer;
+}
+
+.bulletin:hover {
+    transform: scale(1.04);
 }
 
 /* Student row card */
@@ -175,6 +185,7 @@ select {
     align-items: center;
     box-shadow: var(--soft-shadow);
     border: 1px solid rgba(2, 6, 23, 0.03);
+    color: #102C3D;
 }
 
 /* Student ID */

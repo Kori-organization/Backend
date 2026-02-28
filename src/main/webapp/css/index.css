@@ -10,12 +10,13 @@
 
 body {
     height: 100vh;
-    background: #fbf6e6;
+    background: #FDF6E3;
     display: flex;
     font-family: "Montserrat", sans-serif;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    user-select: none;
 }
 
 /* Background shapes */
@@ -89,6 +90,7 @@ body {
 .subtitle {
     font-size: 14px;
     margin-bottom: 35px;
+    color: #102C3D;
 }
 
 .subtitle a {
@@ -110,7 +112,7 @@ label {
     font-size: 13px;
     margin-bottom: 5px;
     display: block;
-    color: #333;
+    color: #102C3D;
 }
 
 input {
@@ -161,6 +163,8 @@ button {
     font-weight: 530;
     cursor: pointer;
     margin-top: 10px;
+    color: #102C3D;
+    font-family: "Montserrat", sans-serif;
 }
 
 button:hover {
@@ -172,6 +176,7 @@ button:hover {
     text-align: center;
     margin-top: 20px;
     font-size: 13px;
+    color: #102C3D;
 }
 
 .forgot a {

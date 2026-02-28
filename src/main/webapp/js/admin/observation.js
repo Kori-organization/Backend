@@ -88,8 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================
     confirmDeleteBtn.addEventListener('click', () => {
         if (!cardToDelete) return;
-        // DO NOT remove the card
-
 
         const id = cardToDelete.querySelector('.id')?.value.trim();
         window.location = `deleteObservation?id=${id}`

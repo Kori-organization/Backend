@@ -50,7 +50,7 @@
 
     <!-- Top header -->
     <div class="top-main">
-      <div class="logo-container" onclick="location.reload()">
+      <div class="logo-container" onclick="window.location='homeAdmin'">
         <img src="${pageContext.request.contextPath}/assets/logo.svg" width="180">
       </div>
       <div class="home-button" onclick="location.reload()">

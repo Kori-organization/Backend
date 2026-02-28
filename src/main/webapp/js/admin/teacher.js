@@ -140,10 +140,10 @@ const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).+$/;
     // Inputs inside edit modal (based on markup order)
     const editInputs = Array.from(editOverlay.querySelectorAll('input'));
     const editId = editInputs[0] || null; // Id
-    const editUserInput = editInputs[1] || null;      // Usuário
-    const editNameInput = editInputs[2] || null;      // Nome
-    const editSubjectInput = editInputs[3] || null;   // Disciplina
-    const editPasswordInput = editInputs[4] || null;  // Senha
+    const editUserInput = editInputs[1] || null;      // User
+    const editNameInput = editInputs[2] || null;      // Name
+    const editSubjectInput = editInputs[3] || null;   // Discipline
+    const editPasswordInput = editInputs[4] || null;  // Password
 
     const btnEditCancel = editOverlay.querySelector('.btn-edit-cancel');
     const btnEditSave = editOverlay.querySelector('.btn-edit-save');

@@ -6,8 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kori – Professores</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/information.css">
+    <title>Kori – Informações</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/professor/information.css">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
 </head>
 

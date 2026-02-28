@@ -21,16 +21,16 @@
                     <img src="${pageContext.request.contextPath}/assets/home-3.svg">
                     <h2>Início</h2>
                 </div>
-                <div class="menu-item active2 two">
-                    <img src="${pageContext.request.contextPath}/assets/greeting.svg" onclick="window.location='reportCardGrades'">
+                <div class="menu-item active2 two" onclick="window.location='reportCardGrades'">
+                    <img src="${pageContext.request.contextPath}/assets/greeting.svg">
                     <h2>Boletim</h2>
                 </div>
                 <div class="menu-item active" onclick="location.reload()">
                     <img src="${pageContext.request.contextPath}/assets/notes-2.svg">
                     <h2>Observações</h2>
                 </div>
-                <div class="menu-item active2 three">
-                    <img src="${pageContext.request.contextPath}/assets/info-circle.svg" onclick="window.location='informationProfessor'">
+                <div class="menu-item active2 three" onclick="window.location='informationProfessor'">
+                    <img src="${pageContext.request.contextPath}/assets/info-circle.svg">
                     <h2>Informações</h2>
                 </div>
             </div>
@@ -45,7 +45,7 @@
             <div class="color"></div>
 
             <div class="top-main">
-                <div class="logo-container" onclick="window.location='index.html'">
+                <div class="logo-container" onclick="window.location='homeProfessor'">
                     <img src="${pageContext.request.contextPath}/assets/logo.svg" width="180">
                 </div>
                 <div class="home-button" onclick="location.reload()">
@@ -61,6 +61,10 @@
                 <div class="cards-grid">
 
                     <div class="grade-card pink" onclick="window.location='obsStudentsList?grade=1'">
+                        <div class="card-icon">
+                            <img src="${pageContext.request.contextPath}/assets/observation-pink.svg" alt="Ícone 1º Ano">
+                        </div>
+
                         <div class="card-label">
                             <h2>1º Ano</h2>
                             <p>Clique para ver & cadastrar observações desta turma.</p>
@@ -68,6 +72,10 @@
                     </div>
 
                     <div class="grade-card green" onclick="window.location='obsStudentsList?grade=2'">
+                        <div class="card-icon">
+                            <img src="${pageContext.request.contextPath}/assets/observation-green.svg" alt="Ícone 2º Ano">
+                        </div>
+
                         <div class="card-label">
                             <h2>2º Ano</h2>
                             <p>Clique para ver & cadastrar observações desta turma.</p>
@@ -75,6 +83,10 @@
                     </div>
 
                     <div class="grade-card blue" onclick="window.location='obsStudentsList?grade=3'">
+                        <div class="card-icon">
+                            <img src="${pageContext.request.contextPath}/assets/observation-blue.svg" alt="Ícone 3º Ano">
+                        </div>
+
                         <div class="card-label">
                             <h2>3º Ano</h2>
                             <p>Clique para ver & cadastrar observações desta turma.</p>
@@ -82,6 +94,10 @@
                     </div>
 
                     <div class="grade-card yellow" onclick="window.location='obsStudentsList?grade=4'">
+                        <div class="card-icon">
+                            <img src="${pageContext.request.contextPath}/assets/observation-yellow.svg" alt="Ícone 4º Ano">
+                        </div>
+
                         <div class="card-label">
                             <h2>4º Ano</h2>
                             <p>Clique para ver & cadastrar observações desta turma.</p>
@@ -89,6 +105,10 @@
                     </div>
 
                     <div class="grade-card gray" onclick="window.location='obsStudentsList?grade=5'">
+                        <div class="card-icon">
+                            <img src="${pageContext.request.contextPath}/assets/observation-gray.svg" alt="Ícone 5º Ano">
+                        </div>
+
                         <div class="card-label">
                             <h2>5º Ano</h2>
                             <p>Clique para ver & cadastrar observações desta turma.</p>

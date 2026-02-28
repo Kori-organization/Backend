@@ -5,19 +5,10 @@
   <%
     Student student = (Student) session.getAttribute("student");
   %>
-  <!-- Character encoding -->
   <meta charset="utf-8" />
-
-  <!-- Responsive viewport -->
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-
-  <!-- Page title -->
-  <title><%=student.getName()%></title>
-
-  <!-- Favicon -->
+  <title>Kori - Perfil</title>
   <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
-
-  <!-- Main stylesheet -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/student/profile.css">
 </head>
 <body>
@@ -29,7 +20,7 @@
     <img src="${pageContext.request.contextPath}/assets/left.svg" alt="Voltar" width="15px"> Voltar
   </a>
 
-  <!-- Greeting icon (reloads page on click) -->
+  <!-- Greeting icon -->
   <img src="${pageContext.request.contextPath}/assets/user-2.svg" alt="" width="40px" class="img-greeting" onclick="location.reload()">
 </div>
 
@@ -52,7 +43,7 @@
 
     <!-- Main content area with student details -->
     <div class="profile-body">
-      <!-- Left column: labels + values -->
+      <!-- Left column -->
       <div class="profile-col profile-left">
         <div class="field">
           <div class="label">Nome:</div>
@@ -70,7 +61,7 @@
         </div>
       </div>
 
-      <!-- Right column: metadata -->
+      <!-- Right column -->
       <div class="profile-col profile-right">
         <div class="meta-row">
           <div class="meta-label">Matrícula:</div>
@@ -87,7 +78,7 @@
 
   <!-- Logout -->
   <button class="logout-btn" id="openLogout">
-    → Sair da conta
+    <img src="${pageContext.request.contextPath}/assets/icon-logout.svg" alt="" width="14px" style="margin-bottom: -2px;"> Sair da conta
   </button>
 
   <!-- Small help link under the card -->

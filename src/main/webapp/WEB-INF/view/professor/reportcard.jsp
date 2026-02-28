@@ -11,13 +11,8 @@
 <html lang="pt-BR">
 
 <head>
-    <!-- Character encoding -->
     <meta charset="utf-8" />
-
-    <!-- Responsive viewport -->
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-
-    <!-- Page title -->
     <title><%=student.getName()%> — Boletim</title>
 
     <!-- Favicon -->

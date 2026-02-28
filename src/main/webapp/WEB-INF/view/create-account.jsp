@@ -1,10 +1,4 @@
-<%@ page import="com.example.koribackend.model.entity.Student" %><%--
-  Created by IntelliJ IDEA.
-  User: lucaslima-ieg
-  Date: 13/02/2026
-  Time: 09:52
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.example.koribackend.model.entity.Student" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

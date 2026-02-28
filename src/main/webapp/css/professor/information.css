@@ -303,6 +303,7 @@ img {
     font-size: 22px;
     cursor: pointer;
     transition: transform 0.18s ease;
+    font-family: "Montserrat", sans-serif;
 }
 
 .info-button:hover {
