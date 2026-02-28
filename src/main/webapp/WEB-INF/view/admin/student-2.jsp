@@ -31,12 +31,18 @@
   <!-- Page title -->
   <h1>Alunos do ${empty sessionScope.serie ? "" : sessionScope.serie}º Ano</h1>
 
-  <!-- Search box -->
-  <div class="search-box">
-    <input type="text" placeholder="Pesquisar Aluno..." aria-label="Pesquisar Aluno" id="inputFilter" value="<%=filter%>">
-    <button class="search-btn" title="Pesquisar" aria-label="Pesquisar" id="buttonFilter">
-      <img src="${pageContext.request.contextPath}/assets/icon-search.svg" width="17" alt="Pesquisar">
-    </button>
+  <div class="search-container">
+    <!-- Search box -->
+    <div class="search-box">
+      <input type="text" placeholder="Pesquisar Aluno..." aria-label="Pesquisar Aluno" id="inputFilter" value="<%=filter%>">
+      <button class="btn-limpar" id="buttonClear" onclick="window.location='selectClass?serie=${empty sessionScope.serie ? "" : sessionScope.serie}'">
+        Limpar
+      </button>
+
+      <button class="search-btn" title="Pesquisar" aria-label="Pesquisar" id="buttonFilter">
+        <img src="${pageContext.request.contextPath}/assets/icon-search.svg" width="17" alt="Pesquisar">
+      </button>
+    </div>
   </div>
 
   <!-- Students table section -->

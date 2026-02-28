@@ -33,16 +33,31 @@
         <!-- Page title -->
         <h1>Alunos do ${sessionScope.grade}º Ano</h1>
 
-        <form action="obsStudentsList" method="get">
-            <div class="search-box">
-                <input type="text" placeholder="Pesquisar Aluno..." aria-label="Pesquisar Aluno" name="filter">
-                <button class="search-btn" title="Pesquisar" aria-label="Pesquisar" type="submit">
-                    <img src="${pageContext.request.contextPath}/assets/icon-search.svg" width="17" alt="Pesquisar">
-                </button>
-            </div>
-        </form>
         <!-- Search box -->
-        
+        <div class="search-container">
+
+            <form action="obsStudentsList" method="get">
+                <div class="search-box">
+
+                    <input type="text"
+                           name="filter"
+                           value="${param.filter}"
+                           placeholder="Pesquisar Aluno..."
+                           aria-label="Pesquisar Aluno">
+
+                    <button type="button" class="btn-limpar"
+                            onclick="window.location='obsStudentsList?grade=${sessionScope.grade}'">
+                        Limpar
+                    </button>
+
+                    <button class="search-btn" title="Pesquisar" type="submit">
+                        <img src="${pageContext.request.contextPath}/assets/icon-search.svg"
+                             width="17"
+                             alt="Pesquisar">
+                    </button>
+                </div>
+            </form>
+        </div>
 
         <!-- Students table section -->
         <section class="table" aria-label="Lista de alunos">

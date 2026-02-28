@@ -39,15 +39,31 @@
         <h1>Alunos do <%=grade%>º Ano</h1>
 
         <!-- Search box -->
-        <form action="reportCardStudentsList" method="get">
-            <div class="search-box">
-                <input type="hidden" name="grade" value="<%=grade%>">
-                <input type="text" value="${empty requestScope.filter ? "" : requestScope.filter}" placeholder="Pesquisar Aluno..." aria-label="Pesquisar Aluno" name="filter">
-                <button class="search-btn" title="Pesquisar" aria-label="Pesquisar" type="submit">
-                    <img src="${pageContext.request.contextPath}/assets/icon-search.svg" width="17" alt="Pesquisar">
-                </button>
-            </div>
-        </form>
+        <div class="search-container">
+
+            <form action="reportCardStudentsList" method="get">
+                <div class="search-box">
+                    <input type="hidden" name="grade" value="<%=grade%>">
+
+                    <input type="text"
+                           value="${empty requestScope.param.filter ? "" : requestScope.param.filter}"
+                           placeholder="Pesquisar Aluno..."
+                           aria-label="Pesquisar Aluno"
+                           name="filter">
+
+                    <button class="btn-limpar"
+                            onclick="window.location='reportCardStudentsList?grade=<%=grade%>'">
+                        Limpar
+                    </button>
+
+                    <button class="search-btn" title="Pesquisar" aria-label="Pesquisar" type="submit">
+                        <img src="${pageContext.request.contextPath}/assets/icon-search.svg"
+                             width="17"
+                             alt="Pesquisar">
+                    </button>
+                </div>
+            </form>
+        </div>
 
         <!-- Students table section -->
         <section class="table" aria-label="Lista de alunos">
