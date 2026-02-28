@@ -324,6 +324,21 @@ h1 {
     color: #fff;
 }
 
+.btn-cancel,
+.btn-danger {
+    transition: all 0.18s ease;
+}
+
+.btn-cancel:hover {
+    background: #eaeaea;
+    transform: scale(1.02);
+}
+
+.btn-danger:hover {
+    background: #ea3c3c;
+    transform: scale(1.02);
+}
+
 /* Animation */
 @keyframes scaleIn {
     from {

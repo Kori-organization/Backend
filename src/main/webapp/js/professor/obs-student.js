@@ -132,3 +132,19 @@ function showToast(type = 'success', title = '', subtitle = '') {
 }
 
 window.showToast = showToast;
+
+observationOverlay.addEventListener("click", (e) => {
+
+    if (e.target === observationOverlay) {
+        observationOverlay.classList.remove("show");
+    }
+
+});
+
+confirmObservationOverlay.addEventListener("click", (e) => {
+
+    if (e.target === confirmObservationOverlay) {
+        confirmObservationOverlay.classList.remove("show");
+    }
+
+});
