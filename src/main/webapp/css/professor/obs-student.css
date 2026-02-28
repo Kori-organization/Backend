@@ -589,15 +589,6 @@ main {
     transform: scale(1.01);
 }
 
-.btn-save:hover {
-    background: #e6b53b;
-}
-
-.btn-back:hover,
-.btn-cancel:hover {
-    background: #cfcfcf;
-}
-
 /* Entry animation */
 @keyframes slideIn {
     from {

@@ -648,6 +648,34 @@ select {
     transition: all .35s ease;
 }
 
+.modal .btn,
+.confirm-content .btn {
+    transition: transform .15s ease, background .15s ease, color .15s ease;
+}
+
+.modal .btn.primary:hover,
+.confirm-content .btn.primary:hover {
+    color: #071018;
+    transform: scale(1.01);
+}
+
+.modal .btn.ghost:hover,
+.confirm-content .btn.ghost:hover {
+    color: #444;
+    transform: scale(1.01);
+}
+
+.modal .note-input {
+    border: 2px solid transparent;
+    transition: border .15s ease, box-shadow .15s ease;
+}
+
+.modal .note-input:focus {
+    border: 2px solid var(--sidebar-blue);
+    outline: none;
+    background: #ffffff;
+}
+
 /* Entry animation */
 @keyframes slideIn {
     from {
