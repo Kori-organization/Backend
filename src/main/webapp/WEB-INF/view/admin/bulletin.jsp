@@ -47,7 +47,7 @@
         <% for (Grade grade : reportCard.getGrader()) { %>
           <input type="hidden" name="subject_<%=contador%>" value="<%=grade.getSubject()%>">
           <% contador++; %>
-          <div class="bitem subject<%=reportCard.getGrader().getFirst().equals(grade) ? " top" : ""%><%=reportCard.getGrader().getLast().equals(grade) ? " bottom" : ""%>"><%=grade.getSubject()%></div>
+          <div class="bitem subject<%=reportCard.getGrader().get(0).equals(grade) ? " top" : ""%><%=reportCard.getGrader().get(reportCard.getGrader().size()-1).equals(grade) ? " bottom" : ""%>"><%=grade.getSubject()%></div>
         <% } %>
         <% contador = 1; %>
       </div>
@@ -57,7 +57,7 @@
         <h3><span class="badge yellow">1º Semestre</span>Média</h3>
 
         <% for (Grade grade : reportCard.getGrader()) { %>
-          <div class="bitem<%=reportCard.getGrader().getFirst().equals(grade) ? " top" : ""%><%=reportCard.getGrader().getLast().equals(grade) ? " bottom" : ""%>">
+          <div class="bitem<%=reportCard.getGrader().get(0).equals(grade) ? " top" : ""%><%=reportCard.getGrader().get(reportCard.getGrader().size()-1).equals(grade) ? " bottom" : ""%>">
             <input type="number" name="n1_<%=contador%>" class="nota n1" value="<%=grade.getGrade1() == -1 ? "" : grade.getGrade1()%>" step="0.01">
           </div>
           <% contador++; %>
@@ -70,7 +70,7 @@
         <h3><span class="badge yellow">2º Semestre</span>Média</h3>
 
         <% for (Grade grade : reportCard.getGrader()) { %>
-          <div class="bitem<%=reportCard.getGrader().getFirst().equals(grade) ? " top" : ""%><%=reportCard.getGrader().getLast().equals(grade) ? " bottom" : ""%>">
+          <div class="bitem<%=reportCard.getGrader().get(0).equals(grade) ? " top" : ""%><%=reportCard.getGrader().get(reportCard.getGrader().size()-1).equals(grade) ? " bottom" : ""%>">
             <input type="number" name="n2_<%=contador%>" class="nota n2" value="<%=grade.getGrade2() == -1 ? "" : grade.getGrade2()%>" step="0.01">
           </div>
           <% contador++; %>
@@ -83,7 +83,7 @@
         <h3><span class="badge pink">Recuperação</span>Média</h3>
 
         <% for (Grade grade : reportCard.getGrader()) { %>
-        <div class="bitem<%=reportCard.getGrader().getFirst().equals(grade) ? " top" : ""%><%=reportCard.getGrader().getLast().equals(grade) ? " bottom" : ""%>">
+        <div class="bitem<%=reportCard.getGrader().get(0).equals(grade) ? " top" : ""%><%=reportCard.getGrader().get(reportCard.getGrader().size()-1).equals(grade) ? " bottom" : ""%>">
           <input type="number" name="rec_<%=contador%>" class="nota rec" value="<%=grade.getRec() == -1 ? "" : grade.getRec()%>" step="0.01">
         </div>
         <% contador++; %>
