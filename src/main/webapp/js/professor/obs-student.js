@@ -68,7 +68,7 @@ btnSaveObservation.addEventListener("click", () => {
     const text = observationInput.value.split(" ");
     let wordLong = false;
     for (let word of text) {
-        if (word.length > 30) {
+        if (word.length > 20) {
             wordLong = true;
             break;
         }
@@ -77,7 +77,7 @@ btnSaveObservation.addEventListener("click", () => {
     if (!wordLong) {
         confirmObservationOverlay.classList.add("show");
     } else {
-        showToast("error", "Limite de caracteres por palavra excedido", "Cada palavra pode ter no máximo 30 caracteres. Ajuste o texto para continuar.");
+        showToast("error", "Limite de caracteres por palavra excedido", "Cada palavra pode ter no máximo 20 caracteres. Ajuste o texto para continuar.");
     }
 
 });

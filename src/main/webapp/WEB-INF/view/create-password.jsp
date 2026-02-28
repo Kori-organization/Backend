@@ -17,7 +17,7 @@
 <!-- Card -->
 <div class="login-card">
   <div class="logo">
-    <img src="${pageContext.request.contextPath}/assets/logo.svg" alt="Logo" width="100px" onclick="location.href='enter'">
+    <img src="${pageContext.request.contextPath}/assets/logo.svg" alt="Logo" width="100px">
   </div>
 
   <h1>Criar nova senha</h1>
