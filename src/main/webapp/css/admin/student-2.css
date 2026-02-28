@@ -849,6 +849,67 @@ select {
     color: #ff3b30;
 }
 
+.confirm-buttons .btn-confirm,
+.confirm-buttons .btn-cancel,
+.btn-delete,
+.btn-confirm-delete {
+    transition: transform .15s ease, background .15s ease, color .15s ease;
+}
+
+.confirm-buttons .btn-confirm:hover,
+.btn-confirm-delete:hover {
+    transform: scale(1.02);
+}
+
+.confirm-buttons .btn-cancel:hover {
+    transform: scale(1.02);
+}
+
+.btn-delete:hover {
+    transform: scale(1.02);
+}
+
+.btn-edit-cancel, .btn-edit-save {
+    transition: transform .15s ease, background .15s ease, color .15s ease;
+}
+
+.btn-edit-cancel:hover {
+    transform: scale(1.02);
+}
+
+.btn-edit-save:hover {
+    transform: scale(1.02);
+}
+
+.btn-delete-cancel {
+    transition: transform .15s ease, background .15s ease, color .15s ease;
+}
+
+.btn-delete-cancel:hover {
+    transform: scale(1.02);
+}
+
+.confirm-actions .btn {
+    transition: transform .15s ease, background .15s ease, color .15s ease;
+}
+
+.confirm-actions .btn:hover {
+    transform: scale(1.02);
+}
+
+.field input,
+.field select {
+    border: 2px solid transparent;
+    transition: border .15s ease, box-shadow .15s ease;
+}
+
+.field input:focus,
+.field select:focus {
+    border: 2px solid var(--sidebar-blue);
+    outline: none;
+    background: #ffffff;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
     width: 10px;

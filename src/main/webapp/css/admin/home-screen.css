@@ -982,6 +982,28 @@ img {
     transition: opacity 240ms ease, transform 240ms ease;
 }
 
+.modal-actions .btn,
+.confirm-buttons .btn-confirm {
+    transition: transform .15s ease;
+}
+
+.modal-actions .btn:hover,
+.confirm-buttons .btn-confirm:hover {
+    transform: scale(1.02);
+}
+
+.form-group input,
+.form-group select {
+    border: 2px solid transparent;
+    transition: border .15s ease, box-shadow .15s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border: 2px solid #092831;
+    outline: none;
+}
+
 /* ANIMATIONS */
 
 @keyframes fadeIn {

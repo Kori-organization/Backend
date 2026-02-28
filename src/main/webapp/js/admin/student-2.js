@@ -259,5 +259,17 @@ document.addEventListener('DOMContentLoaded', () => {
     buttonFilter.addEventListener('click', () => {
         const textFilter = inputFilter.value.trim();
         window.location = `selectClass?filter=${encodeURIComponent(textFilter)}`
-    })
+    });
+
+    // =========================
+    // CLOSE OVERLAY CLICKING OUTSIDE
+    // =========================
+    [editOverlay, confirmDeleteOverlay, confirmSaveOverlay].forEach(overlay => {
+        overlay?.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                closeOverlay(overlay);
+                activeRow = null;
+            }
+        });
+    });
 });
