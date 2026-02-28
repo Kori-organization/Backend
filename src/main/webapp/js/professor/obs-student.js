@@ -59,16 +59,26 @@ document.querySelector(".obs-card.p2").addEventListener("click", () => {
 
 // CLOSE MODAL
 btnCancelObservation.addEventListener("click", () => {
-
     observationOverlay.classList.remove("show");
-
 });
 
 
 // OPEN CONFIRM
 btnSaveObservation.addEventListener("click", () => {
+    const text = observationInput.value.split(" ");
+    let wordLong = false;
+    for (let word of text) {
+        if (word.length > 30) {
+            wordLong = true;
+            break;
+        }
+    }
 
-    confirmObservationOverlay.classList.add("show");
+    if (!wordLong) {
+        confirmObservationOverlay.classList.add("show");
+    } else {
+        showToast("error", "Limite de caracteres por palavra excedido", "Cada palavra pode ter no máximo 30 caracteres. Ajuste o texto para continuar.");
+    }
 
 });
 
@@ -83,14 +93,7 @@ confirmObsCancel.addEventListener("click", () => {
 
 // CONFIRM SAVE
 confirmObsSend.addEventListener("click", () => {
-
-    confirmObservationOverlay.classList.remove("show");
-    observationOverlay.classList.remove("show");
-
     formAddObservation.submit();
-
-
-
 });
 
 

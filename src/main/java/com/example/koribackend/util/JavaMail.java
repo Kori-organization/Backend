@@ -1,8 +1,14 @@
 package com.example.koribackend.util;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import jakarta.activation.DataHandler;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
+import jakarta.mail.util.ByteArrayDataSource;
+import jakarta.servlet.http.HttpServletRequest;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -16,7 +22,7 @@ public class JavaMail {
     private static String senha = dotenv.get("EMAIL_PASSWORD");
 
 
-    public static boolean sendPasswordRecovery(String email, String token, String baseURL) {
+    public static boolean sendPasswordRecovery(String email, String token, String baseURL, HttpServletRequest request) throws IOException {
         // Set up SMTP server properties
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -43,16 +49,21 @@ public class JavaMail {
                     InternetAddress.parse(email)
             );
 
+            message.setReplyTo(InternetAddress.parse("korieducation@gmail.com"));
+
+            message.setHeader("Content-Type", "text/html; charset=UTF-8");
+            message.setHeader("Content-Transfer-Encoding", "quoted-printable");
+
             // Generate the recovery link
             String link = baseURL + "/checkToken?token=" + token;
             message.setSubject("Recuperação de senha - Kori");
 
             // Define the HTML body content with inline CSS styling
-            String formatacao = "<body style='margin:0; padding:0; background-color:#ffffff; font-family:Arial, Helvetica, sans-serif; user-select:none;'>" +
+            String format = "<body style='margin:0; padding:0; background-color:#ffffff; font-family:Arial, Helvetica, sans-serif; user-select:none;'>" +
                     "<div style='width:100%; display:flex; justify-content:center; padding:40px 0;'>" +
                     "    <div style='width:500px; max-width:90%; background-color:#FAF6EB; border:6.12px solid #53BDD9; border-radius:28px; overflow:hidden;'>" +
                     "        <div style='padding:30px; text-align:center;'>" +
-                    "            <img src='https://i.postimg.cc/BnnmG73y/logo.png' alt='Kori Logo' width='100px' style='margin-bottom:15px;'>" +
+                    "            <img src='cid:logoImage' alt='Kori Logo' width='100px' style='margin-bottom:15px;'>" +
                     "            <h1 style='font-size:26px; font-weight:bold; color:#14323f; margin:0;'>" +
                     "                Esqueceu sua senha?" +
                     "            </h1>" +
@@ -93,7 +104,25 @@ public class JavaMail {
                     "</body>";
 
             // Set content type to HTML and charset to UTF-8
-            message.setContent(formatacao, "text/html; charset=UTF-8");
+            MimeMultipart multipart = new MimeMultipart("related");
+
+            MimeBodyPart htmlPart = new MimeBodyPart();
+            htmlPart.setContent(format, "text/html; charset=UTF-8");
+            multipart.addBodyPart(htmlPart);
+
+            MimeBodyPart imagePart = new MimeBodyPart();
+
+            InputStream imageStream =
+                    request.getServletContext()
+                            .getResourceAsStream("/assets/logo.png");
+            imagePart.setDataHandler(
+                    new DataHandler(new ByteArrayDataSource(imageStream, "image/png"))
+            );
+            imagePart.setContentID("<logoImage>");
+            imagePart.setDisposition(MimeBodyPart.INLINE);
+            multipart.addBodyPart(imagePart);
+
+            message.setContent(multipart);
 
             // Attempt to send the message
             Transport.send(message);

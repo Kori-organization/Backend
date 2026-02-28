@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="assets/logo-top.svg">
-    <title id="title">Kori - Carregando...</title>
+    <title id="title">Kori - Carregando</title>
 
     <style>
         body {
@@ -189,17 +189,17 @@
         let text = ''
         const title = document.getElementById("title");
         switch (title.innerHTML) {
-            case "Carregando":
-                text = "Carregando.";
+            case "Kori - Carregando":
+                text = "Kori - Carregando.";
                 break;
-            case "Carregando.":
-                text = "Carregando..";
+            case "Kori - Carregando.":
+                text = "Kori - Carregando..";
                 break;
-            case "Carregando..":
-                text = "Carregando...";
+            case "Kori - Carregando..":
+                text = "Kori - Carregando...";
                 break;
-            case "Carregando...":
-                text = "Carregando"
+            case "Kori - Carregando...":
+                text = "Kori - Carregando"
                 break;
         }
         title.innerHTML = text;

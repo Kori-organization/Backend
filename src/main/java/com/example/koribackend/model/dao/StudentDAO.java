@@ -711,4 +711,25 @@ public class StudentDAO {
         }
         return true;
     }
+
+    public boolean passwordIsEqual(int enrollment, String password) {
+        // SQL checks if the password is the same as the previous one
+        String sql = "SELECT enrollment FROM students WHERE enrollment = ? AND password LIKE ?";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+        ) {
+            stmt.setInt(1,enrollment);
+            stmt.setString(2,password);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

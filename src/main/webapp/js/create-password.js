@@ -43,6 +43,7 @@ form.addEventListener("submit", function(e)
     const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).+$/;
     if(!regex.test(newPassword.value))
     {
+        newPasswordError.innerHTML = 'A senha deve conter letra, número e caractere especial.'
         newPasswordError.style.display = "block";
         newPassword.classList.add("input-error");
         valid = false;

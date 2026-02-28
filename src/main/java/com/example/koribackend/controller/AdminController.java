@@ -81,7 +81,7 @@ public class AdminController extends HttpServlet {
     private void showReportCardStudent(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int enrollment;
         // Check if enrollment exists in the session; otherwise, get it from the request parameter
-        if (request.getSession(false).getAttribute("enrollmentBulletin") != null) {
+        if (request.getSession(false).getAttribute("enrollmentBulletin") != null && request.getParameter("enrollmentBulletin") == null) {
             enrollment = (int) request.getSession(false).getAttribute("enrollmentBulletin");
         } else {
             enrollment = Integer.parseInt(request.getParameter("enrollmentBulletin"));

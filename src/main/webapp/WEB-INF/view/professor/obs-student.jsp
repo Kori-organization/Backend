@@ -110,7 +110,7 @@
                 <div class="observation-content">
                     <label for="observationInput">Escreva a observação para o aluno.</label>
 
-                    <textarea id="observationInput" placeholder="" maxlength="1000" name="observation"></textarea>
+                    <textarea id="observationInput" placeholder="" maxlength="172" name="observation"></textarea>
     
                     <p class="admin-warning">
                         Atenção: somente um administrador poderá alterar a observação digitada acima.
@@ -153,7 +153,7 @@
                 <!-- buttons -->
                 <div class="confirm-buttons">
     
-                    <button id="confirmObsCancel" class="btn-confirm btn-cancel">
+                    <button id="confirmObsCancel" type="button" class="btn-confirm btn-cancel">
                         Voltar
                     </button>
     

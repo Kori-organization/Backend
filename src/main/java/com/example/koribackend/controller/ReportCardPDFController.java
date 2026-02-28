@@ -47,7 +47,12 @@ public class ReportCardPDFController extends HttpServlet {
     // Orchestrate the PDF document structure and content
     public void createReportCard(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Retrieve student enrollment from the request and fetch report card data
-        int enrollment = (int) request.getAttribute("enrollment");
+        int enrollment;
+        if (request.getAttribute("enrollment") != null) {
+            enrollment = (int) request.getAttribute("enrollment");
+        } else {
+            enrollment = Integer.parseInt(request.getParameter("enrollment"));
+        }
         ReportCard reportCard = new ReportCardDAO().selectReportCard(enrollment);
 
         // Configure the HTTP response to treat the output as a downloadable PDF
@@ -128,9 +133,41 @@ public class ReportCardPDFController extends HttpServlet {
         document.add(new Paragraph("\n"));
 
         // Add a legend to explain the acronyms used in the table
-        document.add(new Paragraph("MA - Média Anual"));
-        document.add(new Paragraph("RF - Recuperação Final"));
-        document.add(new Paragraph("MF - Média Final"));
+        Table footerTable = new Table(new float[]{70, 30});
+        footerTable.setWidth(UnitValue.createPercentValue(100));
+
+        // LEFT COLUMN
+        Cell legendCell = new Cell();
+        legendCell.setBorder(Border.NO_BORDER);
+
+        legendCell.add(new Paragraph("MA - Média Anual"));
+        legendCell.add(new Paragraph("RF - Recuperação Final"));
+        legendCell.add(new Paragraph("MF - Média Final"));
+
+        footerTable.addCell(legendCell);
+
+        // RIGHT COLUMN
+        Cell imageCell = new Cell();
+        imageCell.setBorder(Border.NO_BORDER);
+
+        try {
+            String imagePath = getServletContext().getRealPath("/assets/certificado_oficial.png");
+            Image footerImage = new Image(ImageDataFactory.create(imagePath));
+            footerImage.setWidth(100);
+
+            footerImage.setHorizontalAlignment(
+                    com.itextpdf.layout.properties.HorizontalAlignment.RIGHT
+            );
+
+            imageCell.add(footerImage);
+
+        } catch (Exception e) {
+            imageCell.add(new Paragraph(" "));
+        }
+
+        footerTable.addCell(imageCell);
+
+        document.add(footerTable);
 
         // Close the document to finalize the PDF stream
         document.close();

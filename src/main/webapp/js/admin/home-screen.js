@@ -9,7 +9,8 @@ const studentForm = document.getElementById("studentForm");
 const professorForm = document.getElementById("professorForm");
 
 // Regex password
-const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).+$/;
+const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).+$/;
+const regexUsername = /^[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/
 
 // Current date
 let currentDate = new Date();
@@ -258,9 +259,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isEmpty(teacherUser) || isEmpty(teacherName) || isEmpty(teacherPassword) || isEmpty(teacherSubject)) {
             showToast('teacher', 'error', 'Campos obrigatórios', 'Preencha todos os campos antes de continuar.');
             return;
-        } else if (!regex.test(teacherPassword.value)) {
+        } else if (!regexPassword.test(teacherPassword.value)) {
             showToast('teacher', 'error', 'Senha inválida', 'Sua senha precisa conter pelo menos um número, uma letra e um caractere especial.');
             return;
+        } else if (!regexUsername.test(teacherUser.value)) {
+            showToast('teacher', 'error', 'Nome de usuário inválido', 'O nome de usuário deve seguir o formato: nome.matéria (ex: joao.mat).'
+            );            return;
         }
 
         openOverlay(confirmTeacherOverlay);

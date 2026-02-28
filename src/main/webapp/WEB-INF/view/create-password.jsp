@@ -28,7 +28,7 @@
   <form method="post" action="updatePassword" id="createPasswordForm">
     <label>Nova senha</label>
     <div class="password-field">
-      <input type="password" name="newPassword" id="newPassword" placeholder="Digite a nova senha" required>
+      <input type="password" name="newPassword" class="${empty requestScope.canUpdatePassword ? "" : "input-error"}" id="newPassword" value="${empty requestScope.password ? "" : requestScope.password}" placeholder="Digite a nova senha" required>
       <img
               src="${pageContext.request.contextPath}/assets/eye-off.svg"
               class="eye toggle-password"
@@ -36,13 +36,13 @@
               alt="Mostrar senha"
       >
     </div>
-    <p class="error-message" id="newPasswordError">
-      A senha deve conter letra, número e caractere especial.
+    <p class="error-message" style="display: ${empty requestScope.canUpdatePassword ? "none" : "block"};" id="newPasswordError">
+      ${empty requestScope.canUpdatePassword ? "A senha deve conter letra, número e caractere especial." : "A nova senha deve ser diferente da senha atual."}
     </p>
 
     <label>Confirmar nova senha</label>
     <div class="password-field">
-      <input type="password" name="confirmNewPassword" id="confirmNewPassword" placeholder="Confirme a nova senha" required>
+      <input type="password" name="confirmNewPassword" id="confirmNewPassword" value="${empty requestScope.password ? "" : requestScope.password}" placeholder="Confirme a nova senha" required>
       <img
               src="${pageContext.request.contextPath}/assets/eye-off.svg"
               class="eye toggle-password"

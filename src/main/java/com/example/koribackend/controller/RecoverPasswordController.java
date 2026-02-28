@@ -82,15 +82,20 @@ public class RecoverPasswordController extends HttpServlet {
         String newPassword = request.getParameter("newPassword");
         // Retrieve the enrollment ID stored in the session during the checkToken step
         String enrollment = (String) request.getSession(false).getAttribute("enrollment");
-        boolean resultAction = new StudentDAO().newPasswordStudent(Integer.parseInt(enrollment),newPassword);
+        if (!new StudentDAO().passwordIsEqual(Integer.parseInt(enrollment),newPassword)) {
+            boolean resultAction = new StudentDAO().newPasswordStudent(Integer.parseInt(enrollment), newPassword);
 
-        if (resultAction) {
-            // Forward to a success view if the database update was successful
-            request.getRequestDispatcher("WEB-INF/view/new-password.jsp").forward(request,response);
+            if (resultAction) {
+                // Forward to a success view if the database update was successful
+                request.getRequestDispatcher("WEB-INF/view/new-password.jsp").forward(request, response);
+            } else {
+                // Reload the password creation page if the update failed
+                request.getRequestDispatcher("WEB-INF/view/create-password.jsp").forward(request,response);
+            }
         } else {
-            // Reload the password creation page if the update failed
-            request.getRequestDispatcher("WEB-INF/view/create-password.jsp");
-            System.out.println("Implement popup error");
+            request.setAttribute("canUpdatePassword",false);
+            request.setAttribute("password",newPassword);
+            request.getRequestDispatcher("WEB-INF/view/create-password.jsp").forward(request,response);
         }
     }
 
@@ -113,7 +118,7 @@ public class RecoverPasswordController extends HttpServlet {
                     .compact();
 
             // Use the JavaMail utility to send the email containing the recovery link
-            result = JavaMail.sendPasswordRecovery(email,token,baseURL);
+            result = JavaMail.sendPasswordRecovery(email,token,baseURL,request);
         } else {
             // Set result to false if no student is found with the provided email
             result = false;

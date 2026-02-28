@@ -30,12 +30,12 @@
     <input type="hidden" name="size" value="<%=reportCard.getGrader().size()%>">
 
     <div class="bulletin-title">
-      <h1>Davi Arakaki</h1>
-      <span class="bulletin-year">1º Ano</span>
+      <h1><%=reportCard.getStudentName()%></h1>
+      <span class="bulletin-year"><%=reportCard.getSerie()%>º Ano</span>
     </div>
 
     <div class="final-status">
-      <img src="${pageContext.request.contextPath}/assets/download.svg" class="download-icon">
+      <img src="${pageContext.request.contextPath}/assets/download.svg" class="download-icon" onclick="window.location='createReportCardPDF?enrollment=${sessionScope.enrollmentBulletin}'">
       <span>Situação final: Reprovado.</span>
     </div>
 

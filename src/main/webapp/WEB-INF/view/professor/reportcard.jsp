@@ -48,7 +48,7 @@
 
             <!-- Final status card -->
             <div class="final-status">
-                <img src="${pageContext.request.contextPath}/assets/download.svg" class="download-icon" alt="Download" onclick="window.location='createPDF'">
+                <img src="${pageContext.request.contextPath}/assets/download.svg" class="download-icon" alt="Download" onclick="window.location='createReportCardPDF?enrollment=<%=student.getEnrollment()%>'">
                 Situação final: <%=reportCard.getFinalSituation()%>.
             </div
             <!-- Report card grid -->

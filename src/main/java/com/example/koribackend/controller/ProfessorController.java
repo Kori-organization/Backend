@@ -122,7 +122,7 @@ public class ProfessorController extends HttpServlet {
     private void showStudentsObservationList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int grade;
         // Check session for grade level to maintain state during filtering
-        if (request.getSession(false).getAttribute("grade") != null) {
+        if (request.getSession(false).getAttribute("grade") != null && request.getParameter("grade") == null) {
             grade = (int) request.getSession(false).getAttribute("grade");
         } else {
             grade = Integer.parseInt(request.getParameter("grade"));
@@ -146,7 +146,7 @@ public class ProfessorController extends HttpServlet {
     // Fetch and display specific behavioral notes for a single student
     private void showStudentObservation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int enrollment;
-        if (request.getSession(false).getAttribute("enrollmentObs") != null) {
+        if (request.getSession(false).getAttribute("enrollmentObs") != null && request.getParameter("enrollment") == null) {
             enrollment = (int) request.getSession(false).getAttribute("enrollmentObs");
         } else {
             enrollment = Integer.parseInt(request.getParameter("enrollment"));
@@ -162,7 +162,7 @@ public class ProfessorController extends HttpServlet {
     // Display student list specifically formatted for report card and grade management
     private void showStudentsReportCardList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int grade;
-        if (request.getSession(false).getAttribute("grade") != null) {
+        if (request.getSession(false).getAttribute("grade") != null && request.getParameter("grade") == null) {
             grade = (int) request.getSession(false).getAttribute("grade");
         } else {
             grade = Integer.parseInt(request.getParameter("grade"));
