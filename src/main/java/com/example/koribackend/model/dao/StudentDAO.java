@@ -304,7 +304,7 @@ public class StudentDAO {
     /**
      * Search StudentDTO list by matching name or email prefix.
      */
-    public List<StudentDTO> selectStudentDTOByNameOrEmail(String emailOrName, String subject) {
+    public List<StudentDTO> selectStudentDTOByNameOrEmail(String emailOrName, String subject,int serie) {
 
         List<StudentDTO> students = new ArrayList<>();
 
@@ -319,7 +319,7 @@ public class StudentDAO {
                 "       SELECT id FROM subjects WHERE name = ? " +
                 ")  " +
                 "LEFT JOIN subjects sjc ON sjc.id = g.subject_id " +
-                "WHERE s.email ILIKE ? AND s.name ILIKE ?";
+                "WHERE (s.email ILIKE ? OR s.name ILIKE ?) AND s.serie = ?";
 
         try (
                 Connection conn = ConnectionFactory.getConnection();
@@ -328,6 +328,7 @@ public class StudentDAO {
             pstmt.setString(1, subject);
             pstmt.setString(2, emailOrName + "%");
             pstmt.setString(3, emailOrName + "%");
+            pstmt.setInt(4,serie);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {

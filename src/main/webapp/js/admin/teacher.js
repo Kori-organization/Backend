@@ -2,7 +2,8 @@ const deleteProfessorIdInput = document.getElementById('deleteProfessorId');
 const formEdit = document.getElementById('edit-form');
 
 // Regex password
-const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).+$/;
+const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).+$/;
+const regexUsername = /^[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;
 
 // ----- Delete confirmation flow (teachers) -----
 (function () {
@@ -295,8 +296,11 @@ const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).+$/;
             if (!userVal || !nameVal || !subjectVal || !passwordVal) {
                 showToastTeacher('Campos obrigatórios', 'Preencha todos os campos antes de continuar.', 'error');
                 return;
-            } else if (!regex.test(passwordVal)) {
+            } else if (!regexPassword.test(passwordVal)) {
                 showToastTeacher('Senha inválida', 'Sua senha precisa conter pelo menos um número, uma letra e um caractere especial.','error');
+                return;
+            } else if (!regexUsername.test(userVal)) {
+                showToastTeacher('Nome de usuário inválido', 'O nome de usuário deve seguir o formato: nome.matéria (ex: joao.mat).','error');
                 return;
             }
 

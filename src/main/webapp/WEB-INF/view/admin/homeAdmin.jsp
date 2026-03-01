@@ -377,13 +377,17 @@
     document.addEventListener('DOMContentLoaded', () => {
       showToast('student', 'error', 'Erro ao adicionar', 'Erro ao criar conta de Aluno.');
     })
-  <% } else if ("true".equals(resultProfessor)) { %>
+  <% } else if ("1".equals(resultProfessor)) { %>
     document.addEventListener('DOMContentLoaded', () => {
       showToast('teacher', 'success', 'Professor adicionado', 'Professor criado com sucesso.');
     })
-  <% } else if ("false".equals(resultProfessor)) { %>
+  <% } else if ("0".equals(resultProfessor)) { %>
     document.addEventListener('DOMContentLoaded', () => {
-      showToast('teacher', 'error', 'Erro ao adicionado', 'Erro ao criar conta de Professor.');
+      showToast('teacher', 'error', 'Erro ao adicionar', 'Erro ao criar conta de Professor.');
+    })
+  <% } else if ("2".equals(resultProfessor)) { %>
+    document.addEventListener('DOMContentLoaded', () => {
+      showToast('teacher', 'error', 'Matéria já cadastrada', 'Já existe uma matéria com esse nome. Utilize outro nome ou edite a existente.');
     })
   <% } %>
 </script>

@@ -184,39 +184,49 @@ public class ProfessorDAO {
     }
 
     // Create a new professor account along with a new subject entry
-    public boolean createAccount(Professor professor) {
-        String sql1 = "INSERT INTO subjects(name) VALUES(?)";
-        String sql2 = "INSERT INTO professors(username, password_hash, subject_id, name) VALUES (?,?,?,?)";
+    public int createAccount(Professor professor) {
+        String sql1 = "SELECT id FROM subjects WHERE name LIKE ?";
+        String sql2 = "INSERT INTO subjects(name) VALUES(?)";
+        String sql3 = "INSERT INTO professors(username, password_hash, subject_id, name) VALUES (?,?,?,?)";
 
         Connection conn = null;
         try {
             conn = ConnectionFactory.getConnection();
             conn.setAutoCommit(false);
 
+            try (PreparedStatement stmt1 = conn.prepareStatement(sql1)) {
+                stmt1.setString(1,professor.getSubjectName());
+                try (ResultSet rs = stmt1.executeQuery()) {
+                    if (rs.next()) {
+                        return 2;
+                    }
+                }
+            }
+
             int id = -1;
             // Create the subject first and retrieve its generated primary key
-            try (PreparedStatement stmt1 = conn.prepareStatement(sql1,PreparedStatement.RETURN_GENERATED_KEYS)) {
-                stmt1.setString(1,professor.getSubjectName());
-                stmt1.execute();
-                try (ResultSet keys = stmt1.getGeneratedKeys()) {
+            try (PreparedStatement stmt2 = conn.prepareStatement(sql2,PreparedStatement.RETURN_GENERATED_KEYS)) {
+                stmt2.setString(1,professor.getSubjectName());
+                stmt2.execute();
+                try (ResultSet keys = stmt2.getGeneratedKeys()) {
                     if (keys.next()) {
                         id = keys.getInt(1);
                     }
                 }
             }
 
-            if (id == -1) { return false; }
+            if (id == -1) { return 0; }
 
             // Create the professor linking to the new subject ID
-            try (PreparedStatement stmt2 = conn.prepareStatement(sql2)) {
-                stmt2.setString(1,professor.getUsername());
-                stmt2.setString(2,professor.getPassword());
-                stmt2.setInt(3,id);
-                stmt2.setString(4,professor.getName());
-                stmt2.execute();
+            try (PreparedStatement stmt3 = conn.prepareStatement(sql3)) {
+                stmt3.setString(1,professor.getUsername());
+                stmt3.setString(2,professor.getPassword());
+                stmt3.setInt(3,id);
+                stmt3.setString(4,professor.getName());
+                stmt3.execute();
             }
             conn.commit();
-            return true;
+            return 1;
         } catch (SQLException e) {
             if (conn != null) {
                 try {
@@ -236,11 +246,11 @@ public class ProfessorDAO {
                 }
             }
         }
-        return false;
+        return 0;
     }
 
     // Update existing professor details and manage subject re-assignment
-    public boolean updateProfessor(Professor professor) {
+    public int updateProfessor(Professor professor) {
         String sql1 = "INSERT INTO subjects(name) VALUES(?)";
         String sql2 = "SELECT subject_id FROM professors WHERE id = ?";
         String sql3 = "UPDATE professors SET username = ?, password_hash = ?, subject_id = ?, name = ? WHERE id = ?";
@@ -266,7 +276,7 @@ public class ProfessorDAO {
                         }
                     }
                 }
-                if (idSubjectEdit == -1) { return false; }
+                if (idSubjectEdit == -1) { return 0; }
 
                 // 2. Identify the old subject ID to be removed later
                 int idSubjectDelete = -1;
@@ -278,7 +288,7 @@ public class ProfessorDAO {
                         }
                     }
                 }
-                if (idSubjectDelete == -1) { return false; }
+                if (idSubjectDelete == -1) { return 0; }
 
                 // 3. Update professor with the new details and new subject reference
                 try (PreparedStatement stmt3 = conn.prepareStatement(sql3)) {
@@ -297,7 +307,7 @@ public class ProfessorDAO {
                 }
             } else {
                 // If no subject update is needed, perform a simpler profile update
-                try (PreparedStatement stmt5 = conn.prepareStatement(sql5)) {
+                try (PreparedStatement stmt5 = conn.prepareStatement(sql4)) {
                     stmt5.setString(1,professor.getUsername());
                     stmt5.setString(2,professor.getPassword());
                     stmt5.setString(3,professor.getName());
@@ -307,7 +317,7 @@ public class ProfessorDAO {
             }
 
             conn.commit();
-            return true;
+            return 1;
         } catch (SQLException e) {
             if (conn != null) {
                 try {
@@ -327,6 +337,6 @@ public class ProfessorDAO {
                 }
             }
         }
-        return false;
+        return 0;
     }
 }

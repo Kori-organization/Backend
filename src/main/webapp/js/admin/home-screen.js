@@ -11,6 +11,7 @@ const professorForm = document.getElementById("professorForm");
 // Regex password
 const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).+$/;
 const regexUsername = /^[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/
+const regexEmail = /^[A-Za-z0-9._+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$|^$/;
 
 // Current date
 let currentDate = new Date();
@@ -235,8 +236,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isEmpty(studentName) || isEmpty(studentEmail) || isEmpty(studentAdmission) || isEmpty(studentGrade) || isEmpty(studentPassword)) {
             showToast('student', 'error', 'Campos obrigatórios', 'Preencha todos os campos antes de continuar.');
             return;
-        } else if (!regex.test(studentPassword.value)) {
+        } else if (!regexPassword.test(studentPassword.value)) {
             showToast('student', 'error', 'Senha inválida', 'Sua senha precisa conter pelo menos um número, uma letra e um caractere especial.');
+            return;
+        } else if (!regexEmail.test(studentEmail.value)) {
+            showToast('student', 'error', 'Formato de e-mail inválido', 'Digite um e-mail válido no formato: nome@dominio.com (ex: joao.silva@gmail.com)');
             return;
         }
 
@@ -264,7 +268,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         } else if (!regexUsername.test(teacherUser.value)) {
             showToast('teacher', 'error', 'Nome de usuário inválido', 'O nome de usuário deve seguir o formato: nome.matéria (ex: joao.mat).'
-            );            return;
+            );
+            return;
         }
 
         openOverlay(confirmTeacherOverlay);

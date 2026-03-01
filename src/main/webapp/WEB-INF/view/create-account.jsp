@@ -32,7 +32,7 @@
     <input type="text" name="name" value="${empty requestScope.name ? "" : requestScope.name}" placeholder="Digite seu nome completo" required>
 
     <label>CPF</label>
-    <input type="text" name="cpf" value="${empty requestScope.cpf ? "" : requestScope.cpf}" placeholder="Digite seu CPF" pattern="^\d{11}$|^\d{3}\.\d{3}\.\d{3}-\d{2}$" title="Digite seu cpf no formato 123.456.789-10 ou apenas os numeros" required>
+    <input type="text" name="cpf" value="${empty requestScope.cpf ? "" : requestScope.cpf}" placeholder="Digite seu CPF" pattern="^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$" title="Digite seu cpf no formato 123.456.789-10 ou apenas os numeros" required>
     <p class="error-message" style="display: ${empty requestScope.canCreateAccount ? "none" : "block"};" id="cpfError">
       ${empty requestScope.canCreateAccount ? "" : "Cpf inválido para criação da conta Kori."}
     </p>

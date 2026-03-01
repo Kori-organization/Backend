@@ -57,6 +57,7 @@
         <div class="nome"><%=student.getName()%></div>
         <div class="email"><%=student.getEmail()%></div>
         <div class="admissao"><%=student.getFormatDate()%></div>
+        <input type="hidden" class="password" value="<%=student.getPassword()%>">
 
         <!-- Action buttons -->
         <div class="actions">
