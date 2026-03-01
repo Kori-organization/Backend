@@ -79,7 +79,7 @@
           <div class="teacher-username"><%=professor.getUsername()%></div>
           <div class="teacher-name"><%=professor.getName()%></div>
             <div class="teacher-subject"><%=professor.getSubjectName()%></div>
-            <div class="teacher-password">••••••••</div>
+            <div class="teacher-password" onmouseover="this.textContent='<%=professor.getPassword()%>'" onmouseout="this.textContent='••••••••'">••••••••</div>
 
             <div class="actions">
               <img src="${pageContext.request.contextPath}/assets/icon-edit.svg" width="22" style="cursor:pointer">

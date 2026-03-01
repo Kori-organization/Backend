@@ -1,4 +1,5 @@
-const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).+$/;
+const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).+$/;
+const regexEmail = /^[A-Za-z0-9._+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$|^$/;
 
 // =========================
 // TOAST
@@ -157,11 +158,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = activeRow.querySelector('.nome')?.textContent.trim() || '';
         const email = activeRow.querySelector('.email')?.textContent.trim() || '';
         const admission = activeRow.querySelector('.admissao')?.textContent.trim() || '';
+        const password = activeRow.querySelector('.password').value || '';
 
         inputId.value = enrollment;
         editHeaderName.textContent = name;
         inputName.value = name;
         inputEmail.value = email;
+        inputPassword.value = password;
 
         if (admission.includes('/')) {
             const [d, m, y] = admission.split('/');
@@ -183,8 +186,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!inputName.value.trim() || !inputEmail.value.trim() || !inputPassword.value.trim() || !inputAdmission.value.trim() || !inputSeries.value.trim()) {
             createToast('Campos obrigatórios', 'Preencha todos os campos antes de continuar.', 'error');
             return;
-        } else if (!regex.test(inputPassword.value)) {
+        } else if (!regexPassword.test(inputPassword.value)) {
             createToast('Senha inválida', 'Sua senha precisa conter pelo menos um número, uma letra e um caractere especial.', 'error');
+            return;
+        } else if (!regexEmail.test(inputEmail.value)) {
+            createToast('Formato de e-mail inválido', 'Digite um e-mail válido no formato: nome@dominio.com (ex: joao.silva@gmail.com)','error');
             return;
         }
 

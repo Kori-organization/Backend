@@ -35,8 +35,8 @@
 
         <form action="obsStudentsList" method="get">
             <div class="search-box">
-                <input type="text" placeholder="Pesquisar Aluno..." aria-label="Pesquisar Aluno" name="filter">
-                <button class="search-btn" title="Pesquisar" aria-label="Pesquisar" type="submit">
+                <input type="text" placeholder="Pesquisar Aluno..." value="${empty requestScope.filter ? "" : requestScope.filter}" aria-label="Pesquisar Aluno" name="filter">
+                <button class="search-btn" title="Pesquisar"  aria-label="Pesquisar" type="submit">
                     <img src="${pageContext.request.contextPath}/assets/icon-search.svg" width="17" alt="Pesquisar">
                 </button>
             </div>

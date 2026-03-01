@@ -140,6 +140,7 @@ public class ProfessorController extends HttpServlet {
             students = new StudentDAO().selectStudentsByNameOrEmail(filter,grade);
         }
         request.setAttribute("students", students);
+        request.setAttribute("filter",filter);
         request.getRequestDispatcher("WEB-INF/view/professor/obs-students-list.jsp").forward(request, response);
     }
 
@@ -177,7 +178,7 @@ public class ProfessorController extends HttpServlet {
         } else if (filter.matches("^[0-9]+$")) {
             students = new StudentDAO().selectStudentDTOByEnrollment(Integer.parseInt(filter), ((Professor) request.getSession().getAttribute("professor")).getSubjectName());
         } else {
-            students = new StudentDAO().selectStudentDTOByNameOrEmail(filter, ((Professor) request.getSession().getAttribute("professor")).getSubjectName());
+            students = new StudentDAO().selectStudentDTOByNameOrEmail(filter, ((Professor) request.getSession().getAttribute("professor")).getSubjectName(),grade);
         }
         request.setAttribute("students", students);
         request.setAttribute("filter",filter);

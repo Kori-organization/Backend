@@ -122,7 +122,7 @@
 
                     <!-- Student metadata -->
                     <div class="meta">
-                        <div>Série: <strong id="gradeSerie">1º Ano</strong></div>
+                        <div>Série: <strong id="gradeSerie"><%=grade%>º Ano</strong></div>
                         <div>Matrícula: <strong id="gradeMat">—</strong></div>
                     </div>
                 </div>
@@ -224,7 +224,7 @@
                     </div>
 
                     <div class="meta">
-                        <div>Série: <strong id="recoverySerie">1º Ano</strong></div>
+                        <div>Série: <strong id="recoverySerie"><%=grade%>º Ano</strong></div>
                         <div>Matrícula: <strong id="recoveryMat">—</strong></div>
                     </div>
                 </div>

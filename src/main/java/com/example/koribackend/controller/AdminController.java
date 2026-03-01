@@ -253,7 +253,7 @@ public class AdminController extends HttpServlet {
         String name = request.getParameter("nameEdit");
         String subject = request.getParameter("subjectEdit");
         String password = request.getParameter("passwordEdit");
-        boolean result = new ProfessorDAO().updateProfessor(new Professor(id,user,password,name,subject));
+        int result = new ProfessorDAO().updateProfessor(new Professor(id,user,password,name,subject));
         request.setAttribute("name",name);
         request.setAttribute("resultEditProfessor",String.valueOf(result));
         showProfessors(request,response);
@@ -265,7 +265,7 @@ public class AdminController extends HttpServlet {
         String name = request.getParameter("name");
         String subject = request.getParameter("subject");
         String password = request.getParameter("password");
-        boolean result = new ProfessorDAO().createAccount(new Professor(user, password, name, subject));
+        int result = new ProfessorDAO().createAccount(new Professor(user, password, name, subject));
         request.setAttribute("resultProfessor",String.valueOf(result));
         request.getRequestDispatcher("/WEB-INF/view/admin/homeAdmin.jsp").forward(request,response);
     }
