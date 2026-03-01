@@ -139,6 +139,30 @@ h1 {
     transform: scale(1.04)
 }
 
+.btn-limpar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 28px;
+    border-radius: 999px;
+
+    background: #F5C659;
+    color: #021018;
+    font-size: 13px;
+    font-weight: 600;
+
+    border: none;
+    cursor: pointer;
+
+    box-shadow: 0 6px 14px rgba(245, 198, 89, 0.25);
+    transition: transform .15s ease;
+}
+
+.btn-limpar:hover {
+    transform: scale(1.03);
+}
+
 /* Inherit font for form elements */
 button,
 input,
@@ -621,6 +645,34 @@ select {
     opacity: 0;
     transform: translateX(-12px);
     transition: all .35s ease;
+}
+
+.modal .btn,
+.confirm-content .btn {
+    transition: transform .15s ease, background .15s ease, color .15s ease;
+}
+
+.modal .btn.primary:hover,
+.confirm-content .btn.primary:hover {
+    color: #071018;
+    transform: scale(1.01);
+}
+
+.modal .btn.ghost:hover,
+.confirm-content .btn.ghost:hover {
+    color: #444;
+    transform: scale(1.01);
+}
+
+.modal .note-input {
+    border: 2px solid transparent;
+    transition: border .15s ease, box-shadow .15s ease;
+}
+
+.modal .note-input:focus {
+    border: 2px solid var(--sidebar-blue);
+    outline: none;
+    background: #ffffff;
 }
 
 /* Entry animation */

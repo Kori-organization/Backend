@@ -350,7 +350,7 @@ main {
     border-radius: 50%;
     border: none;
 
-    background: #FFE5E5;
+    background: #F4F1E8;
     cursor: pointer;
 
     display: flex;
@@ -579,7 +579,6 @@ main {
     }
 }
 
-
 @keyframes toastIn {
     from {
         opacity: 0;
@@ -592,6 +591,13 @@ main {
     }
 }
 
+.btn-confirm {
+    transition: transform 0.15s ease;
+}
+
+.btn-confirm:hover {
+    transform: scale(1.02);
+}
 
 /* Small overlay show class behavior */
 .overlay.show {

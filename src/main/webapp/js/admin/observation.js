@@ -65,6 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let cardToDelete = null;
 
+    confirmDeleteOverlay.addEventListener('click', (e) => {
+        if (e.target === confirmDeleteOverlay) {
+            confirmDeleteOverlay.classList.remove('show');
+            cardToDelete = null;
+        }
+    });
+
     // =========================
     // OPEN MODAL
     // =========================

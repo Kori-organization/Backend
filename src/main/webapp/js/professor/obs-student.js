@@ -48,6 +48,18 @@ const observationInput = document.getElementById("observationInput");
 
 const toastWrap = document.getElementById("toastWrap");
 
+observationOverlay.addEventListener("click", (e) => {
+    if (e.target === observationOverlay) {
+        observationOverlay.classList.remove("show");
+    }
+});
+
+confirmObservationOverlay.addEventListener("click", (e) => {
+    if (e.target === confirmObservationOverlay) {
+        confirmObservationOverlay.classList.remove("show");
+    }
+});
+
 
 // OPEN MODAL
 document.querySelector(".obs-card.p2").addEventListener("click", () => {
@@ -131,4 +143,3 @@ function showToast(type = 'success', title = '', subtitle = '') {
 
 }
 
-window.showToast = showToast;

@@ -92,6 +92,14 @@ document.addEventListener('DOMContentLoaded', () => {
         el.setAttribute('aria-hidden', 'true');
     }
 
+    [editOverlay, confirmDeleteOverlay, confirmSaveOverlay].forEach(overlay => {
+        overlay?.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                closeOverlay(overlay);
+            }
+        });
+    });
+
     // =========================
     // POSITION POPUP
     // =========================

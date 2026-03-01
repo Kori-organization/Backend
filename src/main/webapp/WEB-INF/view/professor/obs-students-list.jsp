@@ -33,16 +33,21 @@
         <!-- Page title -->
         <h1>Alunos do ${sessionScope.grade}º Ano</h1>
 
+        <!-- Search box -->
         <form action="obsStudentsList" method="get">
             <div class="search-box">
                 <input type="text" placeholder="Pesquisar Aluno..." value="${empty requestScope.filter ? "" : requestScope.filter}" aria-label="Pesquisar Aluno" name="filter">
+
+                <button type="button" class="btn-limpar"
+                        onclick="window.location='obsStudentsList?grade=${sessionScope.grade}'">
+                    Limpar
+                </button>
+
                 <button class="search-btn" title="Pesquisar"  aria-label="Pesquisar" type="submit">
                     <img src="${pageContext.request.contextPath}/assets/icon-search.svg" width="17" alt="Pesquisar">
                 </button>
             </div>
         </form>
-        <!-- Search box -->
-        
 
         <!-- Students table section -->
         <section class="table" aria-label="Lista de alunos">

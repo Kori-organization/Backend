@@ -1,53 +1,6 @@
 // Save button
 const toastWrap = document.getElementById('toastWrap');
 
-// Main calculation
-function calculateAll() {
-    const n1 = document.querySelectorAll('.n1');
-    const n2 = document.querySelectorAll('.n2');
-    const rec = document.querySelectorAll('.rec');
-    const medias = document.querySelectorAll('.media-final');
-    const status = document.querySelectorAll('.status');
-
-    let approvedOverall = true;
-
-    n1.forEach((_, i) => {
-        const grade1 = Number(n1[i].value) || 0;
-        const grade2 = Number(n2[i].value) || 0;
-
-        const avg = (grade1 + grade2) / 2;
-        let finalAvg = avg;
-
-        // Enable recovery only if average < 7
-        if (avg < 7) {
-            rec[i].disabled = false;
-            const recovery = Number(rec[i].value) || 0;
-            finalAvg = (avg + recovery) / 2;
-        } else {
-            rec[i].disabled = true;
-            rec[i].value = '';
-        }
-
-        medias[i].textContent = finalAvg.toFixed(1);
-
-        if (finalAvg >= 7) {
-            status[i].textContent = 'Aprovado';
-            status[i].classList.remove('red');
-            status[i].classList.add('green');
-        } else {
-            status[i].textContent = 'Reprovado';
-            status[i].classList.remove('green');
-            status[i].classList.add('red');
-            approvedOverall = false;
-        }
-    });
-
-    document.querySelector('.final-status span').textContent =
-        `Situação final: ${approvedOverall ? 'Aprovado' : 'Reprovado'}.`;
-
-    updateWarnings();
-}
-
 // Init
 document.addEventListener('DOMContentLoaded', () => {
     calculateAll();
@@ -125,12 +78,16 @@ function updateWarnings() {
         const g2 = n2[i];
         const r = rec[i];
 
-        // Grades warning
-        if (g1.value === '' || g2.value === '') {
+        // Grades warning individual
+        if (g1.value === '') {
             g1.classList.add('warning');
-            g2.classList.add('warning');
         } else {
             g1.classList.remove('warning');
+        }
+
+        if (g2.value === '') {
+            g2.classList.add('warning');
+        } else {
             g2.classList.remove('warning');
         }
 
@@ -194,6 +151,8 @@ function calculateAll() {
     });
     document.querySelector('.final-status span').textContent =
         `Situação final: ${approvedOverall ? 'Aprovado' : 'Reprovado'}.`;
+
+    updateWarnings();
 }
 
 // Init

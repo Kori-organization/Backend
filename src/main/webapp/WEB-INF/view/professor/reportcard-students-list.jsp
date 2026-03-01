@@ -42,7 +42,13 @@
         <form action="reportCardStudentsList" method="get">
             <div class="search-box">
                 <input type="hidden" name="grade" value="<%=grade%>">
-                <input type="text" value="${empty requestScope.filter ? "" : requestScope.filter}" placeholder="Pesquisar Aluno..." aria-label="Pesquisar Aluno" name="filter">
+                <input type="text" value="${empty requestScope.paramfilter ? "" : requestScope.paramfilter}" placeholder="Pesquisar Aluno..." aria-label="Pesquisar Aluno" name="filter">
+
+                <button class="btn-limpar"
+                        onclick="window.location='reportCardStudentsList?grade=<%=grade%>'">
+                    Limpar
+                </button>
+
                 <button class="search-btn" title="Pesquisar" aria-label="Pesquisar" type="submit">
                     <img src="${pageContext.request.contextPath}/assets/icon-search.svg" width="17" alt="Pesquisar">
                 </button>
@@ -137,7 +143,7 @@
                                 <div class="field">
                                     <div class="label">Digite a Nota 1</div>
                                     <div class="note-row">
-                                        <input id="nota1" class="note-input" name="n1" type="number" min="0" max="10" step="0.1"
+                                        <input id="nota1" class="note-input" name="n1" type="number" min="-1" max="10" step="0.01"
                                             placeholder="—" />
                                     </div>
                                 </div>
@@ -145,7 +151,7 @@
                                 <div class="field">
                                     <div class="label">Digite a Nota 2</div>
                                     <div class="note-row">
-                                        <input id="nota2" class="note-input" name="n2" type="number" min="0" max="10" step="0.1"
+                                        <input id="nota2" class="note-input" name="n2" type="number" min="-1" max="10" step="0.01"
                                             placeholder="—" />
                                     </div>
                                 </div>
@@ -251,7 +257,7 @@
 
                         <div class="field" style="margin-left: 35px;">
                             <div class="label">Digite a nota de recuperação</div>
-                            <input id="recInput" class="note-input" name="rec" type="number" min="0" max="10" step="0.1"
+                            <input id="recInput" class="note-input" name="rec" type="number" min="-1" max="10" step="0.01"
                                 placeholder="—">
                         </div>
                     </div>

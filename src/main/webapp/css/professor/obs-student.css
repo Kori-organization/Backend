@@ -578,6 +578,17 @@ main {
     transition: all .35s ease;
 }
 
+.btn,
+.btn-confirm {
+    transition: transform .18s ease;
+    font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+}
+
+.btn:hover,
+.btn-confirm:hover {
+    transform: scale(1.01);
+}
+
 /* Entry animation */
 @keyframes slideIn {
     from {

@@ -139,6 +139,32 @@ h1 {
     transform: scale(1.04)
 }
 
+.btn-limpar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 28px;
+    border-radius: 999px;
+
+    background: #F5C659;
+    color: #021018;
+    font-size: 13px;
+    font-weight: 600;
+
+    border: none;
+    cursor: pointer;
+
+
+    box-shadow: 0 6px 14px rgba(245, 198, 89, 0.25);
+    transition: transform .15s ease;
+}
+
+.btn-limpar:hover {
+    transform: scale(1.03);
+}
+
+
 /* Inherit font for form elements */
 button,
 input,
@@ -815,6 +841,67 @@ select {
 /* Delete in red */
 .popup-item.delete {
     color: #ff3b30;
+}
+
+.confirm-buttons .btn-confirm,
+.confirm-buttons .btn-cancel,
+.btn-delete,
+.btn-confirm-delete {
+    transition: transform .15s ease, background .15s ease, color .15s ease;
+}
+
+.confirm-buttons .btn-confirm:hover,
+.btn-confirm-delete:hover {
+    transform: scale(1.02);
+}
+
+.confirm-buttons .btn-cancel:hover {
+    transform: scale(1.02);
+}
+
+.btn-delete:hover {
+    transform: scale(1.02);
+}
+
+.btn-edit-cancel, .btn-edit-save {
+    transition: transform .15s ease, background .15s ease, color .15s ease;
+}
+
+.btn-edit-cancel:hover {
+    transform: scale(1.02);
+}
+
+.btn-edit-save:hover {
+    transform: scale(1.02);
+}
+
+.btn-delete-cancel {
+    transition: transform .15s ease, background .15s ease, color .15s ease;
+}
+
+.btn-delete-cancel:hover {
+    transform: scale(1.02);
+}
+
+.confirm-actions .btn {
+    transition: transform .15s ease, background .15s ease, color .15s ease;
+}
+
+.confirm-actions .btn:hover {
+    transform: scale(1.02);
+}
+
+.field input,
+.field select {
+    border: 2px solid transparent;
+    transition: border .15s ease, box-shadow .15s ease;
+}
+
+.field input:focus,
+.field select:focus {
+    border: 2px solid var(--sidebar-blue);
+    outline: none;
+    background: #ffffff;
 }
 
 /* Custom scrollbar */

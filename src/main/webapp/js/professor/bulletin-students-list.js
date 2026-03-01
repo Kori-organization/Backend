@@ -108,7 +108,7 @@ function clampGrade(input) {
     if (value < 0) value = 0;
 
     // Format value with one decimal (remove .0)
-    input.value = value === 0 ? '' : value.toFixed(1).replace('.0', '');
+    input.value = value.toFixed(1).replace('.0', '');
 }
 
 // Calculate average value
