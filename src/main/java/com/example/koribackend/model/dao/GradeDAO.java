@@ -91,6 +91,7 @@ public class GradeDAO {
                     e.printStackTrace();
                 }
             }
+            new ReportCardDAO().updateSituation(enrollment);
         }
         return false;
     }
@@ -130,6 +131,8 @@ public class GradeDAO {
                     }
                 }
             }
+        } finally {
+            new ReportCardDAO().updateSituation(enrollment);
         }
         return true;
     }
@@ -169,6 +172,8 @@ public class GradeDAO {
             stmt.setString(2, subject);
             stmt.setInt(3, enrollment);
             stmt.execute();
+        } finally {
+            new ReportCardDAO().updateSituation(enrollment);
         }
         return true;
     }

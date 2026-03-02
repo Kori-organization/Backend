@@ -86,62 +86,20 @@ public class ReportCardDAO {
         // 2. If average < 7 and no recovery -> 'Recuperação'
         // 3. If recovery exists, check new average -> 'Aprovado' or 'Reprovado'
         // 4. Finally, aggregate all results: if one subject is 'Em andamento', the whole card is 'Em andamento'
-        String sql1 = "SELECT CASE " +
-                "WHEN SUM(CASE WHEN situacao = 'Em andamento' THEN 1 ELSE 0 END) > 0 THEN 'Em andamento' " +
-                "WHEN SUM(CASE WHEN situacao = 'Reprovado' THEN 1 ELSE 0 END) > 0 THEN 'Reprovado' " +
-                "WHEN SUM(CASE WHEN situacao = 'Recuperação' THEN 1 ELSE 0 END) > 0 THEN 'Em andamento' " +
-                "ELSE 'Aprovado' END AS situacao_final FROM (" +
-                "SELECT CASE " +
-                "WHEN g.grade1 IS NULL OR g.grade2 IS NULL THEN 'Em andamento' " +
-                "WHEN (g.grade1 + g.grade2) / 2 >= 7 THEN 'Aprovado' " +
-                "WHEN g.rec IS NOT NULL THEN " +
-                "CASE WHEN ((g.grade1 + g.grade2) / 2 + g.rec) / 2 >= 7 THEN 'Aprovado' ELSE 'Reprovado' END " +
-                "ELSE 'Recuperação' END AS situacao " +
-                "FROM students s " +
-                "LEFT JOIN report_card rc ON rc.student_id = s.enrollment " +
-                "LEFT JOIN grade_rep gr ON gr.rep_id = rc.id " +
-                "LEFT JOIN grades g ON g.id = gr.grade_id WHERE s.enrollment = ?) t;";
+        String sql1 = "UPDATE report_card SET final_situation = (SELECT CASE WHEN COUNT(*) FILTER (WHERE situacao = 'Em andamento') > 0 THEN 'Em andamento' WHEN COUNT(*) FILTER (WHERE situacao = 'Recuperação') > 0 THEN 'Em andamento' " +
+        "WHEN COUNT(*) FILTER (WHERE situacao = 'Reprovado') > 0 THEN 'Reprovado' ELSE 'Aprovado' END FROM (SELECT CASE WHEN g.grade1 IS NULL OR g.grade2 IS NULL THEN 'Em andamento' WHEN (g.grade1 + g.grade2) / 2 >= 7 THEN 'Aprovado' " +
+        "WHEN g.rec IS NOT NULL THEN CASE WHEN ((g.grade1 + g.grade2) / 2 + g.rec) / 2 >= 7 THEN 'Aprovado' ELSE 'Reprovado' END ELSE 'Recuperação' END AS situacao FROM subjects sub LEFT JOIN LATERAL (SELECT g.grade1, g.grade2, g.rec " +
+        "FROM report_card rc JOIN grade_rep gr ON gr.rep_id = rc.id JOIN grades g ON g.id = gr.grade_id WHERE rc.student_id = ? AND g.subject_id = sub.id ORDER BY g.id DESC LIMIT 1) g ON TRUE) t) WHERE student_id = ?";
 
-        String sql2 = "UPDATE report_card SET final_situation = ? WHERE student_id = ?";
-
-        Connection conn = null;
-        try {
-            conn = ConnectionFactory.getConnection();
-            conn.setAutoCommit(false); // Transaction ensures consistent state
-
-            String situation = "";
-            // Step 1: Calculate the new global situation
-            try (PreparedStatement psmt1 = conn.prepareStatement(sql1)) {
-                psmt1.setInt(1, idStudent);
-                try (ResultSet rs = psmt1.executeQuery()) {
-                    if (rs.next()) {
-                        situation = rs.getString(1);
-                    }
-                }
-            }
-
-            // Step 2: Update the report_card table with the result
-            try (PreparedStatement psmt2 = conn.prepareStatement(sql2)) {
-                psmt2.setString(1, situation);
-                psmt2.setInt(2, idStudent);
-                psmt2.execute();
-            }
-            conn.commit();
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql1)
+        ) {
+            stmt.setInt(1,idStudent);
+            stmt.setInt(2,idStudent);
+            stmt.execute();
         } catch (Exception e) {
-            // Rollback if calculation or update fails
-            try {
-                if (conn != null) conn.rollback();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        } finally {
-            // Cleanup connection
-            try {
-                if (conn != null) {
-                    conn.setAutoCommit(true);
-                    conn.close();
-                }
-            } catch (Exception ignored) {}
+            e.printStackTrace();
         }
     }
 }

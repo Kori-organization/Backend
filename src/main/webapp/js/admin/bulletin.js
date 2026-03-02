@@ -155,7 +155,7 @@ function calculateAll() {
     let finalSituation = "";
 
     if (statusList.includes("-")) finalSituation = "Em andamento";
-    else if (statusList.includes("Recuperação")) finalSituation = "Recuperação";
+    else if (statusList.includes("Recuperação")) finalSituation = "Em andamento";
     else if (statusList.includes("Reprovado")) finalSituation = "Reprovado";
     else if (statusList.every(s => s === "Aprovado")) finalSituation = "Aprovado";
 

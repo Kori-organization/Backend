@@ -82,9 +82,7 @@
                 if (student.getRec() == -1) {
                     dataState = "needs-recovery";
                 } else {
-                    if ( (((student.getGrade1() + student.getGrade2()) / 2) + student.getRec()) / 2 >= 7 ) {
-                        dataState = "complete";
-                    }
+                    dataState = "complete";
                 }
             } else {
                 dataState = "complete";

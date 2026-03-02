@@ -274,4 +274,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const textFilter = inputFilter.value.trim();
         window.location = `selectClass?filter=${encodeURIComponent(textFilter)}`
     })
+
+    // =========================
+    // FILTER - ENTER KEY
+    // =========================
+    inputFilter.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            buttonFilter.click();
+        }
+    });
 });
