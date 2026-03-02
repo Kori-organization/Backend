@@ -3,7 +3,7 @@ const toastWrap = document.getElementById('toastWrap');
 
 document.addEventListener('DOMContentLoaded', () => {
     attachInputListeners();
-    calculateAll(); // roda uma vez ao carregar
+    calculateAll();
 });
 
 // Toast
@@ -85,7 +85,6 @@ function updateWarnings() {
     });
 }
 
-// ✅ recalcular SEMPRE que digitar
 function attachInputListeners() {
     document.querySelectorAll('.nota').forEach(input => {
         validateGrade(input);
