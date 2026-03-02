@@ -1,11 +1,18 @@
 <%@ page import="com.example.koribackend.model.entity.ReportCard" %>
 <%@ page import="com.example.koribackend.model.entity.Grade" %>
 <%@ page import="com.example.koribackend.model.entity.Student" %>
+<%@ page import="com.example.koribackend.model.entity.Professor" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
  <%
-            Student student = (Student) request.getAttribute("student");
-            ReportCard reportCard = (ReportCard) request.getAttribute("reportCard");
-            int counter = reportCard.getGrader().size();
+     Professor professor = (Professor) session.getAttribute("professor");
+     if (professor == null) {
+         response.sendRedirect("enter");
+         return;
+     }
+
+     Student student = (Student) request.getAttribute("student");
+     ReportCard reportCard = (ReportCard) request.getAttribute("reportCard");
+     int counter = reportCard.getGrader().size();
  %>
 <!doctype html>
 <html lang="pt-BR">

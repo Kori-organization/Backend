@@ -9,6 +9,10 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/student/home-screen.css">
   <%
     Student student = (Student) session.getAttribute("student");
+    if (student == null) {
+      response.sendRedirect("enter");
+      return;
+    }
   %>
 </head>
 <body>

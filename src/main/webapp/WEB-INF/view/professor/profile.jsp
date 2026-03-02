@@ -3,6 +3,10 @@
 
 <%
     Professor professor = (Professor) session.getAttribute("professor");
+    if (professor == null) {
+        response.sendRedirect("enter");
+        return;
+    }
 %>
 
 <!doctype html>

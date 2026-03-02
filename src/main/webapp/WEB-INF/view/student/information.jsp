@@ -1,3 +1,4 @@
+<%@ page import="com.example.koribackend.model.entity.Student" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -6,6 +7,13 @@
     <title>Kori – Informações</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/student/information.css">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
+    <%
+        Student student = (Student) session.getAttribute("student");
+        if (student == null) {
+            response.sendRedirect("enter");
+            return;
+        }
+    %>
 </head>
 <body>
 <!-- Main app container -->

@@ -2,10 +2,16 @@
 <%@ page import="com.example.koribackend.model.entity.Student" %>
 <%@ page import="com.example.koribackend.model.entity.Observation" %>
 <%@ page import="java.util.List" %>
-
+<%@ page import="com.example.koribackend.model.entity.Professor" %>
 
 
 <%
+    Professor professor = (Professor) session.getAttribute("professor");
+    if (professor == null) {
+        response.sendRedirect("enter");
+        return;
+    }
+
     Student student = (Student) request.getAttribute("student");
     List<Observation> observations = (List<Observation>) request.getAttribute("observations");
     int counter = 2;

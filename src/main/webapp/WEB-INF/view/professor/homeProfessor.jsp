@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/professor/home-screen.css">
     <%
         Professor professor = (Professor) session.getAttribute("professor");
+        if (professor == null) {
+            response.sendRedirect("enter");
+            return;
+        }
+
         ArrayList<RakingDTO> raking = (ArrayList<RakingDTO>) request.getAttribute("raking");
      %>
 </head>

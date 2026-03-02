@@ -3,12 +3,18 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.koribackend.model.entity.Professor" %>
 <%
-        List<StudentDTO> students = (List<StudentDTO>) request.getAttribute("students");
-        int grade = (int) session.getAttribute("grade");
-        String dataState = "";
-        String subject = ((Professor) session.getAttribute("professor")).getSubjectName();
-        String resultEditGrades = (String) request.getAttribute("resultEditGrades");
-        String resultEditRec = (String) request.getAttribute("resultEditRec");
+    Professor professor = (Professor) session.getAttribute("professor");
+    if (professor == null) {
+        response.sendRedirect("enter");
+        return;
+    }
+
+    List<StudentDTO> students = (List<StudentDTO>) request.getAttribute("students");
+    int grade = (int) session.getAttribute("grade");
+    String dataState = "";
+    String subject = ((Professor) session.getAttribute("professor")).getSubjectName();
+    String resultEditGrades = (String) request.getAttribute("resultEditGrades");
+    String resultEditRec = (String) request.getAttribute("resultEditRec");
 %>
 <!doctype html>
 <html lang="pt-BR">

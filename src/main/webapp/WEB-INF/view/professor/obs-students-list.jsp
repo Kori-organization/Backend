@@ -1,8 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.koribackend.model.entity.Student" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.example.koribackend.model.entity.Professor" %>
 <%
-        List<Student> students = (List<Student>) request.getAttribute("students");
+    Professor professor = (Professor) session.getAttribute("professor");
+    if (professor == null) {
+        response.sendRedirect("enter");
+        return;
+    }
+
+    List<Student> students = (List<Student>) request.getAttribute("students");
 %>
 
 <!doctype html>

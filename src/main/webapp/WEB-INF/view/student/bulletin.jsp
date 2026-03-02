@@ -1,5 +1,6 @@
 <%@ page import="com.example.koribackend.model.entity.ReportCard" %>
 <%@ page import="com.example.koribackend.model.entity.Grade" %>
+<%@ page import="com.example.koribackend.model.entity.Student" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -9,6 +10,12 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/student/bulletin.css">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
     <%
+        Student student = (Student) session.getAttribute("student");
+        if (student == null) {
+            response.sendRedirect("enter");
+            return;
+        }
+
         ReportCard reportCard = (ReportCard) request.getAttribute("bulletin");
         int counter = reportCard.getGrader().size();
     %>

@@ -1,5 +1,6 @@
 <%@ page import="com.example.koribackend.dto.StudentObservationsDTO" %>
 <%@ page import="com.example.koribackend.model.entity.Observation" %>
+<%@ page import="com.example.koribackend.model.entity.Administrator" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -9,6 +10,12 @@
     <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/observation.css">
     <%
+        Administrator admin = (Administrator) session.getAttribute("admin");
+        if (admin == null) {
+            response.sendRedirect("enter");
+            return;
+        }
+
         StudentObservationsDTO studentObservationsDTO = (StudentObservationsDTO) request.getAttribute("studentObservationsDTO");
         String resultDeleteObservation = (String) request.getAttribute("resultDeleteObservation");
     %>

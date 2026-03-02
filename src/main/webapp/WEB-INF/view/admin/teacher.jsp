@@ -1,5 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.koribackend.model.entity.Professor" %>
+<%@ page import="com.example.koribackend.model.entity.Administrator" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -9,6 +10,12 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/teacher.css">
   <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
   <%
+    Administrator admin = (Administrator) session.getAttribute("admin");
+    if (admin == null) {
+      response.sendRedirect("enter");
+      return;
+    }
+
     ArrayList<Professor> professors = (ArrayList<Professor>) request.getAttribute("professors");
     String resultDeleteProfessor = (String) request.getAttribute("resultDeleteProfessor");
     String resultEditProfessor = (String) request.getAttribute("resultEditProfessor");

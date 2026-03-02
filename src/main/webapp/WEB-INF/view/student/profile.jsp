@@ -4,6 +4,10 @@
 <head>
   <%
     Student student = (Student) session.getAttribute("student");
+    if (student == null) {
+      response.sendRedirect("enter");
+      return;
+    }
   %>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />

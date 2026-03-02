@@ -1,3 +1,4 @@
+<%@ page import="com.example.koribackend.model.entity.Administrator" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -6,6 +7,13 @@
   <title>Kori – Alunos</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/student.css">
   <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
+  <%
+    Administrator admin = (Administrator) session.getAttribute("admin");
+    if (admin == null) {
+      response.sendRedirect("enter");
+      return;
+    }
+  %>
 </head>
 <body>
 <div class="app">
