@@ -110,7 +110,9 @@ public class ProfessorController extends HttpServlet {
     private void addGrades(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Parse input grades and handle empty values as -1
         double n1 = request.getParameter("n1").equals("") ? -1 : Double.parseDouble(request.getParameter("n1"));
+        System.out.println(n1);
         double n2 = request.getParameter("n2").equals("") ? -1 : Double.parseDouble(request.getParameter("n2"));
+        System.out.println(n2);
         int enrollment = Integer.parseInt(request.getParameter("enrollment"));
         String subject = request.getParameter("subject");
         boolean result = new GradeDAO().updateGrades(n1, n2, enrollment,subject);

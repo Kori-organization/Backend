@@ -215,13 +215,13 @@ const regexUsername = /^[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;
         const usernameEl = row.querySelector('.teacher-username');
         const nameEl = row.querySelector('.teacher-name');
         const subjectEl = row.querySelector('.teacher-subject');
-        const passwordEl = row.querySelector('.teacher-password');
+        const passwordEl = row.querySelector('.password');
 
         const username = usernameEl ? usernameEl.textContent.trim() : '';
         const name = nameEl ? nameEl.textContent.trim() : '';
         const subject = subjectEl ? subjectEl.textContent.trim() : '';
         // don't read real password (it's masked) — leave input empty for security
-        const pwd = '';
+        const pwd = passwordEl.value;
 
         if (editUserInput) editUserInput.value = username;
         if (editNameInput) editNameInput.value = name;

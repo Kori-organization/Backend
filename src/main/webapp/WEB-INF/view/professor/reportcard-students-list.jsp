@@ -42,9 +42,9 @@
         <form action="reportCardStudentsList" method="get">
             <div class="search-box">
                 <input type="hidden" name="grade" value="<%=grade%>">
-                <input type="text" value="${empty requestScope.paramfilter ? "" : requestScope.paramfilter}" placeholder="Pesquisar Aluno..." aria-label="Pesquisar Aluno" name="filter">
+                <input type="text" value="${empty requestScope.filter ? "" : requestScope.filter}" placeholder="Pesquisar Aluno..." aria-label="Pesquisar Aluno" name="filter">
 
-                <button class="btn-limpar"
+                <button class="btn-limpar" type="button"
                         onclick="window.location='reportCardStudentsList?grade=<%=grade%>'">
                     Limpar
                 </button>

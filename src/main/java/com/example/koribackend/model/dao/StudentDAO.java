@@ -128,9 +128,18 @@ public class StudentDAO {
                 stud.setSerie(rs.getInt("serie"));
 
                 // Normalizing results: if value is 0.0/null, set to -1 to signify "No Grade"
-                stud.setGrade1(rs.getDouble("grade1") == 0.0 ? -1 : rs.getDouble("grade1"));
-                stud.setGrade2(rs.getDouble("grade2") == 0.0 ? -1 : rs.getDouble("grade2"));
-                stud.setRec(rs.getDouble("rec") == 0.0 ? -1 : rs.getDouble("rec"));
+                stud.setGrade1(rs.getDouble("grade1"));
+                if (rs.wasNull()) {
+                    stud.setGrade1(-1);
+                }
+                stud.setGrade2(rs.getDouble("grade2"));
+                if (rs.wasNull()) {
+                    stud.setGrade2(-1);
+                }
+                stud.setRec(rs.getDouble("rec"));
+                if (rs.wasNull()) {
+                    stud.setRec(-1);
+                }
                 stud.setSubject(rs.getString("subject") == null ? "" : rs.getString("subject"));
 
                 students.add(stud);

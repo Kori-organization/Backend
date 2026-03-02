@@ -22,6 +22,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
+import java.awt.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -34,6 +35,8 @@ public class ReportCardPDFController extends HttpServlet {
     private final DeviceRgb red = new DeviceRgb(255, 59, 48);
     private final DeviceRgb yellow = new DeviceRgb(212, 160, 23);
     private final DeviceRgb blue = new DeviceRgb(45, 108, 223);
+    private final DeviceRgb green = new DeviceRgb(  140,161,28);
+    private final DeviceRgb black = new DeviceRgb(0,0,0);
 
     // Handle GET requests to initiate the PDF creation process
     @Override
@@ -177,7 +180,7 @@ public class ReportCardPDFController extends HttpServlet {
     private void addLine(Table tabela, String disciplina, double n1, double n2, double rec) {
 
         double average = -1;
-        double avarageFinal = -1;
+        double averageFinal = -1;
 
         // Calculate educational status based on grade inputs
         String situation;
@@ -185,19 +188,18 @@ public class ReportCardPDFController extends HttpServlet {
             average = (n1 + n2) / 2;
             if (average >= 7) {
                 situation = "Aprovado";
-            } else if (average >= 5) {
-                situation = "Recuperação";
+            } else {
                 // Factor in final recovery grade if available
-                if (rec != -1) {
-                    avarageFinal = (average + rec) / 2;
-                    if (avarageFinal >= 7) {
+                if (rec == -1) {
+                    situation = "Recuperação";
+                } else  {
+                    averageFinal = (average + rec) / 2;
+                    if (averageFinal >= 7) {
                         situation = "Aprovado";
                     } else {
                         situation = "Reprovado";
                     }
                 }
-            } else {
-                situation = "Reprovado";
             }
         } else {
             // Default to empty if grades are not fully posted
@@ -239,22 +241,25 @@ public class ReportCardPDFController extends HttpServlet {
         tabela.addCell(recCell);
 
         // Format and style the Final Average (MF) cell
-        Cell cellFinal = new Cell().add(new Paragraph((avarageFinal != -1) ? String.format("%.2f", avarageFinal) : "-"))
+        Cell cellFinal = new Cell().add(new Paragraph((averageFinal != -1) ? String.format("%.2f", averageFinal) : "-"))
                 .setTextAlignment(TextAlignment.CENTER);
-        if (avarageFinal < 7 && avarageFinal != -1) {
+        if (averageFinal < 7 && averageFinal != -1) {
             cellFinal.setFontColor(red);
-        } else if (avarageFinal != -1) {
+        } else if (averageFinal != -1) {
             cellFinal.setFontColor(blue);
         }
         tabela.addCell(cellFinal);
 
         // Format the final Situation text with status-specific colors
-        Cell situationCell = new Cell().add(new Paragraph(situation))
-                .setTextAlignment(TextAlignment.CENTER);
+        Cell situationCell = new Cell().add(new Paragraph(situation)).setTextAlignment(TextAlignment.CENTER);
         if (situation.equals("Reprovado")) {
             situationCell.setFontColor(red);
         } else if (situation.equals("Recuperação")) {
             situationCell.setFontColor(yellow);
+        } else if (situation.equals("Aprovado")) {
+            situationCell.setFontColor(green);
+        } else {
+            situationCell.setFontColor(black);
         }
         tabela.addCell(situationCell);
     }

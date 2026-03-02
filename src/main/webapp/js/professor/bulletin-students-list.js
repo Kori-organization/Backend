@@ -54,9 +54,10 @@ function openGradeModal(row) {
     currentRow = row;
 
     const nota1 = row.dataset.n1.replace(",",".");
+    console.log(nota1)
     const nota2 = row.dataset.n2.replace(",",".");
+    console.log(nota2)
     const enrollment = row.dataset.enrollment;
-    console.log(enrollment)
 
     gradeTitle.textContent = row.querySelector('.nome').textContent.trim();
     gradeEmail.textContent = row.querySelector('.email').textContent.trim();
@@ -94,21 +95,20 @@ function closeConfirmModal() {
 
 // Parse numeric grade value safely
 function getGradeValue(input) {
-    if (!input.value) return 0;
-
     const value = parseFloat(input.value.replace(',', '.'));
-    return isNaN(value) ? 0 : value;
+    return isNaN(value) ? '' : value;
 }
 
 // Clamp grade value between 0 and 10
 function clampGrade(input) {
     let value = getGradeValue(input);
 
-    if (value > 10) value = 10;
-    if (value < 0) value = 0;
-
-    // Format value with one decimal (remove .0)
-    input.value = value.toFixed(1).replace('.0', '');
+    if (value !== '') {
+        if (value > 10) value = 10;
+        if (value < 0) value = 0;
+        // Format value with one decimal (remove .0)
+        input.value = value.toFixed(1).replace('.0', '');
+    }
 }
 
 // Calculate average value

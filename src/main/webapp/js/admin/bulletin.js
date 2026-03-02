@@ -1,10 +1,9 @@
 // Save button
 const toastWrap = document.getElementById('toastWrap');
 
-// Init
 document.addEventListener('DOMContentLoaded', () => {
-    calculateAll();
     attachInputListeners();
+    calculateAll(); // roda uma vez ao carregar
 });
 
 // Toast
@@ -22,12 +21,12 @@ function createToast(title, message = '', type = 'success') {
         : contextPath + '/assets/check-icon.svg';
 
     toast.innerHTML = `
-            <img src="${icon}" style="width:30px;height:22px" alt="">
-            <div class="toast-text">
-                <h4>${title}</h4>
-                ${message ? `<p>${message}</p>` : ''}
-            </div>
-        `;
+    <img src="${icon}" style="width:30px;height:22px" alt="">
+    <div class="toast-text">
+      <h4>${title}</h4>
+      ${message ? `<p>${message}</p>` : ''}
+    </div>
+  `;
 
     toastWrap.appendChild(toast);
 
@@ -78,84 +77,99 @@ function updateWarnings() {
         const g2 = n2[i];
         const r = rec[i];
 
-        // Grades warning individual
-        if (g1.value === '') {
-            g1.classList.add('warning');
-        } else {
-            g1.classList.remove('warning');
-        }
-
-        if (g2.value === '') {
-            g2.classList.add('warning');
-        } else {
-            g2.classList.remove('warning');
-        }
+        g1.classList.toggle('warning', g1.value === '');
+        g2.classList.toggle('warning', g2.value === '');
 
         // Recovery warning (only if enabled)
-        if (!r.disabled && r.value === '') {
-            r.classList.add('warning');
-        } else {
-            r.classList.remove('warning');
-        }
+        r.classList.toggle('warning', !r.disabled && r.value === '');
     });
 }
 
-// Listeners
+// ✅ recalcular SEMPRE que digitar
 function attachInputListeners() {
     document.querySelectorAll('.nota').forEach(input => {
         validateGrade(input);
 
-        input.addEventListener('input', updateWarnings);
-        input.addEventListener('blur', calculateAll);
+        input.addEventListener('blur', () => {
+            updateWarnings();
+            calculateAll();
+        });
     });
 }
 
-// Calculation
 function calculateAll() {
     const n1 = document.querySelectorAll('.n1');
     const n2 = document.querySelectorAll('.n2');
     const rec = document.querySelectorAll('.rec');
     const medias = document.querySelectorAll('.media-final');
     const status = document.querySelectorAll('.status');
-    let approvedOverall = true;
 
     n1.forEach((_, i) => {
-        const grade1 = Number(n1[i].value) || 0;
-        const grade2 = Number(n2[i].value) || 0;
-        const avg = (grade1 + grade2) / 2;
-        let finalAvg = avg;
+        const g1 = n1[i].value === '' ? null : Number(n1[i].value);
+        const g2 = n2[i].value === '' ? null : Number(n2[i].value);
+        const r  = rec[i].value === '' ? null : Number(rec[i].value);
 
-        if (avg < 7) {
-            rec[i].disabled = false;
-            const recovery = Number(rec[i].value) || 0;
-            finalAvg = (avg + recovery) / 2;
+        let finalAvg = null;
+        let needRec = false;
+
+        if (g1 !== null && g2 !== null) {
+            const avg = (g1 + g2) / 2;
+
+            if (avg < 7) {
+                if (r !== null) {
+                    finalAvg = (avg + r) / 2;
+                } else {
+                    needRec = true;
+                }
+            } else {
+                finalAvg = avg;
+            }
         }
-        else {
+
+        medias[i].textContent = finalAvg === null ? '-' : finalAvg.toFixed(1);
+
+        status[i].classList.remove('red', 'green', 'yellow');
+
+        if (g1 === null || g2 === null) {
+            status[i].textContent = "-";
             rec[i].disabled = true;
-            rec[i].value = '';
-        }
-
-        medias[i].textContent = finalAvg.toFixed(1);
-
-        if (finalAvg >= 7) {
-            status[i].textContent = 'Aprovado';
+        } else if (needRec) {
+            status[i].textContent = "Recuperação";
+            rec[i].disabled = false;
+            status[i].classList.add('yellow');
+        } else if (finalAvg >= 7) {
+            status[i].textContent = "Aprovado";
+            rec[i].disabled = true;
             status[i].classList.add('green');
-            status[i].classList.remove('red');
-        }
-        else {
-            status[i].textContent = 'Reprovado';
+        } else {
+            status[i].textContent = "Reprovado";
+            rec[i].disabled = true;
             status[i].classList.add('red');
-            status[i].classList.remove('green');
-            approvedOverall = false;
+        }
+        
+        if (rec[i].value !== '') {
+            rec[i].disabled = false;
         }
     });
+
+    const statusList = [...status].map(s => s.textContent.trim());
+    let finalSituation = "";
+
+    if (statusList.includes("-")) finalSituation = "Em andamento";
+    else if (statusList.includes("Recuperação")) finalSituation = "Recuperação";
+    else if (statusList.includes("Reprovado")) finalSituation = "Reprovado";
+    else if (statusList.every(s => s === "Aprovado")) finalSituation = "Aprovado";
+
     document.querySelector('.final-status span').textContent =
-        `Situação final: ${approvedOverall ? 'Aprovado' : 'Reprovado'}.`;
+        `Situação final: ${finalSituation}.`;
 
     updateWarnings();
 }
 
-// Init
-document.addEventListener('DOMContentLoaded', calculateAll);
+document.getElementById('bulletinForm').addEventListener('submit', () => {
+    document.querySelectorAll('.rec').forEach(input => {
+        input.disabled = false;
+    });
+});
 
 window.createToast = createToast;

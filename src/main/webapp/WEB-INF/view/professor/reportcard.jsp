@@ -119,16 +119,16 @@
                         boolean isRec = false;
                         if (grade.getGrade1() != -1 && grade.getGrade2() != -1) {
                             average = (grade.getGrade1() + grade.getGrade2()) / 2;
-                            if (average < 7 && grade.getRec() != -1) {
-                                average = (average + grade.getRec()) / 2;
-                            } else {
+                            if (average < 7 && grade.getRec() == -1) {
                                 isRec = true;
+                            } else if (grade.getRec() != -1) {
+                                average = (average + grade.getRec()) / 2;
                             }
                         } else {
                             average = -1;
                         }
                     %>
-                    <div class="bitem <%=counter == reportCard.getGrader().size() - 1 ? "top" : ""%> <%=counter == 0 ? "bottom" : ""%> <%=(average != -1 && average <= 5) ? "red" : (average >= 7 ? "green" : (average != -1 ? "yellow" : "")) %>"><%=(average == -1) ? "-" : (average < 7 && average >= 5 && isRec ? "Recuperação" : (average >= 7 ? "Aprovado" : "Reprovado"))%></div>
+                    <div class="bitem <%=counter == reportCard.getGrader().size() - 1 ? "top" : ""%> <%=counter == 0 ? "bottom" : ""%> <%=(isRec ? "yellow" : (average == -1 ? "" : (average >= 7 ? "green" : "red")))%>"><%=(isRec ? "Recuperação" : (average == -1 ? "-" : (average < 7 ? "Reprovado" : "Aprovado")))%></div>
                     <% } %>
                 </div>
             </div>

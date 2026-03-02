@@ -77,9 +77,15 @@ btnCancelObservation.addEventListener("click", () => {
 
 // OPEN CONFIRM
 btnSaveObservation.addEventListener("click", () => {
-    const text = observationInput.value.split(" ");
+    const text = observationInput.value.trim();
+    if (text === '') {
+        showToast("error", "Observação vazia", "Você precisa escrever algo antes de adicionar a observação.");
+        return;
+    }
+
+    const textSplit = text.split(" ");
     let wordLong = false;
-    for (let word of text) {
+    for (let word of textSplit) {
         if (word.length > 30) {
             wordLong = true;
             break;
