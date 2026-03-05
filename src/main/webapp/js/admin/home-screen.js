@@ -4,39 +4,40 @@ const currentMonthElement = document.getElementById('current-month');
 const previousMonthButton = document.getElementById('previous-month');
 const nextMonthButton = document.getElementById('next-month');
 
-// Forms
-const studentForm = document.getElementById("studentForm");
-const professorForm = document.getElementById("professorForm");
-
-// Regex password
-const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).+$/;
-const regexUsername = /^[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/
-const regexEmail = /^[A-Za-z0-9._+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$|^$/;
-
 // Current date
 let currentDate = new Date();
+
+// Calendar notes
+let calendarNotes = {};
+let selectedDate = null;
+
+// Popup elements
+const noteOverlay = document.getElementById("noteOverlay");
+const calendarNoteText = document.getElementById("calendarNoteText");
+const saveNoteBtn = document.getElementById("saveNoteBtn");
+const deleteNoteBtn = document.getElementById("deleteNoteBtn");
 
 // Days of the week
 const daysOfWeek = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'];
 
 // Fixed Brazilian holidays
 const fixedHolidays = [
-    '01-01', // New Year's Day
-    '04-21', // Tiradentes
-    '05-01', // Labor Day
-    '09-07', // Independence Day
-    '10-12', // Our Lady of Aparecida
-    '11-02', // All Souls' Day
-    '11-15', // Republic Proclamation
-    '11-20', // Black Awareness Day
-    '12-25'  // Christmas
+    '01-01',
+    '04-21',
+    '05-01',
+    '09-07',
+    '10-12',
+    '11-02',
+    '11-15',
+    '11-20',
+    '12-25'
 ];
 
 function renderCalendar() {
-    // Clear the calendar container
+
     calendarElement.innerHTML = '';
 
-    // Create calendar header
+    // Week header
     daysOfWeek.forEach(day => {
         const element = document.createElement('div');
         element.className = 'day head';
@@ -44,39 +45,34 @@ function renderCalendar() {
         calendarElement.appendChild(element);
     });
 
-    // Get current year and month
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
 
-    // Get month name for the calendar header
     const monthName = currentDate.toLocaleString('pt-BR', { month: 'long' });
     const formattedMonth =
         monthName.charAt(0).toUpperCase() + monthName.slice(1);
 
-    // Update the calendar title (month and year)
     currentMonthElement.textContent = `${formattedMonth} de ${year}`;
 
-    // Get the first weekday of the month
     const firstDayOfMonth = new Date(year, month, 1).getDay();
-
-    // Get total number of days in the month
     const totalDaysInMonth = new Date(year, month + 1, 0).getDate();
 
-    // Add empty spaces before the first day of the month
+    // Empty spaces
     for (let i = 0; i < firstDayOfMonth; i++) {
         calendarElement.appendChild(document.createElement('div'));
     }
 
-    // Get today's date
     const today = new Date();
 
-    // Create calendar day elements
     for (let day = 1; day <= totalDaysInMonth; day++) {
+
         const element = document.createElement('div');
         element.className = 'day';
         element.textContent = day;
 
-        // Highlight the current day
+        const fullDate = `${year}-${month + 1}-${day}`;
+
+        // Highlight today
         if (
             day === today.getDate() &&
             month === today.getMonth() &&
@@ -85,32 +81,80 @@ function renderCalendar() {
             element.classList.add('today');
         }
 
-        // Highlight fixed holidays
+        // Holidays
         const dateKey = `${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
         if (fixedHolidays.includes(dateKey)) {
             element.classList.add('holiday');
         }
 
-        // Add the day to the calendar
+        // If note exists
+        if (calendarNotes[fullDate]) {
+            element.classList.add('note');
+        }
+
+        // Click event
+        element.onclick = () => {
+
+            selectedDate = fullDate;
+
+            if (calendarNotes[selectedDate]) {
+
+                calendarNoteText.value = calendarNotes[selectedDate];
+
+                deleteNoteBtn.textContent = "Excluir";
+
+            } else {
+
+                calendarNoteText.value = "";
+
+                deleteNoteBtn.textContent = "Cancelar";
+
+            }
+
+            noteOverlay.classList.add("show");
+        };
+
         calendarElement.appendChild(element);
     }
 }
 
-// Navigate to the previous month
+// Save note
+saveNoteBtn.onclick = () => {
+
+    const text = calendarNoteText.value.trim();
+
+    if (text !== "") {
+        calendarNotes[selectedDate] = text;
+    }
+
+    noteOverlay.classList.remove("show");
+
+    renderCalendar();
+};
+
+// Delete note
+deleteNoteBtn.onclick = () => {
+
+    delete calendarNotes[selectedDate];
+
+    noteOverlay.classList.remove("show");
+
+    renderCalendar();
+};
+
+// Navigate months
 previousMonthButton.onclick = () => {
     currentDate.setMonth(currentDate.getMonth() - 1);
     renderCalendar();
 };
 
-// Navigate to the next month
 nextMonthButton.onclick = () => {
     currentDate.setMonth(currentDate.getMonth() + 1);
     renderCalendar();
 };
 
-// Calendar render
+// First render
 renderCalendar();
-
 
 // ***********************************************************************************************************
 

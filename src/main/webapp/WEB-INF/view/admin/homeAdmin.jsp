@@ -368,6 +368,26 @@
 <!-- TOAST -->
 <div id="toastWrapTeacher" class="toast-wrap-teacher"></div>
 
+<!-- POPUP ANOTAÇÃO CALENDÁRIO -->
+<div id="noteOverlay" class="overlay" aria-hidden="true">
+  <div class="modal" style="max-width:400px">
+
+    <div style="margin-bottom:15px">
+      <h2>Anotação</h2>
+    </div>
+
+    <textarea id="calendarNoteText"
+              placeholder="Digite uma observação..."
+              style="width:100%;height:100px;border-radius:10px;padding:10px"></textarea>
+
+    <div class="modal-actions" style="margin-top:15px">
+      <button id="deleteNoteBtn" class="btn btn-back">Excluir</button>
+      <button id="saveNoteBtn" class="btn btn-save">Salvar</button>
+    </div>
+
+  </div>
+</div>
+
 </body>
 
 <!-- Scripts -->

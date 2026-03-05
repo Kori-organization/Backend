@@ -564,6 +564,12 @@ img {
     font-weight: 700;
 }
 
+.day.note {
+    background: #ffde93;
+    color: #092831;
+    height: 36px;
+}
+
 #current-month {
     user-select: none;
 }
