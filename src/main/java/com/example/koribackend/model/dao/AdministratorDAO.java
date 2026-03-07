@@ -2,10 +2,13 @@ package com.example.koribackend.model.dao;
 
 import com.example.koribackend.model.entity.Administrator;
 import com.example.koribackend.config.ConnectionFactory;
+import com.example.koribackend.model.entity.Event;
+import com.example.koribackend.model.entity.Observation;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Data Access Object for Administrator entities.
@@ -106,5 +109,106 @@ public class AdministratorDAO {
             e.printStackTrace();
         }
         return admin;
+    }
+
+    public boolean salveEventOnCalender(Event event) {
+        String sql = "INSERT INTO calendar_events (admin_id, event_name, event_desc, event_date, event_start, event_end) VALUES (?, ?, ?, ?, ?, ?)";
+        int rows = 0;
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, event.getAdminId());
+            stmt.setString(2, event.getEventNome());
+            stmt.setString(3, event.getEventText());
+            stmt.setDate(4, event.getEventDate());
+            stmt.setTime(5, event.getEventStart());
+            stmt.setTime(6, event.getEventEnd());
+            rows = stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (rows > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteEventOnCalendar(String adminName, String dateStr) {
+        Administrator admin = selectAdministratorForUsername(adminName);
+        java.sql.Date sqlDate = java.sql.Date.valueOf(dateStr);
+        int rows = 0;
+
+        String sql = "DELETE FROM calendar_events WHERE id_admin = ? AND event_date = ?";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, admin.getId());
+            stmt.setDate(2, sqlDate);
+            rows = stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (rows > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateEventOnCalenar(Event event) {
+        String sql = "UPDATE calendar_event SET event_name=?, event_desc=?, event_date=?, event_start=?, event_end=?, admin_id=? WHERE event_date=?";
+        int rows = 0;
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+        ) {
+            stmt.setString(1, event.getEventNome());
+            stmt.setString(2, event.getEventText());
+            stmt.setDate(3, event.getEventDate());
+            stmt.setTime(4, event.getEventStart());
+            stmt.setTime(5, event.getEventEnd());
+            stmt.setInt(6, event.getAdminId());
+            stmt.setDate(7, event.getEventDate());
+            rows = stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (rows > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public Map<String, Object> selectEventForDate(String dateStr) {
+        Map<String, Object> eventResult = null;
+        java.sql.Date sqlDate = java.sql.Date.valueOf(dateStr);
+        Event event = null;
+
+        String sql = "SELECT event_name, event_desc, event_date, event_start, event_end FROM calendar_event";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+        ) {
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                event = new Event();
+                event.setEventNome(rs.getString("event_name"));
+                event.setEventText(rs.getString("event_desc"));
+                event.setEventDate(rs.getDate("event_date"));
+                event.setEventStart(rs.getTime("event_start"));
+                event.setEventEnd(rs.getTime("event_end"));
+                eventResult = event.toMap();
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return eventResult;
     }
 }

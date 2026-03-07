@@ -3,10 +3,7 @@ package com.example.koribackend.controller;
 // Import Data Transfer Objects, DAOs, and Entity models
 import com.example.koribackend.dto.StudentObservationsDTO;
 import com.example.koribackend.model.dao.*;
-import com.example.koribackend.model.entity.Grade;
-import com.example.koribackend.model.entity.Professor;
-import com.example.koribackend.model.entity.ReportCard;
-import com.example.koribackend.model.entity.Student;
+import com.example.koribackend.model.entity.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -15,6 +12,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Map;
 
 // Map multiple administrative URL patterns to this single controller
 @WebServlet(urlPatterns = {
@@ -33,7 +31,11 @@ import java.util.ArrayList;
         "/observationsStudentAdmin",
         "/deleteObservation",
         "/showReportCardStudent",
-        "/addGradesReportCard"})
+        "/addGradesReportCard",
+        "/salveEvent",
+        "/deleteEvent",
+        "/updateEvent",
+        "/selectEvent"})
 public class AdminController extends HttpServlet {
 
     // Handle incoming GET requests and route them to specific internal methods
@@ -204,6 +206,18 @@ public class AdminController extends HttpServlet {
             case "/addGradesReportCard":
                 addGradesReportCard(request,response);
                 break;
+            case "/salveEvent":
+                salveEvent(request, response);
+                break;
+            case "/deleteEvent":
+                deleteEvent(request, response);
+                break;
+            case "/updateEvent":
+                updateEvent(request, response);
+                break;
+            case "/selectEvent":
+                selectEvent(request, response);
+                break;
         }
     }
 
@@ -281,5 +295,46 @@ public class AdminController extends HttpServlet {
         boolean result = new StudentDAO().createAccount(new Student(email,admission,password,name,studentGrade));
         request.setAttribute("resultStudent",String.valueOf(result));
         request.getRequestDispatcher("/WEB-INF/view/admin/homeAdmin.jsp").forward(request,response);
+    }
+
+    private void salveEvent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String eventText = request.getParameter("eventText");
+        String eventName = request.getParameter("eventName");
+        String eventDate = request.getParameter("eventDate");
+        String eventStart = request.getParameter("eventStart");
+        String eventEnd = request.getParameter("eventEnd");
+        String adminName = request.getParameter("adminName");
+        Event event = new Event(eventName, eventDate, eventStart, eventEnd, eventText, adminName);
+        boolean result = new AdministratorDAO().salveEventOnCalender(event);
+        request.setAttribute("resultEvent",String.valueOf(result));
+        request.getRequestDispatcher("/WEB-INF/view/admin/teacher.jsp").forward(request,response);
+    }
+
+    private void deleteEvent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String eventDate = request.getParameter("eventDate");
+        String adminName = request.getParameter("adminName");
+        boolean result = new AdministratorDAO().deleteEventOnCalendar(adminName, eventDate);
+        request.setAttribute("resultEvent",String.valueOf(result));
+        request.getRequestDispatcher("/WEB-INF/view/admin/teacher.jsp").forward(request,response);
+    }
+
+    public void updateEvent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String eventText = request.getParameter("eventText");
+        String eventName = request.getParameter("eventName");
+        String eventDate = request.getParameter("eventDate");
+        String eventStart = request.getParameter("eventStart");
+        String eventEnd = request.getParameter("eventEnd");
+        String adminName = request.getParameter("adminName");
+        Event event = new Event(eventName, eventDate, eventStart, eventEnd, eventText, adminName);
+        boolean result = new AdministratorDAO().updateEventOnCalenar(event);
+        request.setAttribute("resultEvent",String.valueOf(result));
+        request.getRequestDispatcher("/WEB-INF/view/admin/teacher.jsp").forward(request,response);
+    }
+
+    private void selectEvent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String eventDate = request.getParameter("eventDate");
+        Map<String, Object> result = new AdministratorDAO().selectEventForDate(eventDate);
+        request.setAttribute("resultEvent",String.valueOf(result));
+        request.getRequestDispatcher("/WEB-INF/view/admin/teacher.jsp").forward(request,response);
     }
 }

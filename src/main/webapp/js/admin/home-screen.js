@@ -130,6 +130,8 @@ saveNoteBtn.onclick = () => {
     noteOverlay.classList.remove("show");
 
     renderCalendar();
+
+    window.location = `salveEvent?note=${text}&admin=${adminName}&date=${selectedDate}`;
 };
 
 // Delete note
