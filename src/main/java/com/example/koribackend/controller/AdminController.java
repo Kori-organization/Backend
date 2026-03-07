@@ -218,6 +218,9 @@ public class AdminController extends HttpServlet {
             case "/selectEvent":
                 selectEvent(request, response);
                 break;
+            case "/selectAllEvents":
+                selectAllEvents(request, response);
+                break;
         }
     }
 
