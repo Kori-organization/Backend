@@ -189,12 +189,13 @@ public class AdministratorDAO {
         java.sql.Date sqlDate = java.sql.Date.valueOf(dateStr);
         Event event = null;
 
-        String sql = "SELECT event_name, event_desc, event_date, event_start, event_end FROM calendar_event";
+        String sql = "SELECT event_name, event_desc, event_date, event_start, event_end FROM calendar_event WHERE event_date = ?";
 
         try (
                 Connection conn = ConnectionFactory.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql);
         ) {
+            stmt.setDate(1, sqlDate);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 event = new Event();
@@ -204,6 +205,33 @@ public class AdministratorDAO {
                 event.setEventStart(rs.getTime("event_start"));
                 event.setEventEnd(rs.getTime("event_end"));
                 eventResult = event.toMap();
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return eventResult;
+    }
+
+    public ArrayList<Map<String, Object>> selectAllEvents() {
+        ArrayList<Map<String, Object>> eventResult = null;
+        int cont = 0;
+
+        String sql = "SELECT event_name, event_desc, event_date, event_start, event_end FROM calendar_event";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+        ) {
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Event event = new Event();
+                event.setEventNome(rs.getString("event_name"));
+                event.setEventText(rs.getString("event_desc"));
+                event.setEventDate(rs.getDate("event_date"));
+                event.setEventStart(rs.getTime("event_start"));
+                event.setEventEnd(rs.getTime("event_end"));
+                eventResult.add(event.toMap());
             }
             rs.close();
         } catch (SQLException e) {

@@ -337,4 +337,10 @@ public class AdminController extends HttpServlet {
         request.setAttribute("resultEvent",String.valueOf(result));
         request.getRequestDispatcher("/WEB-INF/view/admin/teacher.jsp").forward(request,response);
     }
+
+    private void selectAllEvents(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<Map<String, Object>> result = new AdministratorDAO().selectAllEvents();
+        request.setAttribute("resultEvent",String.valueOf(result));
+        request.getRequestDispatcher("/WEB-INF/view/admin/teacher.jsp").forward(request,response);
+    }
 }
