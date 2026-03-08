@@ -562,12 +562,12 @@ select {
 }
 
 .edit-field input {
-    border: 2px solid transparent;
+    outline: 2px solid transparent;
     transition: border .15s ease;
 }
 
 .edit-field input:focus {
-    border: 2px solid var(--sidebar-color);
+    outline: 2px solid #092831;
     background: #ffffff;
 }
 

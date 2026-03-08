@@ -78,10 +78,10 @@
           <div>
             <h1>Olá, Administrador!</h1>
             <ul class="admin-list">
-              <li>cadastre alunos novos</li>
-              <li>altere notas no boletim</li>
-              <li>altere observações</li>
-              <li>adicione ou exclua usuários</li>
+              <li>Cadastre alunos novos</li>
+              <li>Altere notas no boletim</li>
+              <li>Altere observações</li>
+              <li>Adicione ou exclua usuários</li>
             </ul>
           </div>
 
@@ -140,6 +140,10 @@
           <div class="legend-item">
             <span class="legend-color holiday"></span>
             <span>Feriado</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color event"></span>
+            <span>Evento</span>
           </div>
         </div>
 
@@ -368,25 +372,86 @@
 <!-- TOAST -->
 <div id="toastWrapTeacher" class="toast-wrap-teacher"></div>
 
-<!-- POPUP ANOTAÇÃO CALENDÁRIO -->
+<!-- POPUP EVENT -->
 <div id="noteOverlay" class="overlay" aria-hidden="true">
-  <div class="modal" style="max-width:400px">
+  <div class="modal">
 
-    <div style="margin-bottom:15px">
-      <h2>Anotação</h2>
-    </div>
+    <h2 id="eventPopupTitle">Novo evento</h2>
 
-    <textarea id="calendarNoteText"
-              placeholder="Digite uma observação..."
-              style="width:100%;height:100px;border-radius:10px;padding:10px"></textarea>
+    <form id="eventForm" action="salveEvent" method="post">
 
-    <div class="modal-actions" style="margin-top:15px">
-      <button id="deleteNoteBtn" class="btn btn-back">Excluir</button>
-      <button id="saveNoteBtn" class="btn btn-save">Salvar</button>
-    </div>
+      <div class="form-grid">
+
+        <!-- Left column -->
+        <div class="form-group">
+          <label>Nome do evento</label>
+          <input type="text" id="eventName" name="eventName" placeholder="Ex: Reunião pedagógica" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Horário início</label>
+            <input type="time" id="eventStart" name="eventStart" required>
+          </div>
+
+          <div class="form-group">
+            <label>Horário fim</label>
+            <input type="time" id="eventEnd" name="eventEnd" required>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div class="form-group observacao">
+          <label>Observação</label>
+          <textarea id="calendarNoteText" name="eventText" placeholder="Digite uma observação..."></textarea>
+        </div>
+
+      </div>
+
+      <!-- campo que receberá a data -->
+      <input type="hidden" id="eventDate" name="eventDate">
+
+
+      <div class="modal-actions">
+        <button type="button" id="deleteNoteBtn" class="btn btn-back">Excluir</button>
+        <button type="submit" id="saveNoteBtn" class="btn btn-save">Salvar</button>
+      </div>
+
+    </form>
 
   </div>
 </div>
+
+<!-- POPUP CONFIRM EVENT -->
+<div id="confirmEventOverlay" class="overlay" aria-hidden="true">
+
+  <div class="confirm-modal">
+
+    <div class="confirm-icon">
+      <img src="${pageContext.request.contextPath}/assets/info-circle-orange.svg" alt="Info">
+    </div>
+
+    <h2 class="confirm-title" id="confirmEventTitle">
+      Confirmar ação
+    </h2>
+
+    <div class="confirm-buttons">
+
+      <button id="confirmEventCancel" class="btn-confirm btn-cancel">
+        Voltar
+      </button>
+
+      <button id="confirmEventSend" class="btn-confirm btn-save">
+        Confirmar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div id="calendarTooltip" class="calendar-tooltip"></div>
 
 </body>
 

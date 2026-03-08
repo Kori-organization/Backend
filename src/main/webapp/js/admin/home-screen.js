@@ -16,22 +16,64 @@ const noteOverlay = document.getElementById("noteOverlay");
 const calendarNoteText = document.getElementById("calendarNoteText");
 const saveNoteBtn = document.getElementById("saveNoteBtn");
 const deleteNoteBtn = document.getElementById("deleteNoteBtn");
+const confirmEventOverlay = document.getElementById("confirmEventOverlay");
+const confirmEventCancel = document.getElementById("confirmEventCancel");
+const confirmEventSend = document.getElementById("confirmEventSend");
+const confirmEventTitle = document.getElementById("confirmEventTitle");
+
+let eventAction = null;
+
+// Tooltip
+const tooltip = document.getElementById("calendarTooltip");
+
+// Event elements
+const eventNameInput = document.getElementById("eventName");
+const eventStartInput = document.getElementById("eventStart");
+const eventEndInput = document.getElementById("eventEnd");
+const eventPopupTitle = document.getElementById("eventPopupTitle");
 
 // Days of the week
 const daysOfWeek = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'];
 
 // Fixed Brazilian holidays
-const fixedHolidays = [
-    '01-01',
-    '04-21',
-    '05-01',
-    '09-07',
-    '10-12',
-    '11-02',
-    '11-15',
-    '11-20',
-    '12-25'
-];
+const fixedHolidays = {
+    "01-01": {
+        name: "Feriado - Confraternização Universal",
+        description: "Primeiro dia do ano."
+    },
+    "04-21": {
+        name: "Feriado - Tiradentes",
+        description: "Homenagem a Joaquim José da Silva Xavier."
+    },
+    "05-01": {
+        name: "Feriado - Dia do Trabalhador",
+        description: "Celebração dos direitos dos trabalhadores."
+    },
+    "09-07": {
+        name: "Feriado - Independência do Brasil",
+        description: "Proclamação da independência em 1822."
+    },
+    "10-12": {
+        name: "Feriado - Nossa Senhora Aparecida",
+        description: "Padroeira do Brasil."
+    },
+    "11-02": {
+        name: "Feriado - Finados",
+        description: "Dia de homenagem aos falecidos."
+    },
+    "11-15": {
+        name: "Feriado - Proclamação da República",
+        description: "Fim do Império e início da República."
+    },
+    "11-20": {
+        name: "Feriado - Dia da Consciência Negra",
+        description: "Reflexão sobre a luta contra o racismo."
+    },
+    "12-25": {
+        name: "Feriado - Natal",
+        description: "Celebração do nascimento de Jesus Cristo."
+    }
+};
 
 function renderCalendar() {
 
@@ -72,6 +114,105 @@ function renderCalendar() {
 
         const fullDate = `${year}-${month + 1}-${day}`;
 
+        // Show tooltip on hover
+        element.addEventListener("mouseenter", (e) => {
+
+            const event = calendarNotes[fullDate];
+
+            // Get holiday using MM-DD format
+            const dateKey = `${String(month + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+            const holiday = fixedHolidays[dateKey];
+
+            // Check if this day is today
+            const isToday =
+                day === today.getDate() &&
+                month === today.getMonth() &&
+                year === today.getFullYear();
+
+            // Tooltip content container
+            let tooltipContent = "";
+            let sectionCount = 0;
+
+            // Helper function to add separator between sections
+            const addSeparator = () => {
+                if (sectionCount > 0) {
+                    tooltipContent += `<hr>`;
+                }
+                sectionCount++;
+            };
+
+            /* TODAY INFORMATION */
+            if (isToday) {
+
+                addSeparator();
+
+                const todayFormatted = today.toLocaleDateString('pt-BR');
+
+                tooltipContent += `
+            <div class="tooltip-title">Hoje</div>
+            <div class="tooltip-text">${todayFormatted}</div>
+        `;
+            }
+
+            /* HOLIDAY INFORMATION */
+            if (holiday) {
+
+                addSeparator();
+
+                tooltipContent += `
+            <div class="tooltip-title">${holiday.name}</div>
+            <div class="tooltip-text">${holiday.description}</div>
+        `;
+            }
+
+            /* EVENT INFORMATION */
+            if (event) {
+
+                addSeparator();
+
+                tooltipContent += `
+            <div class="tooltip-title">${event.eventName}</div>
+            <div class="tooltip-text">${event.eventText || ""}</div>
+
+            <div class="tooltip-time">
+                <span>Início: ${event.eventStart || "--:--"}</span>
+                <span>Fim: ${event.eventEnd || "--:--"}</span>
+            </div>
+        `;
+            }
+
+            // Do not show tooltip if there is no content
+            if (!tooltipContent) return;
+
+            tooltip.innerHTML = tooltipContent;
+
+            tooltip.classList.add("show");
+
+            // Default tooltip position near the mouse
+            let left = e.pageX + 10;
+            let top = e.pageY + 10;
+
+            const rect = tooltip.getBoundingClientRect();
+
+            // Prevent tooltip from going off screen (right side)
+            if (left + rect.width > window.innerWidth) {
+                left = e.pageX - rect.width - 10;
+            }
+
+            // Prevent tooltip from going off screen (bottom)
+            if (top + rect.height > window.innerHeight) {
+                top = e.pageY - rect.height - 10;
+            }
+
+            tooltip.style.left = left + "px";
+            tooltip.style.top = top + "px";
+        });
+
+        // Hide tooltip
+        element.addEventListener("mouseleave", () => {
+            tooltip.classList.remove("show");
+        });
+
         // Highlight today
         if (
             day === today.getDate() &&
@@ -83,7 +224,7 @@ function renderCalendar() {
 
         // Holidays
         const dateKey = `${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-        if (fixedHolidays.includes(dateKey)) {
+        if (fixedHolidays[dateKey]) {
             element.classList.add('holiday');
         }
 
@@ -97,18 +238,29 @@ function renderCalendar() {
 
             selectedDate = fullDate;
 
-            if (calendarNotes[selectedDate]) {
+            const event = calendarNotes[selectedDate];
 
-                calendarNoteText.value = calendarNotes[selectedDate];
+            if (event) {
+
+                eventPopupTitle.textContent = "Editar evento";
+
+                eventNameInput.value = event.eventName;
+                calendarNoteText.value = event.eventText;
+                eventStartInput.value = event.eventStart || "";
+                eventEndInput.value = event.eventEnd || "";
 
                 deleteNoteBtn.textContent = "Excluir";
 
             } else {
 
+                eventPopupTitle.textContent = "Novo evento";
+
+                eventNameInput.value = "";
                 calendarNoteText.value = "";
+                eventStartInput.value = "";
+                eventEndInput.value = "";
 
                 deleteNoteBtn.textContent = "Cancelar";
-
             }
 
             noteOverlay.classList.add("show");
@@ -118,27 +270,139 @@ function renderCalendar() {
     }
 }
 
+noteOverlay.addEventListener("click", (e) => {
+    if (e.target === noteOverlay) {
+        noteOverlay.classList.remove("show");
+    }
+});
+
 // Save note
 saveNoteBtn.onclick = () => {
 
+    const name = eventNameInput.value.trim();
     const text = calendarNoteText.value.trim();
 
-    if (text !== "") {
-        calendarNotes[selectedDate] = text;
+    if (!name.trim()) {
+        showToast(
+            'student',
+            'error',
+            'Nome obrigatório',
+            'Digite o nome do evento.'
+        );
+        return;
     }
 
-    noteOverlay.classList.remove("show");
+    // Limit
+    if (name.length > 30) {
+        showToast(
+            'student',
+            'error',
+            'Nome muito longo',
+            'O nome do evento pode ter no máximo 30 caracteres.'
+        );
+        return;
+    }
 
-    renderCalendar();
+    const nameWords = name.split(/\s+/);
+    for (let word of nameWords) {
+        if (word.length > 13) {
+            showToast(
+                'student',
+                'error',
+                'Nome inválido',
+                'No nome do evento cada palavra pode ter no máximo 13 caracteres.'
+            );
+            return;
+        }
+    }
 
-    window.location = `salveEvent?note=${text}&admin=${adminName}&date=${selectedDate}`;
+    if (text.length > 140) {
+        showToast(
+            'student',
+            'error',
+            'Observação muito longa',
+            'A observação pode ter no máximo 140 caracteres.'
+        );
+        return;
+    }
+
+    const textWords = text.split(/\s+/);
+    for (let word of textWords) {
+        if (word.length > 13) {
+            showToast(
+                'student',
+                'error',
+                'Observação inválida',
+                'Na observação cada palavra pode ter no máximo 13 caracteres.'
+            );
+            return;
+        }
+    }
+
+    confirmEventTitle.textContent = "Salvar este evento?";
+    eventAction = "save";
+
+    confirmEventSend.classList.remove("btn-delete");
+    confirmEventSend.classList.add("btn-save");
+
+    confirmEventOverlay.classList.add("show");
 };
 
 // Delete note
 deleteNoteBtn.onclick = () => {
 
-    delete calendarNotes[selectedDate];
+    if (!calendarNotes[selectedDate]) {
+        noteOverlay.classList.remove("show");
+        return;
+    }
 
+    confirmEventTitle.textContent = "Excluir este evento?";
+    eventAction = "delete";
+
+    confirmEventOverlay.classList.add("show");
+};
+
+confirmEventCancel.onclick = () => {
+    confirmEventOverlay.classList.remove("show");
+};
+
+confirmEventOverlay.addEventListener("click", (e) => {
+
+    if (e.target === confirmEventOverlay) {
+        confirmEventOverlay.classList.remove("show");
+    }
+
+});
+
+confirmEventSend.onclick = () => {
+
+    if (eventAction === "save") {
+
+        const name = eventNameInput.value.trim();
+        const text = calendarNoteText.value.trim();
+        const start = eventStartInput.value || null;
+        const end = eventEndInput.value || null;
+
+        calendarNotes[selectedDate] = {
+            eventName: name,
+            eventDate: selectedDate,
+            eventStart: start,
+            eventEnd: end,
+            eventText: text
+        };
+
+        showToast('student','success','Evento salvo','Evento adicionado ao calendário.');
+
+    }
+
+    if (eventAction === "delete") {
+
+        delete calendarNotes[selectedDate];
+
+        showToast('student','success','Evento removido','O evento foi excluído do calendário.');
+    }
+
+    confirmEventOverlay.classList.remove("show");
     noteOverlay.classList.remove("show");
 
     renderCalendar();
