@@ -34,8 +34,7 @@ import java.util.Map;
         "/addGradesReportCard",
         "/salveEvent",
         "/deleteEvent",
-        "/updateEvent",
-        "/selectEvent"})
+        "/selectAllEvents"})
 public class AdminController extends HttpServlet {
 
     // Handle incoming GET requests and route them to specific internal methods
@@ -75,6 +74,12 @@ public class AdminController extends HttpServlet {
                 break;
             case "/showReportCardStudent":
                 showReportCardStudent(request,response);
+                break;
+            case "/selectAllEvents":
+                selectAllEvents(request, response);
+                break;
+            case "/deleteEvent":
+                deleteEvent(request, response);
                 break;
         }
     }
@@ -186,6 +191,22 @@ public class AdminController extends HttpServlet {
         response.sendRedirect("enter");
     }
 
+    private void selectAllEvents(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<Map<String, Object>> result = new AdministratorDAO().selectAllEvents();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        String json = new com.google.gson.Gson().toJson(result);
+        response.getWriter().write(json);
+    }
+
+    private void deleteEvent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String eventDate = request.getParameter("eventDate");
+        boolean result = new AdministratorDAO().deleteEventOnCalendar(eventDate);
+        request.setAttribute("resultEvent",String.valueOf(result));
+        request.getRequestDispatcher("/WEB-INF/view/admin/homeAdmin.jsp").forward(request,response);
+    }
+
     // Handle incoming POST requests for data creation and modification
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -208,18 +229,6 @@ public class AdminController extends HttpServlet {
                 break;
             case "/salveEvent":
                 salveEvent(request, response);
-                break;
-            case "/deleteEvent":
-                deleteEvent(request, response);
-                break;
-            case "/updateEvent":
-                updateEvent(request, response);
-                break;
-            case "/selectEvent":
-                selectEvent(request, response);
-                break;
-            case "/selectAllEvents":
-                selectAllEvents(request, response);
                 break;
         }
     }
@@ -301,49 +310,24 @@ public class AdminController extends HttpServlet {
     }
 
     private void salveEvent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String eventDate = request.getParameter("eventDate");
         String eventText = request.getParameter("eventText");
         String eventName = request.getParameter("eventName");
-        String eventDate = request.getParameter("eventDate");
         String eventStart = request.getParameter("eventStart");
         String eventEnd = request.getParameter("eventEnd");
-        String adminName = request.getParameter("adminName");
+        Administrator admin = (Administrator) request.getSession().getAttribute("admin");
+        String adminName = admin.getUsername();
         Event event = new Event(eventName, eventDate, eventStart, eventEnd, eventText, adminName);
-        boolean result = new AdministratorDAO().salveEventOnCalender(event);
+        boolean result;
+        if (!new AdministratorDAO().selectEventForDate(eventDate).isEmpty()) {
+            System.out.println("sim");
+            result = new AdministratorDAO().updateEventOnCalenar(event);
+        } else {
+            System.out.println("nao");
+            result = new AdministratorDAO().salveEventOnCalender(event);
+        }
         request.setAttribute("resultEvent",String.valueOf(result));
-        request.getRequestDispatcher("/WEB-INF/view/admin/teacher.jsp").forward(request,response);
+        request.getRequestDispatcher("/WEB-INF/view/admin/homeAdmin.jsp").forward(request,response);
     }
 
-    private void deleteEvent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String eventDate = request.getParameter("eventDate");
-        String adminName = request.getParameter("adminName");
-        boolean result = new AdministratorDAO().deleteEventOnCalendar(adminName, eventDate);
-        request.setAttribute("resultEvent",String.valueOf(result));
-        request.getRequestDispatcher("/WEB-INF/view/admin/teacher.jsp").forward(request,response);
-    }
-
-    public void updateEvent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String eventText = request.getParameter("eventText");
-        String eventName = request.getParameter("eventName");
-        String eventDate = request.getParameter("eventDate");
-        String eventStart = request.getParameter("eventStart");
-        String eventEnd = request.getParameter("eventEnd");
-        String adminName = request.getParameter("adminName");
-        Event event = new Event(eventName, eventDate, eventStart, eventEnd, eventText, adminName);
-        boolean result = new AdministratorDAO().updateEventOnCalenar(event);
-        request.setAttribute("resultEvent",String.valueOf(result));
-        request.getRequestDispatcher("/WEB-INF/view/admin/teacher.jsp").forward(request,response);
-    }
-
-    private void selectEvent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String eventDate = request.getParameter("eventDate");
-        Map<String, Object> result = new AdministratorDAO().selectEventForDate(eventDate);
-        request.setAttribute("resultEvent",String.valueOf(result));
-        request.getRequestDispatcher("/WEB-INF/view/admin/teacher.jsp").forward(request,response);
-    }
-
-    private void selectAllEvents(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ArrayList<Map<String, Object>> result = new AdministratorDAO().selectAllEvents();
-        request.setAttribute("resultEvent",String.valueOf(result));
-        request.getRequestDispatcher("/WEB-INF/view/admin/teacher.jsp").forward(request,response);
-    }
 }

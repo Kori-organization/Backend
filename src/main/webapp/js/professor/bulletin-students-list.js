@@ -1,4 +1,5 @@
 // ===== DOM ELEMENT REFERENCES =====
+// ===== DOM ELEMENT REFERENCES =====
 
 // Main grade modal overlay
 const gradeOverlay = document.getElementById('gradeOverlay');

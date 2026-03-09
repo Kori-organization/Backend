@@ -4,6 +4,7 @@ import com.example.koribackend.model.dao.AdministratorDAO;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,9 +29,18 @@ public class Event {
 
     public Event(String eventNome, String eventDate, String eventStart, String eventEnd, String text, String adminName) {
         this.eventName = eventNome;
-        this.eventDate = Date.valueOf(eventDate);
-        this.eventStart = Time.valueOf(eventStart);
-        this.eventEnd = Time.valueOf(eventEnd);
+        this.eventDate = Date.valueOf(LocalDate.parse(eventDate));
+        if (eventStart != null && !eventStart.isEmpty()) {
+            this.eventStart = Time.valueOf(eventStart.length() == 5 ? eventStart + ":00" : eventStart);
+        } else {
+            this.eventStart = null;
+        }
+
+        if (eventEnd != null && !eventEnd.isEmpty()) {
+            this.eventEnd = Time.valueOf(eventEnd.length() == 5 ? eventEnd + ":00" : eventEnd);
+        } else {
+            this.eventEnd = null;
+        }
         this.eventText = text;
         this.adminId = new AdministratorDAO().selectAdministratorForUsername(adminName).getId();
     }
@@ -90,7 +100,7 @@ public class Event {
     }
 
     public void setEventText(String eventText) {
-        this.eventName = eventText;
+        this.eventText = eventText;
     }
 
     public String toString() {
@@ -105,7 +115,6 @@ public class Event {
         map.put("eventStart", this.eventStart != null ? this.eventStart.toString() : null);
         map.put("eventEnd", this.eventEnd != null ? this.eventEnd.toString() : null);
         map.put("eventText", this.eventText);
-        map.put("adminId", this.adminId);
 
         return map;
     }

@@ -7,6 +7,7 @@ import com.example.koribackend.model.entity.Observation;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -135,19 +136,17 @@ public class AdministratorDAO {
         return false;
     }
 
-    public boolean deleteEventOnCalendar(String adminName, String dateStr) {
-        Administrator admin = selectAdministratorForUsername(adminName);
+    public boolean deleteEventOnCalendar( String dateStr) {
         java.sql.Date sqlDate = java.sql.Date.valueOf(dateStr);
         int rows = 0;
 
-        String sql = "DELETE FROM calendar_events WHERE id_admin = ? AND event_date = ?";
+        String sql = "DELETE FROM calendar_events WHERE event_date = ?";
 
         try (
                 Connection conn = ConnectionFactory.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql);
         ) {
-            stmt.setInt(1, admin.getId());
-            stmt.setDate(2, sqlDate);
+            stmt.setDate(1, sqlDate);
             rows = stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -160,7 +159,7 @@ public class AdministratorDAO {
     }
 
     public boolean updateEventOnCalenar(Event event) {
-        String sql = "UPDATE calendar_event SET event_name=?, event_desc=?, event_date=?, event_start=?, event_end=?, admin_id=? WHERE event_date=?";
+        String sql = "UPDATE calendar_events SET event_name=?, event_desc=?, event_date=?, event_start=?, event_end=?, admin_id=? WHERE event_date=?";
         int rows = 0;
         try (
                 Connection conn = ConnectionFactory.getConnection();
@@ -185,11 +184,11 @@ public class AdministratorDAO {
     }
 
     public Map<String, Object> selectEventForDate(String dateStr) {
-        Map<String, Object> eventResult = null;
+        Map<String, Object> eventResult = new HashMap<>();
         java.sql.Date sqlDate = java.sql.Date.valueOf(dateStr);
         Event event = null;
 
-        String sql = "SELECT event_name, event_desc, event_date, event_start, event_end FROM calendar_event WHERE event_date = ?";
+        String sql = "SELECT event_name, event_desc, event_date, event_start, event_end FROM calendar_events WHERE event_date = ?";
 
         try (
                 Connection conn = ConnectionFactory.getConnection();
@@ -214,17 +213,16 @@ public class AdministratorDAO {
     }
 
     public ArrayList<Map<String, Object>> selectAllEvents() {
-        ArrayList<Map<String, Object>> eventResult = null;
-        int cont = 0;
+        ArrayList<Map<String, Object>> eventResult = new ArrayList<>();
 
-        String sql = "SELECT event_name, event_desc, event_date, event_start, event_end FROM calendar_event";
+        String sql = "SELECT event_name, event_desc, event_date, event_start, event_end FROM calendar_events";
 
         try (
                 Connection conn = ConnectionFactory.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql);
         ) {
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 Event event = new Event();
                 event.setEventNome(rs.getString("event_name"));
                 event.setEventText(rs.getString("event_desc"));

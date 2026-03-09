@@ -27,6 +27,7 @@ let eventAction = null;
 const tooltip = document.getElementById("calendarTooltip");
 
 // Event elements
+const eventForm = document.getElementById("eventForm");
 const eventNameInput = document.getElementById("eventName");
 const eventStartInput = document.getElementById("eventStart");
 const eventEndInput = document.getElementById("eventEnd");
@@ -75,6 +76,34 @@ const fixedHolidays = {
     }
 };
 
+async function loadEvents() {
+
+    try {
+
+        calendarNotes = {}; // LIMPA EVENTOS ANTIGOS
+
+        const response = await fetch('/Backend/selectAllEvents');
+        const events = await response.json();
+
+        events.forEach(event => {
+
+            const date = event.eventDate;
+
+            calendarNotes[date] = {
+                eventName: event.eventName,
+                eventText: event.eventText,
+                eventStart: event.eventStart,
+                eventEnd: event.eventEnd
+            };
+
+        });
+
+        renderCalendar()
+
+    } catch (error) {
+        console.error("Erro ao carregar eventos:", error);
+    }
+}
 function renderCalendar() {
 
     calendarElement.innerHTML = '';
@@ -112,7 +141,7 @@ function renderCalendar() {
         element.className = 'day';
         element.textContent = day;
 
-        const fullDate = `${year}-${month + 1}-${day}`;
+        const fullDate = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
 
         // Show tooltip on hover
         element.addEventListener("mouseenter", (e) => {
@@ -391,8 +420,13 @@ confirmEventSend.onclick = () => {
             eventText: text
         };
 
+        document.getElementById("eventDate").value = selectedDate;
+
         showToast('student','success','Evento salvo','Evento adicionado ao calendário.');
 
+        console.log("eventDate:", selectedDate);
+
+        eventForm.submit();
     }
 
     if (eventAction === "delete") {
@@ -400,28 +434,29 @@ confirmEventSend.onclick = () => {
         delete calendarNotes[selectedDate];
 
         showToast('student','success','Evento removido','O evento foi excluído do calendário.');
+
+        window.location = `deleteEvent?eventDate=${selectedDate}`;
     }
 
     confirmEventOverlay.classList.remove("show");
     noteOverlay.classList.remove("show");
-
-    renderCalendar();
+    loadEvents()
 };
 
 // Navigate months
 previousMonthButton.onclick = () => {
     currentDate.setMonth(currentDate.getMonth() - 1);
-    renderCalendar();
+    loadEvents()
 };
 
 nextMonthButton.onclick = () => {
     currentDate.setMonth(currentDate.getMonth() + 1);
-    renderCalendar();
+    loadEvents()
 };
 
 // First render
-renderCalendar();
 
+loadEvents()
 // ***********************************************************************************************************
 
 // Monster click animation

@@ -406,6 +406,7 @@
           <textarea id="calendarNoteText" name="eventText" placeholder="Digite uma observação..."></textarea>
         </div>
 
+
       </div>
 
       <!-- campo que receberá a data -->
@@ -414,7 +415,7 @@
 
       <div class="modal-actions">
         <button type="button" id="deleteNoteBtn" class="btn btn-back">Excluir</button>
-        <button type="submit" id="saveNoteBtn" class="btn btn-save">Salvar</button>
+        <button type="button" id="saveNoteBtn" class="btn btn-save">Salvar</button>
       </div>
 
     </form>
