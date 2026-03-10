@@ -910,7 +910,7 @@ img {
 
 /* Calendar event tooltip */
 .calendar-tooltip{
-    position: fixed;
+    position: absolute;
     background: #ffffff;
     border-radius: 12px;
     padding: 10px 14px;

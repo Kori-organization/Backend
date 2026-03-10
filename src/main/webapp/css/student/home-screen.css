@@ -722,6 +722,7 @@ img {
     padding: 10px 12px;
     margin-bottom: 12px;
     font-size: 18px;
+    font-weight: 600;
     transition: transform 0.18s ease;
     transform-origin: center center;
     color: #092831;
@@ -862,7 +863,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 /* Calendar event tooltip */
 .calendar-tooltip{
-    position: fixed;
+    position: absolute;
     background: #ffffff;
     border-radius: 12px;
     padding: 10px 14px;

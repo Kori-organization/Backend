@@ -73,10 +73,10 @@
 
       <!-- Header -->
       <div class="header">
-        <div>Usuário <img src="${pageContext.request.contextPath}/assets/chevron.svg" width="10"></div>
-        <div>Nome <img src="${pageContext.request.contextPath}/assets/chevron.svg" width="10"></div>
-        <div>Disciplina <img src="${pageContext.request.contextPath}/assets/chevron.svg" width="10"></div>
-        <div>Senha <img src="${pageContext.request.contextPath}/assets/chevron.svg" width="10"></div>
+        <div>Usuário</div>
+        <div>Nome</div>
+        <div>Disciplina</div>
+        <div>Senha</div>
         <div></div>
       </div>
       <!-- Teacher row -->

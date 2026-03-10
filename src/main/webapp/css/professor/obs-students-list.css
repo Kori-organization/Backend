@@ -163,6 +163,55 @@ h1 {
     transform: scale(1.03);
 }
 
+/* Filter popup */
+
+.btn-filter{
+    padding:12px 24px;
+    border-radius:999px;
+    border:none;
+    background:#53BDD9;
+    font-weight:600;
+    cursor:pointer;
+    transition: transform .18s ease;
+}
+
+.btn-filter:hover {
+    transform: scale(1.03);
+}
+
+.popup-filter{
+    position:absolute;
+    width:200px;
+    background:white;
+    border-radius:18px;
+    padding:10px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    display:none;
+    flex-direction:column;
+    gap:6px;
+    z-index:200;
+}
+
+.popup-filter.show{
+    display:flex;
+}
+
+.popup-filter-item{
+    padding:10px 14px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.popup-filter-item:hover{
+    background:#f4f4f4;
+}
+
+.popup-filter-item.clear{
+    color:#ff3b30;
+    font-weight:600;
+}
+
 
 /* Inherit font for form elements */
 button,

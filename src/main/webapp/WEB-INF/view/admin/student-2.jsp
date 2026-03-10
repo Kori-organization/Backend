@@ -46,6 +46,10 @@
       Limpar
     </button>
 
+    <button class="btn-filter" id="buttonStatusFilter">
+      Filtro
+    </button>
+
     <button class="search-btn" title="Pesquisar" aria-label="Pesquisar" id="buttonFilter">
       <img src="${pageContext.request.contextPath}/assets/icon-search.svg" width="17" alt="Pesquisar">
     </button>
@@ -56,10 +60,10 @@
 
     <!-- Table header -->
     <div class="header" role="row">
-      <div>Matrícula <img src="${pageContext.request.contextPath}/assets/chevron.svg" alt="" width="10"></div>
-      <div>Nome <img src="${pageContext.request.contextPath}/assets/chevron.svg" alt="" width="10"></div>
-      <div>Email <img src="${pageContext.request.contextPath}/assets/chevron.svg" alt="" width="10"></div>
-      <div>Admissão <img src="${pageContext.request.contextPath}/assets/chevron.svg" alt="" width="10"></div>
+      <div>Matrícula</div>
+      <div>Nome</div>
+      <div>Email</div>
+      <div>Admissão</div>
     </div>
 
     <!-- Student row -->
@@ -234,6 +238,27 @@
   </div>
 
 </div>
+
+<div class="popup-filter" id="popupFilter">
+
+  <div class="popup-filter-item" data-filter="approved">
+    Aprovados
+  </div>
+
+  <div class="popup-filter-item" data-filter="failed">
+    Reprovados
+  </div>
+
+  <div class="popup-filter-item" data-filter="progress">
+    Em andamento
+  </div>
+
+  <div class="popup-filter-item clear">
+    Retirar filtro
+  </div>
+
+</div>
+
 </body>
 <script>
   const contextPath = "<%=request.getContextPath()%>"
