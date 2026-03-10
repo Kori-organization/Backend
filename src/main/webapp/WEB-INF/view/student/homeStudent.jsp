@@ -155,6 +155,10 @@
             <span class="legend-color holiday"></span>
             <span>Feriado</span>
           </div>
+          <div class="legend-item">
+            <span class="legend-color event"></span>
+            <span>Evento</span>
+          </div>
         </div>
 
         <!-- Teachers list -->
@@ -173,8 +177,12 @@
     </div>
   </main>
 </div>
+<div id="calendarTooltip" class="calendar-tooltip"></div>
+</body>
+<script>
+  const contextPath = "<%= request.getContextPath() %>";
+</script>
 
 <!-- Scripts -->
 <script src="${pageContext.request.contextPath}/js/student/home-screen.js"></script>
-</body>
 </html>

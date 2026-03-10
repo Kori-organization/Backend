@@ -7,101 +7,253 @@ const nextMonthButton = document.getElementById('next-month');
 // Current date
 let currentDate = new Date();
 
-// Days of the week
+// Events
+let calendarNotes = {};
+
+// Tooltip
+const tooltip = document.getElementById("calendarTooltip");
+
+// Days of week
 const daysOfWeek = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'];
 
-// Fixed Brazilian holidays
-const fixedHolidays = [
-    '01-01', // New Year's Day
-    '04-21', // Tiradentes
-    '05-01', // Labor Day
-    '09-07', // Independence Day
-    '10-12', // Our Lady of Aparecida
-    '11-02', // All Souls' Day
-    '11-15', // Republic Proclamation
-    '11-20', // Black Awareness Day
-    '12-25'  // Christmas
-];
+// Fixed holidays
+const fixedHolidays = {
+    "01-01": {
+        name: "Feriado - Confraternização Universal",
+        description: "Primeiro dia do ano."
+    },
+    "04-21": {
+        name: "Feriado - Tiradentes",
+        description: "Homenagem a Joaquim José da Silva Xavier."
+    },
+    "05-01": {
+        name: "Feriado - Dia do Trabalhador",
+        description: "Celebração dos direitos dos trabalhadores."
+    },
+    "09-07": {
+        name: "Feriado - Independência do Brasil",
+        description: "Proclamação da independência em 1822."
+    },
+    "10-12": {
+        name: "Feriado - Nossa Senhora Aparecida",
+        description: "Padroeira do Brasil."
+    },
+    "11-02": {
+        name: "Feriado - Finados",
+        description: "Dia de homenagem aos falecidos."
+    },
+    "11-15": {
+        name: "Feriado - Proclamação da República",
+        description: "Fim do Império e início da República."
+    },
+    "11-20": {
+        name: "Feriado - Dia da Consciência Negra",
+        description: "Reflexão sobre a luta contra o racismo."
+    },
+    "12-25": {
+        name: "Feriado - Natal",
+        description: "Celebração do nascimento de Jesus Cristo."
+    }
+};
 
+// LOAD EVENTS FROM BACKEND
+async function loadEvents() {
+
+    try {
+
+        calendarNotes = {};
+
+        const response = await fetch(contextPath + '/selectAllEvents');
+        const events = await response.json();
+
+        events.forEach(event => {
+
+            calendarNotes[event.eventDate] = {
+                eventName: event.eventName,
+                eventText: event.eventText,
+                eventStart: event.eventStart,
+                eventEnd: event.eventEnd
+            };
+
+        });
+
+        renderCalendar();
+
+    } catch (error) {
+        console.error("Erro ao carregar eventos:", error);
+    }
+}
+
+
+// RENDER CALENDAR
 function renderCalendar() {
-    // Clear the calendar container
+
     calendarElement.innerHTML = '';
 
-    // Create calendar header
+    // Header days
     daysOfWeek.forEach(day => {
-        const element = document.createElement('div');
-        element.className = 'day head';
-        element.textContent = day;
-        calendarElement.appendChild(element);
+        const el = document.createElement('div');
+        el.className = 'day head';
+        el.textContent = day;
+        calendarElement.appendChild(el);
     });
 
-    // Get current year and month
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
 
-    // Get month name for the calendar header
     const monthName = currentDate.toLocaleString('pt-BR', { month: 'long' });
     const formattedMonth =
         monthName.charAt(0).toUpperCase() + monthName.slice(1);
 
-    // Update the calendar title (month and year)
     currentMonthElement.textContent = `${formattedMonth} de ${year}`;
 
-    // Get the first weekday of the month
     const firstDayOfMonth = new Date(year, month, 1).getDay();
-
-    // Get total number of days in the month
     const totalDaysInMonth = new Date(year, month + 1, 0).getDate();
 
-    // Add empty spaces before the first day of the month
     for (let i = 0; i < firstDayOfMonth; i++) {
         calendarElement.appendChild(document.createElement('div'));
     }
 
-    // Get today's date
     const today = new Date();
 
-    // Create calendar day elements
     for (let day = 1; day <= totalDaysInMonth; day++) {
-        const element = document.createElement('div');
-        element.className = 'day';
-        element.textContent = day;
 
-        // Highlight the current day
+        const el = document.createElement('div');
+        el.className = 'day';
+        el.textContent = day;
+
+        const fullDate = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+
+        const event = calendarNotes[fullDate];
+
+        const dateKey = `${String(month + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+        const holiday = fixedHolidays[dateKey];
+
+        // TODAY
         if (
             day === today.getDate() &&
             month === today.getMonth() &&
             year === today.getFullYear()
         ) {
-            element.classList.add('today');
+            el.classList.add('today');
         }
 
-        // Highlight fixed holidays
-        const dateKey = `${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-        if (fixedHolidays.includes(dateKey)) {
-            element.classList.add('holiday');
+        // HOLIDAY
+        if (holiday) {
+            el.classList.add('holiday');
         }
 
-        // Add the day to the calendar
-        calendarElement.appendChild(element);
+        // EVENT
+        if (event) {
+            el.classList.add('note');
+        }
+
+        // TOOLTIP (view only)
+        el.addEventListener("mouseenter", (e) => {
+
+            let tooltipContent = "";
+            let sectionCount = 0;
+
+            const addSeparator = () => {
+                if (sectionCount > 0) {
+                    tooltipContent += `<hr>`;
+                }
+                sectionCount++;
+            };
+
+            const isToday =
+                day === today.getDate() &&
+                month === today.getMonth() &&
+                year === today.getFullYear();
+
+            /* TODAY */
+            if (isToday) {
+
+                addSeparator();
+
+                const todayFormatted = today.toLocaleDateString('pt-BR');
+
+                tooltipContent += `
+            <div class="tooltip-title">Hoje</div>
+            <div class="tooltip-text">${todayFormatted}</div>
+        `;
+            }
+
+            /* HOLIDAY */
+            if (holiday) {
+
+                addSeparator();
+
+                tooltipContent += `
+            <div class="tooltip-title">${holiday.name}</div>
+            <div class="tooltip-text">${holiday.description || ""}</div>
+        `;
+            }
+
+            /* EVENT */
+            if (event) {
+
+                addSeparator();
+
+                tooltipContent += `
+            <div class="tooltip-title">${event.eventName}</div>
+            <div class="tooltip-text">${event.eventText || ""}</div>
+
+            <div class="tooltip-time">
+                <span>Início: ${event.eventStart || "--:--"}</span>
+                <span>Fim: ${event.eventEnd || "--:--"}</span>
+            </div>
+        `;
+            }
+
+            if (!tooltipContent) return;
+
+            tooltip.innerHTML = tooltipContent;
+
+            tooltip.classList.add("show");
+
+            let left = e.pageX + 10;
+            let top = e.pageY + 10;
+
+            const rect = tooltip.getBoundingClientRect();
+
+            if (left + rect.width > window.innerWidth) {
+                left = e.pageX - rect.width - 10;
+            }
+
+            if (top + rect.height > window.innerHeight) {
+                top = e.pageY - rect.height - 10;
+            }
+
+            tooltip.style.left = left + "px";
+            tooltip.style.top = top + "px";
+        });
+
+        el.addEventListener("mouseleave", () => {
+            tooltip.classList.remove("show");
+        });
+
+        calendarElement.appendChild(el);
     }
 }
 
-// Navigate to the previous month
+
+// NAVIGATION
 previousMonthButton.onclick = () => {
     currentDate.setMonth(currentDate.getMonth() - 1);
     renderCalendar();
 };
 
-// Navigate to the next month
 nextMonthButton.onclick = () => {
     currentDate.setMonth(currentDate.getMonth() + 1);
     renderCalendar();
 };
 
-// Calendar render
-renderCalendar();
 
+// FIRST LOAD
+document.addEventListener("DOMContentLoaded", () => {
+    loadEvents();
+});
 
 // ***********************************************************************************************************
 

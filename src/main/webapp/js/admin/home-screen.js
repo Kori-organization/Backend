@@ -82,7 +82,7 @@ async function loadEvents() {
 
         calendarNotes = {}; // LIMPA EVENTOS ANTIGOS
 
-        const response = await fetch('/Backend/selectAllEvents');
+        const response = await fetch(contextPath + '/selectAllEvents');
         const events = await response.json();
 
         events.forEach(event => {

@@ -718,6 +718,12 @@ img {
     height: 36px;
 }
 
+
+.day.note {
+    background: #ffde93;
+    height: 36px;
+}
+
 .day.today.holiday {
     background-color: #c8f3da;
     height: 36px;
@@ -729,16 +735,63 @@ img {
     font-weight: 700;
 }
 
+/* TODAY + EVENT */
+
+.day.today.note {
+    background: linear-gradient(
+            90deg,
+            #c8f3da 0% 50%,
+            #ffde93 50% 100%
+    );
+    height: 36px;
+}
+
+/* HOLIDAY + EVENT */
+
+.day.holiday.note {
+    background: linear-gradient(
+            90deg,
+            #a5ccff 0% 50%,
+            #ffde93 50% 100%
+    );
+    height: 36px;
+}
+
+/* TODAY + HOLIDAY */
+
+.day.today.holiday {
+    background: linear-gradient(
+            90deg,
+            #c8f3da 0% 50%,
+            #a5ccff 50% 100%
+    );
+    height: 36px;
+}
+
+/* TODAY + HOLIDAY + EVENT */
+
+.day.today.holiday.note {
+    background: linear-gradient(
+            90deg,
+            #c8f3da 0% 33.33%,
+            #a5ccff 33.33% 66.66%,
+            #ffde93 66.66% 100%
+    );
+    height: 36px;
+}
+
+
 #current-month {
     user-select: none;
 }
+
 
 /* Calendar legend */
 .calendar-legend {
     display: flex;
     gap: 14px;
     margin-top: 163px;
-    margin-left: 260px;
+    margin-left: 190px;
     font-size: 13px;
     color: #555;
 }
@@ -763,6 +816,11 @@ img {
 
 .legend-color.holiday {
     background-color: #a5ccff;
+    /* Blue */
+}
+
+.legend-color.event {
+    background-color: #ffde93;;
     /* Blue */
 }
 
@@ -849,6 +907,52 @@ img {
     box-shadow: 5px 8px 20px rgba(52, 52, 52, 0.08),
     5px 2px 6px rgba(66, 66, 66, 0.04);
 }
+
+/* Calendar event tooltip */
+.calendar-tooltip{
+    position: fixed;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 10px 14px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    font-size: 13px;
+    line-height: 1.4;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(5px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    max-width: 300px;
+    z-index: 999;
+}
+
+/* Tooltip title */
+.tooltip-title{
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+/* Tooltip text */
+.tooltip-text{
+    font-size: 13px;
+    margin-bottom: 0;
+}
+
+/* Start and end time aligned */
+.tooltip-time{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+/* Tooltip visible */
+.calendar-tooltip.show{
+    opacity: 1;
+    transform: translateY(0);
+}
+
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {

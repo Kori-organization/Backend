@@ -196,6 +196,10 @@
                             <span class="legend-color holiday"></span>
                             <span>Feriado</span>
                         </div>
+                        <div class="legend-item">
+                            <span class="legend-color event"></span>
+                            <span>Evento</span>
+                        </div>
                     </div>
 
                     <!-- Teachers list -->
@@ -233,19 +237,21 @@
         </main>
     </div>
 
-    <div id="tooltip" class="calendar-tooltip"></div>
+    <div id="calendarTooltip" class="calendar-tooltip"></div>
 
-    <!-- Scripts -->
-    <script>
-        window.dataSystem = {
-            ranking: [
-                { class: "<%=raking.get(0).getSerieComplete()%>", average: <%=raking.get(0).getAvarageClass()%> },
-                { class: "<%=raking.get(1).getSerieComplete()%>", average: <%=raking.get(1).getAvarageClass()%> },
-                { class: "<%=raking.get(2).getSerieComplete()%>", average: <%=raking.get(2).getAvarageClass()%> }
-            ]
-        };
-    </script>
-    <script src="${pageContext.request.contextPath}/js/professor/home-screen.js"></script>
 </body>
-
+<script>
+    const contextPath = "<%= request.getContextPath() %>";
+</script>
+<!-- Scripts -->
+<script>
+    window.dataSystem = {
+        ranking: [
+            { class: "<%=raking.get(0).getSerieComplete()%>", average: <%=raking.get(0).getAvarageClass()%> },
+            { class: "<%=raking.get(1).getSerieComplete()%>", average: <%=raking.get(1).getAvarageClass()%> },
+            { class: "<%=raking.get(2).getSerieComplete()%>", average: <%=raking.get(2).getAvarageClass()%> }
+        ]
+    };
+</script>
+<script src="${pageContext.request.contextPath}/js/professor/home-screen.js"></script>
 </html>
