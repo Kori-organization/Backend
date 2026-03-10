@@ -316,7 +316,7 @@ saveNoteBtn.onclick = () => {
             'student',
             'error',
             'Nome obrigatório',
-            'Digite o nome do evento.'
+            'Preencha o campo nome.'
         );
         return;
     }
@@ -334,12 +334,12 @@ saveNoteBtn.onclick = () => {
 
     const nameWords = name.split(/\s+/);
     for (let word of nameWords) {
-        if (word.length > 13) {
+        if (word.length > 20) {
             showToast(
                 'student',
                 'error',
                 'Nome inválido',
-                'No nome do evento cada palavra pode ter no máximo 13 caracteres.'
+                'No nome do evento cada palavra pode ter no máximo 20 caracteres.'
             );
             return;
         }
@@ -446,12 +446,12 @@ confirmEventSend.onclick = () => {
 // Navigate months
 previousMonthButton.onclick = () => {
     currentDate.setMonth(currentDate.getMonth() - 1);
-    loadEvents()
+    renderCalendar()
 };
 
 nextMonthButton.onclick = () => {
     currentDate.setMonth(currentDate.getMonth() + 1);
-    loadEvents()
+    renderCalendar()
 };
 
 // First render

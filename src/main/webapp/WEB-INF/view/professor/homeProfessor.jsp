@@ -207,53 +207,33 @@
 
                         <div class="teacher one">
                             <span>1° Série</span>
-                            <div class="teacher-icons">
-                                <img src="${pageContext.request.contextPath}/assets/notes-4.svg" class="img1">
-                                <img src="${pageContext.request.contextPath}/assets/greeting-4.svg" class="img2">
-                            </div>
                         </div>
 
 
                         <div class="teacher two">
                             <span>2° Série</span>
-                            <div class="teacher-icons">
-                                <img src="${pageContext.request.contextPath}/assets/notes-4.svg" class="img1">
-                                <img src="${pageContext.request.contextPath}/assets/greeting-4.svg" class="img2">
-                            </div>
                         </div>
 
 
                         <div class="teacher three">
                             <span>3° Série</span>
-                            <div class="teacher-icons">
-                                <img src="${pageContext.request.contextPath}/assets/notes-4.svg" class="img1">
-                                <img src="${pageContext.request.contextPath}/assets/greeting-4.svg" class="img2">
-                            </div>
                         </div>
 
 
                         <div class="teacher four">
                             <span>4° Série</span>
-                            <div class="teacher-icons">
-                                <img src="${pageContext.request.contextPath}/assets/notes-4.svg" class="img1">
-                                <img src="${pageContext.request.contextPath}/assets/greeting-4.svg" class="img2">
-                            </div>
-
                         </div>
 
                         <div class="teacher five">
                             <span>5° Série</span>
-                            <div class="teacher-icons">
-                                <img src="${pageContext.request.contextPath}/assets/notes-4.svg" class="img1">
-                                <img src="${pageContext.request.contextPath}/assets/greeting-4.svg" class="img2">
-                            </div>
-
                         </div>
                     </div>
                 </aside>
             </div>
         </main>
     </div>
+
+    <div id="tooltip" class="calendar-tooltip"></div>
 
     <!-- Scripts -->
     <script>

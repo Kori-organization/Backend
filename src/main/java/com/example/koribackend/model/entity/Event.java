@@ -30,20 +30,13 @@ public class Event {
     public Event(String eventNome, String eventDate, String eventStart, String eventEnd, String text, String adminName) {
         this.eventName = eventNome;
         this.eventDate = Date.valueOf(LocalDate.parse(eventDate));
-        if (eventStart != null && !eventStart.isEmpty()) {
-            this.eventStart = Time.valueOf(eventStart.length() == 5 ? eventStart + ":00" : eventStart);
-        } else {
-            this.eventStart = null;
-        }
-
-        if (eventEnd != null && !eventEnd.isEmpty()) {
-            this.eventEnd = Time.valueOf(eventEnd.length() == 5 ? eventEnd + ":00" : eventEnd);
-        } else {
-            this.eventEnd = null;
-        }
+        this.eventStart = eventStart != null && !eventStart.isEmpty() ? Time.valueOf(eventStart.length() == 5 ? eventStart + ":00" : eventStart) : null;
+        this.eventEnd = eventEnd != null && !eventEnd.isEmpty() ? Time.valueOf(eventEnd.length() == 5 ? eventEnd + ":00" : eventEnd) : null;
         this.eventText = text;
         this.adminId = new AdministratorDAO().selectAdministratorForUsername(adminName).getId();
     }
+
+
 
     public Event() {}
 
