@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     checkStatus();
 
-    history.pushState(null, "", location.href);
+    history.pushState(null, "", location.href='enter');
     window.addEventListener("popstate", () => {
         history.go(1);
     });

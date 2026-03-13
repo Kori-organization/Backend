@@ -51,9 +51,14 @@
 
 <script src="js/index.js"></script>
 <script>
-    window.addEventListener("load", () => {
-        fetch("logout", {
-            method: "GET"
+    document.addEventListener("DOMContentLoaded", () => {
+        window.addEventListener("popstate", () => {
+            history.go(1);
+        });
+        window.addEventListener("load", () => {
+            fetch("logout", {
+                method: "GET"
+            });
         });
     });
 </script>
