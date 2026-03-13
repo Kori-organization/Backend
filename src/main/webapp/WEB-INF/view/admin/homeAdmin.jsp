@@ -76,7 +76,7 @@
         <!-- Welcome card -->
         <div class="card welcome-card">
           <div>
-            <h1>Olá, Administrador!</h1>
+            <h1>Olá, administrador!</h1>
             <ul class="admin-list">
               <li>Cadastre alunos novos</li>
               <li>Altere notas no boletim</li>

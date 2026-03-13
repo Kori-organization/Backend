@@ -118,7 +118,7 @@
 
                             <!-- Ranking title -->
                             <span class="ranking-title">
-                                3 Ranking: turmas com médias mais baixas na sua <br>disciplina.
+                                Ranking: turmas com médias mais baixas na sua <br>disciplina.
                             </span>
                         </div>
 

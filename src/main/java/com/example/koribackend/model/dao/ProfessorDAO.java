@@ -310,7 +310,7 @@ public class ProfessorDAO {
                 }
             } else {
                 // If no subject update is needed, perform a simpler profile update
-                try (PreparedStatement stmt5 = conn.prepareStatement(sql4)) {
+                try (PreparedStatement stmt5 = conn.prepareStatement(sql5)) {
                     stmt5.setString(1,professor.getUsername());
                     stmt5.setString(2,professor.getPassword());
                     stmt5.setString(3,professor.getName());

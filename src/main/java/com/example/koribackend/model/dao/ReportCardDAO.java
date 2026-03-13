@@ -88,7 +88,7 @@ public class ReportCardDAO {
         // 4. Finally, aggregate all results: if one subject is 'Em andamento', the whole card is 'Em andamento'
         String sql1 = "UPDATE report_card SET final_situation = (SELECT CASE WHEN COUNT(*) FILTER (WHERE situacao = 'Em andamento') > 0 THEN 'Em andamento' WHEN COUNT(*) FILTER (WHERE situacao = 'Recuperação') > 0 THEN 'Em andamento' " +
         "WHEN COUNT(*) FILTER (WHERE situacao = 'Reprovado') > 0 THEN 'Reprovado' ELSE 'Aprovado' END FROM (SELECT CASE WHEN g.grade1 IS NULL OR g.grade2 IS NULL THEN 'Em andamento' WHEN (g.grade1 + g.grade2) / 2 >= 7 THEN 'Aprovado' " +
-        "WHEN g.rec IS NOT NULL THEN CASE WHEN ((g.grade1 + g.grade2) / 2 + g.rec) / 2 >= 7 THEN 'Aprovado' ELSE 'Reprovado' END ELSE 'Recuperação' END AS situacao FROM subjects sub LEFT JOIN LATERAL (SELECT g.grade1, g.grade2, g.rec " +
+        "WHEN g.rec IS NOT NULL THEN CASE WHEN ((g.grade1 + g.grade2) / 2 + g.rec) / 2 >= 7 THEN 'Aprovado por Recuperação' ELSE 'Reprovado' END ELSE 'Recuperação' END AS situacao FROM subjects sub LEFT JOIN LATERAL (SELECT g.grade1, g.grade2, g.rec " +
         "FROM report_card rc JOIN grade_rep gr ON gr.rep_id = rc.id JOIN grades g ON g.id = gr.grade_id WHERE rc.student_id = ? AND g.subject_id = sub.id ORDER BY g.id DESC LIMIT 1) g ON TRUE) t) WHERE student_id = ?";
 
         try (

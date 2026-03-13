@@ -80,32 +80,6 @@ const regexUsername = /^[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;
             const name = confirmNameEl.textContent.trim();
 
             window.location = `deleteProfessor?id=${id}&name=${encodeURIComponent(name)}`;
-
-            // // Show success toast
-            // const deletedName = confirmNameEl.textContent || 'Professor';
-            //
-            // if (typeof showToast === 'function') {
-            //     showToast('teacher', 'success', 'Professor(a) excluído', `${deletedName} removido com sucesso.`);
-            // } else {
-            //
-            //     // Fallback toast creation if showToast is not available
-            //     const toast = document.createElement('div');
-            //     toast.className = 'toast success';
-            //     toast.innerHTML = `
-            //         <img src="../Assets/check-icon.svg" style="width:30px;height:22px">
-            //         <div class="toast-text">
-            //             <h4>Professor(a) excluído</h4>
-            //             <p>${deletedName} removido com sucesso.</p>
-            //         </div>
-            //     `;
-            //
-            //     toastWrapTeacher && toastWrapTeacher.appendChild(toast);
-            //
-            //     setTimeout(() => {
-            //         toast.classList.add('hide');
-            //         setTimeout(() => toast.remove(), 300);
-            //     }, 4000);
-            // }
         });
     }
 

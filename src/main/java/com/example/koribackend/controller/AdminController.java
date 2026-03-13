@@ -290,7 +290,7 @@ public class AdminController extends HttpServlet {
         String password = request.getParameter("passwordEdit");
         int result = new ProfessorDAO().updateProfessor(new Professor(id,user,password,name,subject));
         request.setAttribute("name",name);
-        request.setAttribute("resultEditProfessor",String.valueOf(result));
+        request.setAttribute("resultEditProfessor",String.valueOf(result == 1));
         showProfessors(request,response);
     }
 
