@@ -4,6 +4,11 @@ const currentMonthElement = document.getElementById('current-month');
 const previousMonthButton = document.getElementById('previous-month');
 const nextMonthButton = document.getElementById('next-month');
 
+const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).+$/;
+const regexUsername = /^[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;
+const regexEmail = /^[A-Za-z0-9._+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$|^$/;
+
+
 // Current date
 let currentDate = new Date();
 

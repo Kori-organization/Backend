@@ -136,7 +136,7 @@
   <% if ("true".equals(resultAddAllGrades)) { %>
     createToast("Boletim atualizado com sucesso","As notas do boletim foram alterados com sucesso.")
   <% } else if ("false".equals(resultAddAllGrades)) { %>
-    createToast("Erro ao atualizar o boletim","Algo de errado aconteceu ao alterar as notas. Tente novamente.")
+    createToast("Erro ao atualizar o boletim","Algo de errado aconteceu ao alterar as notas. Tente novamente.","error")
   <% } %>
 </script>
 </html>

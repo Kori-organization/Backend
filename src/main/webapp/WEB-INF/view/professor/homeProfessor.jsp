@@ -254,4 +254,10 @@
     };
 </script>
 <script src="${pageContext.request.contextPath}/js/professor/home-screen.js"></script>
+<script>
+    history.pushState(null, "", location.href);
+    window.addEventListener("popstate", () => {
+        history.go(1);
+    });
+</script>
 </html>

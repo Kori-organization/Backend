@@ -50,4 +50,11 @@
 </body>
 
 <script src="js/index.js"></script>
+<script>
+    window.addEventListener("load", () => {
+        fetch("logout", {
+            method: "GET"
+        });
+    });
+</script>
 </html>
