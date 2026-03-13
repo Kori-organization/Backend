@@ -315,6 +315,18 @@ saveNoteBtn.onclick = () => {
 
     const name = eventNameInput.value.trim();
     const text = calendarNoteText.value.trim();
+    const eventStart = eventStartInput.value.trim();
+    const eventEnd = eventEndInput.value.trim();
+
+    if (eventStart > eventEnd) {
+        showToast(
+            'student',
+            'error',
+            'Horários inválidos',
+            'O horário de início não pode ser maior ou igual ao horário de término.'
+        );
+        return;
+    }
 
     if (!name.trim()) {
         showToast(
