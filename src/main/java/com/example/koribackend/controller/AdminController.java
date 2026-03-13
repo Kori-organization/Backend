@@ -34,7 +34,8 @@ import java.util.Map;
         "/addGradesReportCard",
         "/salveEvent",
         "/deleteEvent",
-        "/selectAllEvents"})
+        "/selectAllEvents",
+        "/adminStudentsFilter"})
 public class AdminController extends HttpServlet {
 
     // Handle incoming GET requests and route them to specific internal methods
@@ -81,6 +82,8 @@ public class AdminController extends HttpServlet {
             case "/deleteEvent":
                 deleteEvent(request, response);
                 break;
+            case "/adminStudentsFilter":
+                studentFilter(request, response);
         }
     }
 
@@ -205,6 +208,16 @@ public class AdminController extends HttpServlet {
         boolean result = new AdministratorDAO().deleteEventOnCalendar(eventDate);
         request.setAttribute("resultEvent",String.valueOf(result));
         request.getRequestDispatcher("/WEB-INF/view/admin/homeAdmin.jsp").forward(request,response);
+    }
+
+    public void studentFilter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String situation = request.getParameter("situation");
+        int grade = Integer.parseInt(request.getParameter("grade"));
+        String page = request.getParameter("page");
+        ArrayList<Student> students = new AdministratorDAO().StudentsFilter(situation, grade);
+
+        request.setAttribute("students", students);
+        request.getRequestDispatcher("/WEB-INF/view/admin/" + page + ".jsp").forward(request, response);
     }
 
     // Handle incoming POST requests for data creation and modification

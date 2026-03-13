@@ -241,15 +241,15 @@
 
 <div class="popup-filter" id="popupFilter">
 
-  <div class="popup-filter-item" data-filter="approved">
+  <div class="popup-filter-item" data-filter="Aprovado">
     Aprovados
   </div>
 
-  <div class="popup-filter-item" data-filter="failed">
+  <div class="popup-filter-item" data-filter="Reprovado">
     Reprovados
   </div>
 
-  <div class="popup-filter-item" data-filter="progress">
+  <div class="popup-filter-item" data-filter="Em andamento">
     Em andamento
   </div>
 
@@ -262,6 +262,7 @@
 </body>
 <script>
   const contextPath = "<%=request.getContextPath()%>"
+  const clean_grade = ${empty sessionScope.serie ? "" : sessionScope.serie}
 </script>
 <script src="${pageContext.request.contextPath}/js/admin/student-2.js"></script>
 <script>

@@ -25,11 +25,11 @@ popupFilter.addEventListener("click",(e)=>{
     if(!item) return;
 
     if(item.classList.contains("clear")){
-        window.location = "selectClass";
+        window.location = `obsStudentsList?grade=${clean_grade}`;
         return;
     }
 
     const filter = item.dataset.filter;
 
-    window.location = `selectClass?status=${filter}`;
+    window.location = `studentsFilter?situation=${filter}&page=obs-students-list`;
 });

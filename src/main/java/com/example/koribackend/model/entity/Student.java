@@ -31,6 +31,13 @@ public class Student {
         this.serie = serie;
     }
 
+    public Student(int enrollment, String email, Date issueDate, String name) {
+        this.enrollment = enrollment;
+        this.email = email;
+        this.issueDate = issueDate;
+        this.name = name;
+    }
+
     // Empty constructor
     public Student() {}
 

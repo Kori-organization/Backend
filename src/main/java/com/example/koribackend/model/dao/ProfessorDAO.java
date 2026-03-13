@@ -1,13 +1,16 @@
 package com.example.koribackend.model.dao;
 
+import com.example.koribackend.dto.StudentDTO;
 import com.example.koribackend.model.entity.Professor;
 import com.example.koribackend.config.ConnectionFactory;
+import com.example.koribackend.model.entity.Student;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Data Access Object for Professor entities.
@@ -338,5 +341,86 @@ public class ProfessorDAO {
             }
         }
         return 0;
+    }
+
+    public ArrayList<StudentDTO> StudentsFilterDTO(String situation, int serie, String subjectName) {
+        ArrayList<StudentDTO> listResult = new ArrayList<>();
+        String sql = "SELECT s.enrollment, s.email, s.issue_date, s.password, s.name, s.serie, g.grade1, g.grade2, g.rec, g.subject_id, sub.name AS subject FROM students s " +
+                "JOIN report_card rc " +
+                "ON s.enrollment = rc.student_id " +
+                "JOIN grade_rep gr " +
+                "ON rc.id = gr.rep_id " +
+                "JOIN grades g " +
+                "ON g.id = gr.grade_id " +
+                "JOIN subjects sub " +
+                "ON sub.id = g.subject_id " +
+                "WHERE rc.final_situation = ? AND s.serie = ? AND sub.name = ?";
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            stmt.setString(1, situation);
+            stmt.setInt(2, serie);
+            stmt.setString(3, subjectName);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                StudentDTO stud = new StudentDTO();
+                stud.setEnrollment(rs.getInt("enrollment"));
+                stud.setEmail(rs.getString("email"));
+                stud.setIssueDate(rs.getDate("issue_date"));
+                stud.setPassword(rs.getString("password"));
+                stud.setName(rs.getString("name"));
+                stud.setSerie(rs.getInt("serie"));
+                stud.setGrade1(rs.getDouble("grade1"));
+                if (rs.wasNull()) { stud.setGrade1(-1); }
+                stud.setGrade2(rs.getDouble("grade2"));
+                if (rs.wasNull()) { stud.setGrade2(-1); }
+                stud.setRec(rs.getDouble("rec"));
+                if (rs.wasNull()) { stud.setRec(-1); }
+                stud.setSubject(rs.getString("subject") == null ? "" : rs.getString("subject"));
+                listResult.add(stud);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listResult;
+    }
+
+    public ArrayList<Student> StudentsFilter(String situation, int grade, String subjectName) {
+        ArrayList<Student> listResult = new ArrayList<>();
+        String sql = "SELECT s.enrollment, s.name, s.email, s.issue_date " +
+                "FROM students s " +
+                "JOIN report_card rc " +
+                "ON s.enrollment = rc.student_id " +
+                "JOIN grade_rep gr " +
+                "ON rc.id = gr.rep_id " +
+                "JOIN grades g " +
+                "ON g.id = gr.grade_id " +
+                "JOIN subjects sub " +
+                "ON sub.id = g.subject_id " +
+                "WHERE rc.final_situation = ? AND s.serie = ? AND sub.name = ?";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            stmt.setString(1, situation);
+            stmt.setInt(2, grade);
+            stmt.setString(3, subjectName);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Student student = new Student();
+                student.setEnrollment(rs.getInt("enrollment"));
+                student.setName(rs.getString("name"));
+                student.setEmail(rs.getString("email"));
+                student.setIssueDate(rs.getDate("issue_date"));
+                listResult.add(student);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listResult;
     }
 }

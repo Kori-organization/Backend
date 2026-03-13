@@ -2,13 +2,15 @@
 <%@ page import="com.example.koribackend.model.entity.Student" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.koribackend.model.entity.Professor" %>
+<%@ page import="com.example.koribackend.dto.StudentDTO" %>
+<%@ page import="java.util.ArrayList" %>
 <%
     Professor professor = (Professor) session.getAttribute("professor");
     if (professor == null) {
         response.sendRedirect("enter");
         return;
     }
-
+    int grade = (int) session.getAttribute("grade");
     List<Student> students = (List<Student>) request.getAttribute("students");
 %>
 
@@ -100,15 +102,15 @@
 
     <div class="popup-filter" id="popupFilter">
 
-        <div class="popup-filter-item" data-filter="approved">
+        <div class="popup-filter-item" data-filter="Aprovado">
             Aprovados
         </div>
 
-        <div class="popup-filter-item" data-filter="failed">
+        <div class="popup-filter-item" data-filter="Reprovado">
             Reprovados
         </div>
 
-        <div class="popup-filter-item" data-filter="progress">
+        <div class="popup-filter-item" data-filter="Em andamento">
             Em andamento
         </div>
 
@@ -120,6 +122,9 @@
 
 
 </body>
+<script>
+    const clean_grade = <%= grade %>
+</script>
 <script src="${pageContext.request.contextPath}/js/professor/obs-students-list.js"></script>
 
 </html>

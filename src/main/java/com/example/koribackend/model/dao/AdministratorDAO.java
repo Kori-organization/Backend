@@ -4,6 +4,7 @@ import com.example.koribackend.model.entity.Administrator;
 import com.example.koribackend.config.ConnectionFactory;
 import com.example.koribackend.model.entity.Event;
 import com.example.koribackend.model.entity.Observation;
+import com.example.koribackend.model.entity.Student;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -236,5 +237,41 @@ public class AdministratorDAO {
             e.printStackTrace();
         }
         return eventResult;
+    }
+
+    public ArrayList<Student> StudentsFilter(String situation, int grade) {
+        ArrayList<Student> listResult = new ArrayList<>();
+        String sql = "SELECT DISTINCT  ON(s.enrollment) s.enrollment, s.name, s.email, s.issue_date " +
+                "FROM students s " +
+                "JOIN report_card rc " +
+                "ON s.enrollment = rc.student_id " +
+                "JOIN grade_rep gr " +
+                "ON rc.id = gr.rep_id " +
+                "JOIN grades g " +
+                "ON g.id = gr.grade_id " +
+                "JOIN subjects sub " +
+                "ON sub.id = g.subject_id " +
+                "WHERE rc.final_situation = ? AND s.serie = ?";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            stmt.setString(1, situation);
+            stmt.setInt(2, grade);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Student student = new Student();
+                student.setEnrollment(rs.getInt("enrollment"));
+                student.setName(rs.getString("name"));
+                student.setEmail(rs.getString("email"));
+                student.setIssueDate(rs.getDate("issue_date"));
+                listResult.add(student);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listResult;
     }
 }

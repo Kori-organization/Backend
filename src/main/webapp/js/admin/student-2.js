@@ -312,11 +312,11 @@ popupFilter.addEventListener("click",(e)=>{
     if(!item) return;
 
     if(item.classList.contains("clear")){
-        window.location = "selectClass";
+        window.location = `selectClass?serie=${clean_grade}`;
         return;
     }
 
     const filter = item.dataset.filter;
 
-    window.location = `selectClass?status=${filter}`;
+    window.location = `adminStudentsFilter?situation=${filter}&page=student-2&grade=${clean_grade}`;
 });

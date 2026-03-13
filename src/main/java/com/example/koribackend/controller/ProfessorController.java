@@ -2,10 +2,7 @@ package com.example.koribackend.controller;
 
 // Import DTOs, DAOs, and Entity models for academic and behavioral data
 import com.example.koribackend.dto.StudentDTO;
-import com.example.koribackend.model.dao.GradeDAO;
-import com.example.koribackend.model.dao.ObservationDAO;
-import com.example.koribackend.model.dao.ReportCardDAO;
-import com.example.koribackend.model.dao.StudentDAO;
+import com.example.koribackend.model.dao.*;
 import com.example.koribackend.model.entity.Observation;
 import com.example.koribackend.model.entity.Professor;
 import com.example.koribackend.model.entity.ReportCard;
@@ -18,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 // Map multiple endpoints related to professor actions and student management
@@ -34,7 +32,9 @@ import java.util.List;
         "/logoutProfessor",
         "/studentReportCard",
         "/addGrades",
-        "/addRec"})
+        "/addRec",
+        "/studentsFilter",
+        "/studentsFilterDTO"})
 public class ProfessorController extends HttpServlet {
 
     // Handle navigation and data retrieval for the professor interface
@@ -74,6 +74,12 @@ public class ProfessorController extends HttpServlet {
                 break;
             case "/studentReportCard":
                 showStudentReportCard(request, response, Integer.parseInt(request.getParameter("studentId")));
+                break;
+            case "/studentsFilter":
+                studentFilter(request, response);
+                break;
+            case "/studentsFilterDTO":
+                studentFilterDTO(request, response);
                 break;
         }
     }
@@ -210,5 +216,43 @@ public class ProfessorController extends HttpServlet {
         request.setAttribute("reportCard",reportCard);
         request.setAttribute("student",student);
         request.getRequestDispatcher("/WEB-INF/view/professor/reportcard.jsp").forward(request,response);
+    }
+
+    public void studentFilterDTO(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Professor professor = (Professor) request.getSession().getAttribute("professor");
+        String situation = request.getParameter("situation");
+
+        int grade;
+        // Check session for grade level to maintain state during filtering
+        if (request.getSession(false).getAttribute("grade") != null && request.getParameter("grade") == null) {
+            grade = (int) request.getSession(false).getAttribute("grade");
+        } else {
+            grade = Integer.parseInt(request.getParameter("grade"));
+        }
+
+        String page = request.getParameter("page");
+        ArrayList<StudentDTO> studentsDTOS = new ProfessorDAO().StudentsFilterDTO(situation, grade, professor.getSubjectName());
+
+        request.setAttribute("students", studentsDTOS);
+        request.getRequestDispatcher("/WEB-INF/view/professor/" + page + ".jsp").forward(request, response);
+    }
+
+    public void studentFilter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Professor professor = (Professor) request.getSession().getAttribute("professor");
+        String situation = request.getParameter("situation");
+
+        int grade;
+        // Check session for grade level to maintain state during filtering
+        if (request.getSession(false).getAttribute("grade") != null && request.getParameter("grade") == null) {
+            grade = (int) request.getSession(false).getAttribute("grade");
+        } else {
+            grade = Integer.parseInt(request.getParameter("grade"));
+        }
+
+        String page = request.getParameter("page");
+        ArrayList<Student> students = new ProfessorDAO().StudentsFilter(situation, grade, professor.getSubjectName());
+
+        request.setAttribute("students", students);
+        request.getRequestDispatcher("/WEB-INF/view/professor/" + page + ".jsp").forward(request, response);
     }
 }

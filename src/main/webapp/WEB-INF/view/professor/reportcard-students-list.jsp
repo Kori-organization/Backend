@@ -171,7 +171,7 @@
                             </div>
                         </div>
 
-                    <!-- Average grade display -->
+                    <!-- Average serie display -->
                     <div class="average-box">
                         <div class="title">Média do aluno</div>
                         <div id="avgValue" class="value">—</div>
@@ -313,15 +313,15 @@
 
     <div class="popup-filter" id="popupFilter">
 
-        <div class="popup-filter-item" data-filter="approved">
+        <div class="popup-filter-item" data-filter="Aprovado">
             Aprovados
         </div>
 
-        <div class="popup-filter-item" data-filter="failed">
+        <div class="popup-filter-item" data-filter="Reprovado">
             Reprovados
         </div>
 
-        <div class="popup-filter-item" data-filter="progress">
+        <div class="popup-filter-item" data-filter="Em andamento">
             Em andamento
         </div>
 
@@ -336,6 +336,7 @@
 <!-- Main JavaScript file -->
 <script>
     const contextPath = "<%=request.getContextPath()%>"
+    const grade = <%= grade %>
 </script>
 <script src="${pageContext.request.contextPath}/js/professor/bulletin-students-list.js"></script>
 <script>
