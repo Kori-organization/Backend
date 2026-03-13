@@ -34,6 +34,5 @@
 </div>
 
 <script src="${pageContext.request.contextPath}/js/loading.js"></script>
-
 </body>
 </html>

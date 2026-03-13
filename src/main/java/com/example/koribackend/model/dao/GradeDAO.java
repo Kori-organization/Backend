@@ -2,7 +2,10 @@ package com.example.koribackend.model.dao;
 
 import com.example.koribackend.config.ConnectionFactory;
 import com.example.koribackend.model.entity.Grade;
+import com.example.koribackend.util.JavaMail;
+import jakarta.servlet.http.HttpServletRequest;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -182,9 +185,10 @@ public class GradeDAO {
      * Bulk updates all grades (N1, N2, and Rec) for a student across all subjects.
      * Uses an atomic transaction for the entire list.
      */
-    public boolean updateAllGrades(ArrayList<Grade> grades, int enrollment) {
+    public boolean updateAllGrades(ArrayList<Grade> grades, int enrollment, boolean email, HttpServletRequest request) {
         Connection conn = null;
 
+        String emailSend = "";
         try {
             conn = ConnectionFactory.getConnection();
             conn.setAutoCommit(false);
@@ -201,6 +205,17 @@ public class GradeDAO {
                 if (!success) {
                     conn.rollback();
                     return false;
+                }
+            }
+
+            if (email) {
+                try (PreparedStatement stmt = conn.prepareStatement("SELECT email FROM students where enrollment = ?")) {
+                    stmt.setInt(1, enrollment);
+                    try (ResultSet rs = stmt.executeQuery()) {
+                        if (rs.next()) {
+                            emailSend = rs.getString(1);
+                        }
+                    }
                 }
             }
             conn.commit();
@@ -223,6 +238,13 @@ public class GradeDAO {
             }
             // Ensure the final pass/fail status is refreshed after bulk update
             new ReportCardDAO().updateSituation(enrollment);
+            if (email && !emailSend.equals("")) {
+                try  {
+                    JavaMail.sendEditGradesAdmin(emailSend,request);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return false;
     }

@@ -187,11 +187,7 @@ public class AdminController extends HttpServlet {
 
     // Invalidate the current session and redirect to the login page
     private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-        response.sendRedirect("enter");
+        response.sendRedirect("logout");
     }
 
     private void selectAllEvents(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -266,7 +262,7 @@ public class AdminController extends HttpServlet {
             grades.add(new Grade(n1,n2,subject,rec));
             count++;
         }
-        boolean result = new GradeDAO().updateAllGrades(grades,enrollment);
+        boolean result = new GradeDAO().updateAllGrades(grades,enrollment,true,request);
         request.setAttribute("resultAddAllGrades",String.valueOf(result));
         showReportCardStudent(request,response);
     }

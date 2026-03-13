@@ -103,7 +103,13 @@
     </div>
   </div>
 </main>
+</div>
+
+</div>
 
 </body>
+<script>
+  const contextPath = "${pageContext.request.contextPath}";
+</script>
 <script src="${pageContext.request.contextPath}/js/student/profile.js"></script>
 </html>

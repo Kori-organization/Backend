@@ -185,4 +185,10 @@
 
 <!-- Scripts -->
 <script src="${pageContext.request.contextPath}/js/student/home-screen.js"></script>
+<script>
+  history.pushState(null, "", location.href);
+  window.addEventListener("popstate", () => {
+    history.go(1);
+  });
+</script>
 </html>

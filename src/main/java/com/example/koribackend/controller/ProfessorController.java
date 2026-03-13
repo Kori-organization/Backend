@@ -202,11 +202,7 @@ public class ProfessorController extends HttpServlet {
 
     // Invalidate the session and redirect the professor back to the login screen
     private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-        response.sendRedirect("enter");
+        response.sendRedirect("logout");
     }
 
     // Retrieve and display the full academic report card for a specific student

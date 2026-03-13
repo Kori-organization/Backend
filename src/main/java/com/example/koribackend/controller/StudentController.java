@@ -58,12 +58,7 @@ public class StudentController extends HttpServlet {
 
     // Invalidate the current session and redirect to the login entry point
     private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-
-        response.sendRedirect("enter");
+        response.sendRedirect("logout");
     }
 
     // Fetch and display the academic report card for the logged-in student
