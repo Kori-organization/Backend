@@ -369,3 +369,436 @@ h1 {
 ::-webkit-scrollbar-thumb:hover {
     background: #e6b53b;
 }
+
+/* ============================================
+   MEDIA QUERIES — RESPONSIVE
+   ============================================ */
+
+/* --- Desktop Large --- */
+@media (max-width: 1400px) {
+    .profile-card {
+        width: 600px;
+    }
+
+    .profile-body {
+        grid-template-columns: 1fr 280px;
+        padding: 30px 40px 24px;
+    }
+
+    .profile-right {
+        margin-right: 40px;
+    }
+
+    main {
+        padding: 60px 40px;
+    }
+
+    h1 {
+        margin-left: 60px;
+        font-size: 32px;
+    }
+}
+
+/* --- Desktop Medium --- */
+@media (max-width: 1200px) {
+    .topbar {
+        padding: 12px 60px;
+        height: 130px;
+    }
+
+    main {
+        margin-top: 140px;
+        padding: 50px 30px;
+    }
+
+    .profile-card {
+        width: 550px;
+    }
+
+    .profile-body {
+        grid-template-columns: 1fr 240px;
+        gap: 16px;
+        padding: 26px 32px 22px;
+    }
+
+    .profile-right {
+        margin-right: 20px;
+    }
+
+    .profile-col .value.email {
+        width: 250px;
+        font-size: 16px;
+    }
+
+    h1 {
+        margin-left: 40px;
+        font-size: 30px;
+        margin-bottom: 50px;
+    }
+
+    .profile-hero .hero-sheen {
+        right: 50px;
+        width: 32%;
+    }
+}
+
+/* --- Tablet --- */
+@media (max-width: 860px) {
+    .topbar {
+        padding: 12px 30px;
+        height: 110px;
+    }
+
+    .topbar .back {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+
+    .img-greeting img {
+        width: 110px;
+    }
+
+    main {
+        margin-top: 120px;
+        padding: 40px 20px;
+        border-top-left-radius: 40px;
+        border-top-right-radius: 40px;
+    }
+
+    h1 {
+        margin-left: 20px;
+        font-size: 28px;
+        margin-bottom: 40px;
+    }
+
+    .profile-card {
+        width: 100%;
+        max-width: 600px;
+        margin: 24px auto 40px;
+        border-radius: 60px;
+    }
+
+    .profile-hero {
+        height: 100px;
+        padding: 16px 30px;
+    }
+
+    .profile-hero .hero-sheen {
+        right: 30px;
+        width: 30%;
+    }
+
+    .avatar-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .avatar-icon img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .profile-body {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 24px 30px 20px;
+    }
+
+    .profile-right {
+        margin-right: 0;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        border-top: 1px solid rgba(0,0,0,0.05);
+        padding-top: 20px;
+    }
+
+    .profile-right .meta-row {
+        align-items: flex-start;
+        margin-bottom: 0;
+    }
+
+    .profile-right .meta-value {
+        font-size: 20px;
+    }
+
+    .profile-col .value.email {
+        width: 100%;
+    }
+
+    .logout-btn {
+        margin-top: -20px;
+    }
+
+    .profile-help {
+        margin-top: 30px;
+    }
+}
+
+/* --- Mobile Large --- */
+@media (max-width: 600px) {
+    .topbar {
+        padding: 10px 20px;
+        height: 90px;
+    }
+
+    .topbar .back {
+        padding: 10px 20px;
+        font-size: 13px;
+        gap: 6px;
+    }
+
+    .topbar .back img {
+        width: 16px;
+        height: 16px;
+    }
+
+    .img-greeting img {
+        width: 90px;
+    }
+
+    main {
+        margin-top: 100px;
+        padding: 30px 16px;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+    }
+
+    h1 {
+        margin-left: 16px;
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+
+    .profile-card {
+        border-radius: 50px;
+        margin: 20px auto 30px;
+    }
+
+    .profile-hero {
+        height: 85px;
+        padding: 14px 24px;
+    }
+
+    .profile-hero .hero-sheen {
+        right: 20px;
+        width: 28%;
+    }
+
+    .avatar-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .avatar-icon img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .profile-body {
+        padding: 20px 24px 18px;
+    }
+
+    .profile-col .field {
+        margin-bottom: 18px;
+    }
+
+    .profile-col .label {
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    .profile-col .value {
+        font-size: 16px;
+    }
+
+    .profile-col .value.name {
+        font-size: 22px;
+    }
+
+    .profile-col .value.email {
+        font-size: 15px;
+    }
+
+    .profile-right {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding-top: 16px;
+    }
+
+    .profile-right .meta-row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .profile-right .meta-label {
+        font-size: 12px;
+    }
+
+    .profile-right .meta-value {
+        font-size: 18px;
+        margin-top: 0;
+    }
+
+    .logout-btn {
+        margin-top: -10px;
+        font-size: 13px;
+    }
+
+    .profile-help {
+        font-size: 12px;
+        margin-top: 24px;
+    }
+
+    .logout-modal {
+        width: 300px;
+        padding: 24px 20px;
+    }
+
+    .logout-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 22px;
+    }
+
+    .logout-modal h2 {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .logout-actions button {
+        padding: 8px 40px;
+        font-size: 14px;
+    }
+}
+
+/* --- Mobile Small --- */
+@media (max-width: 400px) {
+    .topbar {
+        padding: 8px 16px;
+        height: 80px;
+    }
+
+    .topbar .back {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    .topbar .back img {
+        width: 14px;
+        height: 14px;
+    }
+
+    .img-greeting img {
+        width: 80px;
+    }
+
+    main {
+        margin-top: 90px;
+        padding: 24px 12px;
+        border-top-left-radius: 24px;
+        border-top-right-radius: 24px;
+    }
+
+    h1 {
+        margin-left: 12px;
+        font-size: 20px;
+        margin-bottom: 24px;
+    }
+
+    .profile-card {
+        border-radius: 40px;
+        margin: 16px auto 24px;
+    }
+
+    .profile-hero {
+        height: 75px;
+        padding: 12px 20px;
+    }
+
+    .profile-hero .hero-sheen {
+        right: 15px;
+        width: 25%;
+    }
+
+    .avatar-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .avatar-icon img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .profile-body {
+        padding: 16px 18px 14px;
+    }
+
+    .profile-col .field {
+        margin-bottom: 14px;
+    }
+
+    .profile-col .label {
+        font-size: 11px;
+        margin-bottom: 3px;
+    }
+
+    .profile-col .value {
+        font-size: 14px;
+    }
+
+    .profile-col .value.name {
+        font-size: 18px;
+    }
+
+    .profile-col .value.email {
+        font-size: 13px;
+    }
+
+    .profile-right .meta-value {
+        font-size: 16px;
+    }
+
+    .logout-btn {
+        margin-top: -5px;
+        font-size: 12px;
+    }
+
+    .profile-help {
+        font-size: 11px;
+        margin-top: 20px;
+    }
+
+    .logout-modal {
+        width: 260px;
+        padding: 20px 16px;
+        border-radius: 18px;
+    }
+
+    .logout-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+    }
+
+    .logout-modal h2 {
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+
+    .logout-actions {
+        gap: 8px;
+    }
+
+    .logout-actions button {
+        padding: 6px 30px;
+        font-size: 13px;
+    }
+
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+}

@@ -321,3 +321,355 @@ main {
 ::-webkit-scrollbar-thumb:hover {
     background: #e6b53b;
 }
+
+/* =============================================
+   MEDIA QUERIES – RESPONSIVE
+   ============================================= */
+
+/* --- Desktop Large --- */
+@media (max-width: 1400px) {
+
+    .top-main{
+        width: calc(100% - 80px);
+    }
+
+    .color{
+        width: calc(100% - 200px);
+    }
+
+    .main{
+        height: auto;
+        min-height: 100vh;
+        padding-bottom: 60px;
+        overflow-x: auto;
+        overflow-y: visible;
+    }
+
+}
+
+/* --- Desktop Medium --- */
+@media (max-width: 1200px) {
+
+    .bulletin{
+        transform: scale(0.95);
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+
+    .main{
+        margin-left: 160px;
+        overflow-x: auto;
+        overflow-y: visible;
+    }
+
+    .final-status{
+        position: sticky;
+        left: 0;
+        right: 20px;
+        font-size: 17px;
+        padding: 20px 24px;
+        height: auto;
+        margin-top: 50px;
+    }
+
+    .bulletin-wrapper{
+        margin-left: 20px;
+    }
+
+    .bulletin-title{
+        position: sticky;
+        left: 0;
+    }
+
+}
+
+/* --- Tablet --- */
+@media (max-width: 1024px) {
+
+    .sidebar{
+        width: 160px;
+    }
+
+    .main{
+        margin-left: 160px;
+        overflow-x: auto;
+        overflow-y: visible;
+    }
+
+    .top-main{
+        left: 160px;
+        width: calc(100% - 160px);
+        margin-left: 0;
+        border-radius: 20px 0 0 0;
+    }
+
+    .color{
+        width: calc(100% - 160px);
+    }
+
+    .bulletin{
+        transform: scale(0.85);
+        margin-left: -10px;
+        transform-origin: top left;
+    }
+
+    .bulletin-wrapper{
+        margin-top: 130px;
+        margin-left: 10px;
+    }
+
+    .menu-item.active,
+    .menu-item.active2{
+        width: 100px;
+        height: 140px;
+    }
+
+    .menu-item.active img{
+        width: 38px;
+        height: 38px;
+    }
+
+    .menu-item.active h2,
+    .menu-item.active2 h2{
+        font-size: 14px;
+    }
+
+    .final-status{
+        position: sticky;
+        left: 0;
+        align-items: center;
+        font-size: 14px;
+        padding: 16px 20px;
+        border-radius: 20px;
+        margin-left: 0;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+}
+
+/* --- Tablet Small --- */
+@media (max-width: 768px) {
+
+    body{
+        background: var(--background);
+    }
+
+    .app{
+        flex-direction: column;
+        padding-right: 0;
+    }
+
+    .sidebar{
+        top: auto;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 90px;
+        border-radius: 50px 50px 0 0;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 30px;
+        gap: 0;
+    }
+
+    .sidebar-menu{
+        flex-direction: row;
+        gap: 0;
+        margin-top: 0;
+        width: auto;
+        flex: 1;
+        justify-content: space-around;
+    }
+
+    .menu-item,
+    .menu-item.active,
+    .menu-item.active2,
+    .menu-item.one,
+    .menu-item.two,
+    .menu-item.three{
+        width: 60px;
+        height: 60px;
+        border-radius: 100px;
+        flex-direction: column;
+        gap: 4px;
+        margin: 0;
+        transform: scale(1);
+        transform-origin: center;
+    }
+
+    .menu-item img{
+        width: 26px;
+        height: 26px;
+    }
+
+    .menu-item h2{
+        font-size: 11px;
+        margin: 0;
+    }
+
+    .profile{
+        position: static;
+        width: 60px;
+        height: 60px;
+        border-radius: 100px;
+    }
+
+    .profile img{
+        margin-top: 0;
+        width: 30px;
+        height: 30px;
+    }
+
+    .main{
+        margin-left: 0;
+        border-radius: 0;
+        margin-right: 0;
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-bottom: 90px;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .top-main{
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        margin-left: 0;
+        padding: 12px 16px;
+        margin-top: 0;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo-container{
+        width: 130px;
+        height: 50px;
+    }
+
+    .logo-container img{
+        width: 130px;
+    }
+
+    .home-button{
+        margin-right: 0;
+        margin-top: 0;
+        width: 50px;
+        height: 50px;
+    }
+
+    .color{
+        display: none;
+    }
+
+    .bulletin-wrapper{
+        margin-top: 20px;
+        margin-left: 0;
+        overflow-x: auto;
+        padding-bottom: 20px;
+    }
+
+    .bulletin{
+        transform: scale(1);
+        transform-origin: top left;
+        margin-left: 0;
+        margin-top: 20px;
+        width: max-content;
+    }
+
+}
+/* --- Mobile --- */
+@media (max-width: 480px) {
+
+    .bulletin-title{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .bulletin-wrapper .bulletin-title h1{
+        font-size: 18px;
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+
+    .bulletin-year{
+        position: static;
+        font-size: 16px;
+        margin-top: 0;
+    }
+
+    .bulletin{
+        transform: scale(0.68);
+        transform-origin: top left;
+        margin-left: -20px;
+    }
+
+    .bcol{
+        min-width: 110px;
+        padding: 10px;
+    }
+
+    .bcol h3{
+        font-size: 12px;
+        width: 105px;
+        height: 90px;
+    }
+
+    .bitem{
+        height: 55px;
+        font-size: 13px;
+    }
+
+    .final-status{
+        font-size: 13px;
+        padding: 14px 16px;
+    }
+
+    .menu-item h2{
+        display: none;
+    }
+
+    .menu-item,
+    .menu-item.active,
+    .menu-item.active2{
+        width: 52px;
+        height: 52px;
+    }
+
+}
+
+
+/* --- Mobile Small --- */
+@media (max-width: 360px) {
+
+    .bulletin-title{
+        gap: 2px;
+    }
+
+    .bulletin-wrapper .bulletin-title h1{
+        font-size: 16px;
+    }
+
+    .bulletin-year{
+        font-size: 14px;
+    }
+
+    .bulletin{
+        transform: scale(0.56);
+        margin-left: -28px;
+    }
+
+    .final-status{
+        font-size: 12px;
+    }
+
+}

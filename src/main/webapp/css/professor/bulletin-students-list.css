@@ -786,3 +786,297 @@ select {
 ::-webkit-scrollbar-thumb:hover {
     background: #e6b53b;
 }
+
+/* MEDIA QUERY */
+@media (max-width: 1400px) {
+    main {
+        padding: 40px;
+    }
+
+    .table .header {
+        grid-template-columns: 0.11fr 0.24fr 0.25fr 80px;
+        padding: 8px 7px;
+    }
+
+    .student-row {
+        grid-template-columns: 0.4fr 1fr 1fr 0.8fr 1fr;
+        gap: 10px;
+    }
+
+    .label {
+        margin-top: 0px;
+    }
+}
+
+@media (max-width: 800px) {
+    main {
+        padding: 40px;
+    }
+
+    .table .header {
+        grid-template-columns: 0.11fr 0.24fr 0.25fr 80px;
+        padding: 8px 7px;
+    }
+
+    .student-row {
+        grid-template-columns: 0.4fr 1fr 1fr 0.8fr 1fr;
+        gap: 10px;
+    }
+}
+
+
+@media (max-width: 935px) {
+    .modal {
+        height: 80%;
+    }
+
+    .modal-top {
+        height: 27%;
+    }
+
+    .modal-footer {
+        height: 20%;
+    }
+
+    .modal-body {
+        height: 55%;
+    }
+
+    .modal-top .meta {
+        margin-top: 20px;
+        font-size: 17px;
+        max-width: 87px;
+    }
+
+    .student-info {
+        max-width: 230px;
+    }
+
+    .student-info h2 {
+        font-size: 34px !important;
+        margin-top: 5% !important;
+        margin-left: 4% !important;
+    }
+
+    .student-info p {
+        margin-left: 10px !important;
+    }
+
+    .label {
+        margin-top: 0px !important;
+    }
+
+    .admin-note {
+        font-size: 10px
+    }
+
+    .notes-2 {
+        flex-wrap: wrap;
+        max-width: 230px !important;
+    }
+
+    .confirm-content {
+        width: 50%;
+    }
+
+    .confirm-content h2 {
+        font-size: 22px;
+    }
+
+    .modal-rec {
+        overflow-y: auto;
+    }
+}
+
+
+@media (max-width: 500px) {
+    .topbar {
+        padding: 12px 20px;
+        height: 100px;
+    }
+
+    .topbar .back {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .table .header {
+        grid-template-columns: 0.11fr 0.32fr 0.325fr 80px 80px;
+        padding: 8px 7px;
+    }
+
+    main {
+        margin-top: 110px;
+        padding: 20px 10px;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+    }
+
+    .student-row {
+        grid-template-columns: 0.1fr 1fr 1fr 1fr 1fr;
+        padding: 12px;
+        margin: 0 0 10px 0;
+        width: 100%;
+    }
+
+    .actions {
+        gap: 5px;
+    }
+
+    .square-actions {
+        gap: 10px;
+    }
+
+    .action-btn.plus {
+        margin-right: -10px;
+    }
+}
+
+
+/* --- Tablet--- */
+@media (max-width: 860px) {
+    .modal {
+        height: 80%;
+    }
+
+    .modal-top {
+        height: 27%;
+    }
+
+    .modal-footer {
+        height: 20%;
+    }
+
+    .modal-body {
+        height: 55%;
+    }
+
+    .modal-top .meta {
+        margin-top: 20px;
+        font-size: 17px;
+        max-width: 87px;
+    }
+
+    .student-info {
+        max-width: 230px;
+    }
+
+    .student-info h2 {
+        font-size: 34px !important;
+        margin-top: 3% !important;
+        margin-left: 4% !important;
+    }
+
+    .student-info p {
+        margin-left: 4% !important;
+    }
+
+    .label {
+        margin-top: 0px !important;
+    }
+
+    .admin-note {
+        font-size: 10px
+    }
+
+    .notes-2 {
+        flex-wrap: wrap;
+        max-width: 230px !important;
+    }
+
+    .confirm-content {
+        width: 50%;
+    }
+
+    .confirm-content h2 {
+        font-size: 22px;
+    }
+
+    .modal-rec {
+        overflow-y: auto;
+    }
+
+    .field {
+        margin-left: 12% !important;
+    }
+}
+
+
+/* --- Mobile - Large --- */
+@media (max-width: 600px) {
+    .modal {
+        height: 80%;
+        width: 80%;
+    }
+
+    .modal-top {
+        height: 25%;
+    }
+
+    .modal-top .meta {
+        margin-top: 20px;
+        font-size: 15px;
+        max-width: 87px;
+    }
+
+    .student-info {
+        max-width: 200px;
+    }
+
+    .student-info h2 {
+        font-size: 30px !important;
+        margin-top: 5px !important;
+        margin-left: 10px !important;
+    }
+
+    .student-info p {
+        font-size: 15px !important;
+        margin-left: 10px !important;
+    }
+
+    .notes-2 {
+        flex-wrap: wrap;
+    }
+
+    .label {
+        margin-top: 0px !important;
+    }
+
+    .modal-footer {
+        height: 20%;
+    }
+
+    .admin-note {
+        font-size: 10px
+    }
+
+    .modal-body {
+        height: 55%;
+    }
+
+    .confirm-content {
+        width: 60%;
+    }
+
+    .confirm-content h2 {
+        font-size: 22px;
+    }
+
+    .modal-rec {
+        overflow-y: auto;
+    }
+
+    .field {
+        margin-left: 12% !important;
+    }
+}
+
+/* --- Mobile - Small --- */
+@media (max-width: 400px) {
+    .modal {
+        height: 2%;
+    }
+
+    .notes-2 {
+    }
+}

@@ -463,3 +463,550 @@ main {
     transform: translateY(8px) scale(1.4);
     transition: opacity 240ms ease, transform 240ms ease;
 }
+
+/* ============================================
+   MEDIA QUERIES — RESPONSIVE (Bulletin Page)
+   ============================================ */
+
+/* --- Desktop Large (1400px and below) --- */
+@media (max-width: 1400px) {
+    .topbar {
+        padding: 12px 40px;
+    }
+
+    .bulletin {
+        transform: scale(1.1);
+        margin-left: 150px;
+        margin-top: 150px;
+    }
+
+    .final-status {
+        right: 80px;
+        padding: 25px 28px;
+        font-size: 18px;
+        margin-top: 320px;
+        margin-right: 50px;
+    }
+
+    .save-btn {
+        margin-left: auto;
+        margin-right: 80px;
+        width: 200px;
+    }
+
+    main {
+        padding: 60px;
+    }
+}
+
+/* --- Desktop Medium (1200px and below) --- */
+@media (max-width: 1200px) {
+    .topbar {
+        padding: 12px 30px;
+    }
+
+    .topbar .back {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+
+    .bulletin {
+        transform: scale(0.95);
+        margin-left: 80px;
+        margin-top: 120px;
+        margin-right: 30px;
+        padding-right: 20px;
+    }
+
+    .bulletin-title {
+        margin-left: 50px;
+        margin-right: 80px;
+        font-size: 18px;
+    }
+
+    .bulletin-year {
+        font-size: 22px;
+        margin-top: -8px;
+    }
+
+    .bcol {
+        min-width: 130px;
+        padding: 12px;
+    }
+
+    .bcol.left h3,
+    .bcol.left2 h3,
+    .bcol.left3 h3,
+    .bcol.right h3,
+    .bcol.right2 h3,
+    .bcol.right3 h3 {
+        width: 120px;
+        height: 90px;
+        font-size: 14px;
+    }
+
+    .bitem {
+        height: 60px;
+        font-size: 14px;
+    }
+
+    .final-status {
+        right: 40px;
+        top: -20px;
+        margin-top: 280px;
+        padding: 22px 25px;
+        font-size: 16px;
+    }
+
+    .save-btn {
+        margin-top: 40px;
+        margin-left: auto;
+        margin-right: 40px;
+        padding: 15px 40px;
+        width: 180px;
+        font-size: 14px;
+    }
+
+    main {
+        padding: 50px;
+    }
+}
+
+/* --- Tablet Landscape (1024px and below) --- */
+@media (max-width: 1024px) {
+    .topbar {
+        height: 130px;
+        padding: 12px 25px;
+    }
+
+    .img-greeting {
+        width: 110px;
+    }
+
+    .img-greeting img {
+        width: 100%;
+        height: auto;
+    }
+
+    .bulletin {
+        flex-wrap: wrap;
+        width: 90%;
+        margin: 120px auto 30px;
+        padding: 20px;
+        gap: 15px;
+        justify-content: center;
+        transform: scale(1);
+    }
+
+    .bulletin-title {
+        width: 100%;
+        margin: 0 0 20px 0;
+        text-align: center;
+    }
+
+    .bulletin-year {
+        position: relative;
+        display: block;
+        text-align: center;
+        margin: 5px 0 0;
+    }
+
+    .bcol {
+        min-width: 140px;
+        margin: 0;
+    }
+
+    .final-status {
+        position: relative;
+        right: auto;
+        top: auto;
+        margin: 20px auto 0;
+        width: fit-content;
+        max-width: 90%;
+    }
+
+    .save-btn {
+        display: block;
+        margin: 40px auto 0;
+    }
+
+    main {
+        padding: 40px;
+    }
+}
+
+/* --- Tablet (860px and below) --- */
+@media (max-width: 860px) {
+    .topbar {
+        height: 120px;
+        padding: 12px 20px;
+    }
+
+    .topbar .back {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+
+    .topbar .back img {
+        width: 16px;
+    }
+
+    .img-greeting {
+        width: 100px;
+    }
+
+    main {
+        margin-top: 130px;
+        padding: 30px 20px;
+        border-top-left-radius: 40px;
+        border-top-right-radius: 40px;
+    }
+
+    .bulletin {
+        margin: 30px auto;
+        width: 100%;
+        padding: 15px;
+        transform: scale(1);
+    }
+
+    .bulletin-title {
+        font-size: 16px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    .bulletin-year {
+        font-size: 20px;
+    }
+
+    .bcol {
+        min-width: 120px;
+    }
+
+    .bcol.left h3,
+    .bcol.left2 h3,
+    .bcol.left3 h3,
+    .bcol.right h3,
+    .bcol.right2 h3,
+    .bcol.right3 h3 {
+        width: 100px;
+        height: 80px;
+        font-size: 12px;
+        padding-top: 25%;
+    }
+
+    .badge {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+
+    .bitem {
+        height: 50px;
+        font-size: 12px;
+    }
+
+    .nota {
+        width: 45px;
+        height: 32px;
+        font-size: 12px;
+    }
+
+    .final-status {
+        padding: 18px 22px;
+        font-size: 14px;
+        border-radius: 40px;
+        height: auto;
+    }
+
+    .download-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .save-btn {
+        margin: 30px auto 0;
+        padding: 12px 30px;
+        width: 160px;
+        font-size: 13px;
+    }
+
+    .toast {
+        top: 20px;
+        right: 20px;
+        padding: 12px 18px;
+        font-size: 13px;
+    }
+}
+
+/* --- Mobile Large (600px and below) --- */
+@media (max-width: 600px) {
+    .topbar {
+        height: 100px;
+        padding: 10px 15px;
+    }
+
+    .topbar .back {
+        padding: 8px 16px;
+        font-size: 12px;
+        gap: 6px;
+    }
+
+    .topbar .back img {
+        width: 14px;
+    }
+
+    .img-greeting {
+        width: 80px;
+    }
+
+    main {
+        margin-top: 110px;
+        padding: 20px 15px;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+    }
+
+    .bulletin {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 20px 15px;
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .bulletin-title {
+        font-size: 15px;
+        margin-bottom: 5px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .bulletin-year {
+        font-size: 18px;
+    }
+
+    /* Make columns horizontal on mobile */
+    .bcol {
+        width: 100%;
+        min-width: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .bcol.left h3,
+    .bcol.left2 h3,
+    .bcol.left3 h3,
+    .bcol.right h3,
+    .bcol.right2 h3,
+    .bcol.right3 h3 {
+        width: 90%;
+        height: 60px;
+        padding-top: 15px;
+        margin-top: 0;
+        border-radius: 30px 30px 15px 15px;
+        font-size: 13px;
+    }
+
+    /* Grid layout for subjects and grades */
+    .bcol > div:not(h3) {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    .bitem {
+        height: 45px;
+        width: 100%;
+        border-radius: 8px;
+        border-bottom: 2px solid #D6D6D6;
+    }
+
+    .bitem.top {
+        margin-top: 0;
+    }
+
+    .bitem.subject {
+        grid-column: 1 / -1;
+        background-color: #f0f0f0;
+        font-weight: 600;
+    }
+
+    .final-status {
+        position: relative;
+        margin: 30px auto 0;
+        width: 100%;
+        justify-content: center;
+        padding: 15px 20px;
+        font-size: 13px;
+        height: auto;
+    }
+
+    .save-btn {
+        width: 100%;
+        max-width: 250px;
+        padding: 12px 20px;
+        margin: 30px auto 0;
+    }
+
+    .toast {
+        left: 15px;
+        right: 15px;
+        width: auto;
+        text-align: center;
+    }
+}
+
+/* --- Mobile Small (480px and below) --- */
+@media (max-width: 480px) {
+    .topbar {
+        height: 90px;
+        padding: 8px 12px;
+    }
+
+    .topbar .back {
+        padding: 6px 14px;
+        font-size: 11px;
+    }
+
+    .img-greeting {
+        width: 70px;
+    }
+
+    main {
+        margin-top: 100px;
+        padding: 15px 10px;
+    }
+
+    .bulletin {
+        padding: 15px 10px;
+    }
+
+    .bcol.left h3,
+    .bcol.left2 h3,
+    .bcol.left3 h3,
+    .bcol.right h3,
+    .bcol.right2 h3,
+    .bcol.right3 h3 {
+        height: 50px;
+        font-size: 12px;
+    }
+
+    .badge {
+        font-size: 9px;
+        padding: 2px 6px;
+    }
+
+    .bcol > div:not(h3) {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .bitem {
+        height: 40px;
+        font-size: 11px;
+    }
+
+    .nota {
+        width: 40px;
+        height: 28px;
+        font-size: 11px;
+    }
+
+    .final-status {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+        padding: 12px 15px;
+        border-radius: 30px;
+    }
+
+    .download-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .save-btn {
+        max-width: 200px;
+        padding: 10px 15px;
+        font-size: 12px;
+    }
+
+    .toast {
+        padding: 10px 15px;
+        font-size: 12px;
+        border-radius: 10px;
+    }
+}
+
+/* --- Mobile Extra Small (400px and below) --- */
+@media (max-width: 400px) {
+    .topbar {
+        height: 80px;
+        padding: 8px 10px;
+    }
+
+    .topbar .back {
+        padding: 5px 12px;
+        font-size: 10px;
+    }
+
+    .img-greeting {
+        width: 60px;
+    }
+
+    main {
+        margin-top: 90px;
+        padding: 12px 8px;
+    }
+
+    .bulletin {
+        padding: 12px 8px;
+    }
+
+    .bulletin-title {
+        font-size: 14px;
+    }
+
+    .bulletin-year {
+        font-size: 16px;
+    }
+
+    .bcol.left h3,
+    .bcol.left2 h3,
+    .bcol.left3 h3,
+    .bcol.right h3,
+    .bcol.right2 h3,
+    .bcol.right3 h3 {
+        height: 45px;
+        font-size: 11px;
+    }
+
+    .bitem {
+        height: 35px;
+        font-size: 10px;
+    }
+
+    .nota {
+        width: 35px;
+        height: 25px;
+        font-size: 10px;
+        border-radius: 6px;
+    }
+
+    .final-status {
+        padding: 10px 12px;
+        font-size: 12px;
+        gap: 8px;
+    }
+
+    .save-btn {
+        max-width: 160px;
+        padding: 8px 12px;
+        font-size: 11px;
+    }
+}

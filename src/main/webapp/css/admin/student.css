@@ -441,3 +441,647 @@ img {
 ::-webkit-scrollbar-thumb:hover {
     background: #e6b53b;
 }
+
+/* ============================================
+   MEDIA QUERIES — RESPONSIVE (Grades Dashboard)
+   ============================================ */
+
+/* --- Desktop Large (1400px and below) --- */
+@media (max-width: 1400px) {
+    .top-main {
+        width: calc(100% - 200px);
+        margin-left: 0;
+        left: 200px;
+        border-radius: 50px 50px 0 0;
+    }
+
+    .color {
+        width: calc(100% - 200px);
+        margin-left: 0;
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        margin-left: 30px;
+        margin-right: 20px;
+        transform: scale(1);
+    }
+
+    .grade-card {
+        width: 100%;
+        height: 240px;
+    }
+
+    .home-button {
+        margin-right: 0;
+    }
+
+    .main {
+        height: 100%;
+        min-height: 100vh;
+        padding-bottom: 60px;
+    }
+
+    .bulletin-wrapper {
+        margin-top: 200px;
+    }
+}
+
+/* --- Desktop Medium (1200px and below) --- */
+@media (max-width: 1200px) {
+    .sidebar {
+        width: 160px;
+    }
+
+    .sidebar-menu h2 {
+        display: block;
+    }
+
+    .main {
+        margin-left: 160px;
+        padding-right: 20px;
+        height: 100%;
+    }
+
+    .top-main {
+        left: 160px;
+        margin-left: 0;
+        width: calc(100% - 160px);
+        padding: 0 24px;
+        padding-top: 10px;
+        padding-bottom: 50px;
+    }
+
+    .color {
+        width: calc(100% - 160px);
+        margin-left: 0;
+    }
+
+    .bulletin-wrapper {
+        margin-top: 180px;
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-left: 30px;
+        margin-right: 10px;
+        margin-top: 40px;
+        transform: scale(1);
+    }
+
+    .grade-card {
+        width: 100%;
+        height: 220px;
+    }
+
+    .home-button {
+        margin-right: 0;
+    }
+}
+
+/* --- Tablet Landscape (1024px and below) --- */
+@media (max-width: 1024px) {
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 35px;
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+
+    .grade-card {
+        height: 210px;
+    }
+
+    .bulletin-wrapper {
+        margin-top: 160px;
+    }
+
+    .main {
+        overflow-x: auto;
+    }
+}
+
+/* --- Tablet (860px and below) --- */
+@media (max-width: 860px) {
+    /* Sidebar becomes bottom navigation */
+    .sidebar {
+        top: auto;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 90px;
+        border-radius: 50px 50px 0 0;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 30px;
+        gap: 0;
+    }
+
+    .sidebar-menu {
+        flex-direction: row;
+        gap: 0;
+        margin-top: 0;
+        width: auto;
+        flex: 1;
+        justify-content: space-around;
+    }
+
+    .sidebar-menu h2 {
+        display: none;
+    }
+
+    .menu-item,
+    .menu-item.active,
+    .menu-item.active2,
+    .menu-item.one,
+    .menu-item.two,
+    .menu-item.three {
+        width: 60px;
+        height: 60px;
+        border-radius: 100px;
+        flex-direction: column;
+        gap: 4px;
+        margin: 0;
+        transform: scale(1);
+        transform-origin: center center;
+    }
+
+    .menu-item.active {
+        background-color: var(--background);
+        border-radius: 100px 100px 0 0;
+        padding: 43px;
+        margin-bottom: 0;
+    }
+
+    .menu-item img,
+    .menu-item.one img,
+    .menu-item.two img,
+    .menu-item.three img,
+    .menu-item.active img {
+        width: 26px;
+        height: 26px;
+    }
+
+    .menu-item h2,
+    .menu-item.one h2,
+    .menu-item.two h2,
+    .menu-item.three h2,
+    .menu-item.active h2 {
+        font-size: 11px;
+        margin: 0;
+        color: #FFFFFF;
+    }
+
+    .menu-item.active h2 {
+        color: #092831;
+    }
+
+    .profile,
+    .logout {
+        position: static;
+        width: 60px;
+        height: 60px;
+        border-radius: 100px;
+    }
+
+    .profile img,
+    .logout img {
+        margin-top: 0;
+        width: 30px;
+        height: 30px;
+    }
+
+    .logout img {
+        width: 22px;
+        height: 22px;
+    }
+
+    body {
+        background: var(--background);
+    }
+
+    .app {
+        flex-direction: column;
+        padding-right: 0;
+    }
+
+    .main {
+        margin-left: 0;
+        border-radius: 0;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-bottom: 100px;
+        margin-right: 0;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .color {
+        display: none;
+    }
+
+    .top-main {
+        position: relative;
+        left: 0;
+        margin-left: 0;
+        width: 100%;
+        padding: 12px 16px;
+        margin-top: 0;
+        padding-bottom: 12px;
+        background: transparent;
+    }
+
+    .logo-container {
+        width: 130px;
+        height: auto;
+    }
+
+    .logo-container img {
+        width: 130px;
+    }
+
+    .home-button {
+        margin-right: 0;
+        margin-top: 0;
+        width: 50px;
+        height: 50px;
+    }
+
+    .home-button img {
+        width: 32px;
+        margin-bottom: 0;
+    }
+
+    .bulletin-wrapper {
+        margin-top: 20px;
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+        margin-left: 16px;
+        margin-right: 16px;
+        margin-top: 20px;
+    }
+
+    .grade-card {
+        width: 100%;
+        height: 200px;
+    }
+
+    .card-label h2 {
+        font-size: 20px;
+    }
+
+    .card-label p {
+        font-size: 9px;
+    }
+
+    .card-icon img {
+        width: 38px;
+        height: 38px;
+    }
+}
+
+/* --- Mobile Large (600px and below) --- */
+@media (max-width: 600px) {
+    .sidebar {
+        height: 80px;
+        padding: 0 20px;
+    }
+
+    .sidebar-menu h2 {
+        display: none;
+    }
+
+    .menu-item,
+    .menu-item.active,
+    .menu-item.active2,
+    .menu-item.one,
+    .menu-item.two,
+    .menu-item.three {
+        width: 55px;
+        height: 55px;
+    }
+
+    .menu-item.active {
+        padding: 38px;
+    }
+
+    .profile,
+    .logout {
+        width: 55px;
+        height: 55px;
+    }
+
+    .main {
+        padding-left: 12px;
+        padding-right: 12px;
+        padding-bottom: 90px;
+    }
+
+    .top-main {
+        padding: 10px 12px;
+    }
+
+    .logo-container {
+        width: 110px;
+    }
+
+    .logo-container img {
+        width: 110px;
+    }
+
+    .home-button {
+        width: 45px;
+        height: 45px;
+    }
+
+    .home-button img {
+        width: 28px;
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin-left: 12px;
+        margin-right: 12px;
+        margin-top: 16px;
+    }
+
+    .grade-card {
+        height: 170px;
+        border-radius: 20px;
+    }
+
+    .card-label {
+        padding: 0px 12px;
+        padding-bottom: 8px;
+    }
+
+    .card-label h2 {
+        font-size: 18px;
+        margin-bottom: 2px;
+    }
+
+    .card-label p {
+        font-size: 8px;
+    }
+
+    .card-icon {
+        top: 12px;
+        left: 12px;
+        width: 36px;
+        height: 36px;
+    }
+
+    .card-icon img {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* --- Mobile Medium (480px and below) --- */
+@media (max-width: 480px) {
+    .sidebar {
+        height: 75px;
+        padding: 0 15px;
+    }
+
+    .menu-item,
+    .menu-item.active,
+    .menu-item.active2,
+    .menu-item.one,
+    .menu-item.two,
+    .menu-item.three {
+        width: 50px;
+        height: 50px;
+    }
+
+    .menu-item.active {
+        padding: 35px;
+    }
+
+    .menu-item img,
+    .menu-item.one img,
+    .menu-item.two img,
+    .menu-item.three img,
+    .menu-item.active img {
+        width: 22px;
+        height: 22px;
+    }
+
+    .menu-item h2,
+    .menu-item.one h2,
+    .menu-item.two h2,
+    .menu-item.three h2,
+    .menu-item.active h2 {
+        font-size: 10px;
+    }
+
+    .profile,
+    .logout {
+        width: 50px;
+        height: 50px;
+    }
+
+    .profile img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .logout img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .main {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .logo-container {
+        width: 100px;
+    }
+
+    .logo-container img {
+        width: 100px;
+    }
+
+    .home-button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .home-button img {
+        width: 24px;
+    }
+
+    .cards-grid {
+        gap: 14px;
+    }
+
+    .grade-card {
+        height: 150px;
+    }
+
+    .card-label h2 {
+        font-size: 16px;
+    }
+
+    .card-label p {
+        font-size: 7px;
+    }
+
+    .card-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .card-icon img {
+        width: 26px;
+        height: 26px;
+    }
+}
+
+/* --- Mobile Small (400px and below) --- */
+@media (max-width: 400px) {
+    .sidebar {
+        height: 70px;
+        padding: 0 10px;
+    }
+
+    .menu-item,
+    .menu-item.active,
+    .menu-item.active2,
+    .menu-item.one,
+    .menu-item.two,
+    .menu-item.three {
+        width: 45px;
+        height: 45px;
+    }
+
+    .menu-item.active {
+        padding: 30px;
+    }
+
+    .menu-item img,
+    .menu-item.one img,
+    .menu-item.two img,
+    .menu-item.three img,
+    .menu-item.active img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .menu-item h2,
+    .menu-item.one h2,
+    .menu-item.two h2,
+    .menu-item.three h2,
+    .menu-item.active h2 {
+        font-size: 9px;
+    }
+
+    .profile,
+    .logout {
+        width: 45px;
+        height: 45px;
+    }
+
+    .profile img {
+        width: 22px;
+        height: 22px;
+    }
+
+    .logout img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .main {
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-bottom: 80px;
+    }
+
+    .top-main {
+        padding: 8px 10px;
+    }
+
+    .logo-container {
+        width: 90px;
+    }
+
+    .logo-container img {
+        width: 90px;
+    }
+
+    .home-button {
+        width: 36px;
+        height: 36px;
+    }
+
+    .home-button img {
+        width: 22px;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+
+    .grade-card {
+        height: 140px;
+    }
+
+    .card-label h2 {
+        font-size: 18px;
+    }
+
+    .card-label p {
+        font-size: 8px;
+    }
+
+    .card-icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    .card-icon img {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* --- Mobile Extra Small (360px and below) --- */
+@media (max-width: 360px) {
+    .grade-card {
+        height: 130px;
+    }
+
+    .card-label h2 {
+        font-size: 16px;
+    }
+
+    .card-label p {
+        font-size: 7px;
+    }
+
+    .card-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .card-icon img {
+        width: 24px;
+        height: 24px;
+    }
+}

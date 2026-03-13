@@ -793,3 +793,1091 @@ form {
     background: #F5C659;
     color: #0e2b36;
 }
+
+/* ============================================
+   MEDIA QUERIES — RESPONSIVE (Teacher Management)
+   ============================================ */
+
+/* --- Desktop Large (1400px and below) --- */
+@media (max-width: 1400px) {
+    .top-main {
+        width: calc(100% - 200px);
+        margin-left: 0;
+        left: 200px;
+        border-radius: 50px 50px 0 0;
+    }
+
+    .color {
+        width: calc(100% - 200px);
+        margin-left: 0;
+    }
+
+    .main {
+        min-height: 780px;
+        padding-bottom: 60px;
+    }
+
+    h1 {
+        margin: 160px 0 30px 20px;
+    }
+
+    .first-h1 {
+        margin-left: 40px;
+        font-size: 32px;
+    }
+
+    .table {
+        padding-left: 30px;
+        padding-right: 40px;
+    }
+
+    .table .header {
+        grid-template-columns: 130px 1fr 1.3fr 150px 150px;
+        gap: 15px;
+        font-size: 15px;
+    }
+
+    .student-row {
+        grid-template-columns: 130px 1fr 1.3fr 150px 150px;
+        gap: 15px;
+        height: 65px;
+    }
+
+    .actions {
+        margin-left: 50px;
+    }
+}
+
+/* --- Desktop Medium (1200px and below) --- */
+@media (max-width: 1200px) {
+    .sidebar {
+        width: 160px;
+    }
+
+    .sidebar-menu h2 {
+        display: block;
+    }
+
+    .main {
+        margin-left: 160px;
+        padding-right: 20px;
+        min-height: 780px;
+    }
+
+    .top-main {
+        left: 160px;
+        margin-left: 0;
+        width: calc(100% - 160px);
+        padding: 0 24px;
+        padding-top: 10px;
+        padding-bottom: 50px;
+    }
+
+    .color {
+        width: calc(100% - 160px);
+        margin-left: 0;
+    }
+
+    h1 {
+        margin: 150px 0 30px 20px;
+        font-size: 26px;
+    }
+
+    .first-h1 {
+        font-size: 30px;
+        margin-left: 30px;
+    }
+
+    .table {
+        padding-left: 20px;
+        padding-right: 30px;
+    }
+
+    .table .header {
+        grid-template-columns: 110px 1fr 1.2fr 130px 130px;
+        gap: 12px;
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    .student-row {
+        grid-template-columns: 110px 1fr 1.2fr 130px 130px;
+        gap: 12px;
+        padding: 12px 15px;
+        height: 60px;
+    }
+
+    .student-row .teacher-username,
+    .student-row .teacher-name,
+    .student-row .teacher-subject {
+        font-size: 15px;
+    }
+
+    .student-row .teacher-password {
+        font-size: 18px;
+    }
+
+    .actions {
+        margin-left: 30px;
+    }
+
+    .actions img {
+        width: 22px;
+        margin-left: 8px;
+    }
+
+    /* Edit modal */
+    .edit-card {
+        width: 65%;
+        height: auto;
+        min-height: 50%;
+    }
+
+    .edit-header {
+        padding: 15px 25px;
+        height: 85px;
+    }
+
+    .edit-header h2 {
+        font-size: 22px;
+    }
+
+    .edit-row {
+        gap: 15px;
+    }
+
+    .edit-field label {
+        font-size: 14px;
+    }
+
+    .edit-field input {
+        height: 44px;
+        font-size: 14px;
+    }
+
+    .edit-actions {
+        padding: 0 25px 20px 25px;
+    }
+
+    .btn-edit-cancel,
+    .btn-edit-save {
+        height: 44px;
+        font-size: 15px;
+    }
+
+    /* Confirm modal */
+    .confirm-modal {
+        width: 45%;
+        padding: 35px 30px 32px;
+    }
+
+    .confirm-icon-edit {
+        width: 95px;
+        height: 95px;
+        margin-bottom: 22px;
+    }
+
+    .confirm-icon-edit img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .confirm-title {
+        font-size: 24px;
+        margin-bottom: 35px;
+    }
+
+    .confirm-buttons .btn-confirm {
+        height: 50px;
+        font-size: 15px;
+    }
+}
+
+/* --- Tablet Landscape (1024px and below) --- */
+@media (max-width: 1024px) {
+    h1 {
+        margin: 140px 0 25px 20px;
+    }
+
+    .table {
+        overflow-x: auto;
+        padding-left: 15px;
+        padding-right: 20px;
+    }
+
+    .table .header {
+        min-width: 900px;
+    }
+
+    .student-row {
+        min-width: 900px;
+    }
+
+    .actions {
+        margin-left: 20px;
+    }
+
+    .edit-card {
+        width: 70%;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .confirm-modal {
+        width: 50%;
+    }
+}
+
+/* --- Tablet (860px and below) --- */
+@media (max-width: 860px) {
+    /* Sidebar becomes bottom navigation */
+    .sidebar {
+        top: auto;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 90px;
+        border-radius: 50px 50px 0 0;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 30px;
+        gap: 0;
+    }
+
+    .sidebar-menu {
+        flex-direction: row;
+        gap: 0;
+        margin-top: 0;
+        width: auto;
+        flex: 1;
+        justify-content: space-around;
+    }
+
+    .sidebar-menu h2 {
+        display: none;
+    }
+
+    .menu-item,
+    .menu-item.active,
+    .menu-item.active2,
+    .menu-item.one,
+    .menu-item.two,
+    .menu-item.three {
+        width: 60px;
+        height: 60px;
+        border-radius: 100px;
+        flex-direction: column;
+        gap: 4px;
+        margin: 0;
+        transform: scale(1);
+        transform-origin: center center;
+    }
+
+    .menu-item.active {
+        background-color: var(--background);
+        border-radius: 100px 100px 0 0;
+        padding: 43px;
+        margin-bottom: 0;
+    }
+
+    .menu-item img,
+    .menu-item.one img,
+    .menu-item.two img,
+    .menu-item.three img,
+    .menu-item.active img {
+        width: 26px;
+        height: 26px;
+    }
+
+    .menu-item h2,
+    .menu-item.one h2,
+    .menu-item.two h2,
+    .menu-item.three h2,
+    .menu-item.active h2 {
+        font-size: 11px;
+        margin: 0;
+        color: #FFFFFF;
+    }
+
+    .menu-item.active h2 {
+        color: #092831;
+    }
+
+    .logout {
+        position: static;
+        width: 60px;
+        height: 60px;
+        border-radius: 100px;
+    }
+
+    .logout img {
+        margin-top: 0;
+        width: 22px;
+        height: 22px;
+    }
+
+    body {
+        background: var(--background);
+    }
+
+    .app {
+        flex-direction: column;
+        padding-right: 0;
+    }
+
+    .main {
+        margin-left: 0;
+        border-radius: 0;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-bottom: 100px;
+        margin-right: 0;
+        min-height: 780px;
+    }
+
+    .color {
+        display: none;
+    }
+
+    .top-main {
+        position: relative;
+        left: 0;
+        margin-left: 0;
+        width: 100%;
+        padding: 12px 16px;
+        margin-top: 0;
+        padding-bottom: 12px;
+        background: transparent;
+    }
+
+    .logo-container {
+        width: 130px;
+        height: auto;
+    }
+
+    .logo-container img {
+        width: 130px;
+    }
+
+    .home-button {
+        margin-right: 0;
+        margin-top: 0;
+        width: 50px;
+        height: 50px;
+    }
+
+    .home-button img {
+        width: 32px;
+        margin-bottom: 0;
+    }
+
+    h1 {
+        margin: 30px 0 25px 10px;
+        font-size: 24px;
+    }
+
+    .first-h1 {
+        font-size: 26px;
+        margin-left: 10px;
+    }
+
+    .table {
+        padding-left: 5px;
+        padding-right: 5px;
+        overflow-x: auto;
+    }
+
+    .table .header {
+        min-width: 850px;
+        font-size: 13px;
+        padding: 8px 10px;
+    }
+
+    .student-row {
+        min-width: 850px;
+        padding: 10px 12px;
+        height: 55px;
+    }
+
+    .student-row .teacher-username,
+    .student-row .teacher-name,
+    .student-row .teacher-subject {
+        font-size: 14px;
+    }
+
+    .student-row .teacher-password {
+        font-size: 16px;
+    }
+
+    .actions {
+        margin-left: 10px;
+    }
+
+    .actions img {
+        width: 20px;
+        margin-left: 6px;
+    }
+
+    /* Edit modal */
+    .edit-card {
+        width: 80%;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .edit-header {
+        padding: 15px 20px;
+        height: 80px;
+    }
+
+    .edit-header h2 {
+        font-size: 20px;
+    }
+
+    form {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    .edit-form {
+        gap: 15px;
+    }
+
+    .edit-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .edit-field {
+        width: 100%;
+    }
+
+    .edit-field label {
+        font-size: 13px;
+        margin-bottom: 4px;
+    }
+
+    .edit-field input {
+        height: 42px;
+        font-size: 13px;
+        padding: 0 14px;
+    }
+
+    .password-input-wrap input {
+        padding-right: 40px;
+    }
+
+    .edit-actions {
+        padding: 0 20px 20px 20px;
+        gap: 12px;
+    }
+
+    .btn-edit-cancel,
+    .btn-edit-save {
+        height: 42px;
+        font-size: 14px;
+    }
+
+    /* Confirm modal */
+    .confirm-modal {
+        width: 70%;
+        padding: 30px 25px 28px;
+        border-radius: 35px;
+    }
+
+    .confirm-icon-edit {
+        width: 85px;
+        height: 85px;
+        margin-bottom: 20px;
+    }
+
+    .confirm-icon-edit img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .confirm-title {
+        font-size: 22px;
+        margin-bottom: 30px;
+    }
+
+    .confirm-buttons {
+        gap: 15px;
+    }
+
+    .confirm-buttons .btn-confirm {
+        height: 48px;
+        font-size: 14px;
+    }
+
+    /* Delete confirmation card */
+    .confirm-card {
+        width: min(320px, 80vw);
+        padding: 24px 20px 20px;
+        gap: 15px;
+    }
+
+    .confirm-icon-inner {
+        width: 75px;
+        height: 75px;
+    }
+
+    .confirm-icon-inner img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .confirm-title {
+        font-size: 18px;
+    }
+
+    .confirm-actions {
+        gap: 12px;
+    }
+
+    .btn {
+        min-width: 120px;
+        padding: 10px 18px;
+        font-size: 14px;
+    }
+
+    /* Toast */
+    .toast-wrap-teacher {
+        left: 15px;
+        bottom: 100px;
+    }
+
+    .toast {
+        transform: scale(1.2);
+        min-width: 200px;
+        height: 55px;
+        padding: 10px 14px;
+    }
+
+    .toast-text h4 {
+        font-size: 12px;
+    }
+
+    .toast-text p {
+        font-size: 10px;
+    }
+}
+
+/* --- Mobile Large (600px and below) --- */
+@media (max-width: 600px) {
+    .sidebar {
+        height: 80px;
+        padding: 0 20px;
+    }
+
+    .menu-item,
+    .menu-item.active,
+    .menu-item.active2,
+    .menu-item.one,
+    .menu-item.two,
+    .menu-item.three {
+        width: 55px;
+        height: 55px;
+    }
+
+    .menu-item.active {
+        padding: 38px;
+    }
+
+    .menu-item img,
+    .menu-item.one img,
+    .menu-item.two img,
+    .menu-item.three img,
+    .menu-item.active img {
+        width: 23px;
+        height: 23px;
+    }
+
+    .menu-item h2,
+    .menu-item.one h2,
+    .menu-item.two h2,
+    .menu-item.three h2,
+    .menu-item.active h2 {
+        font-size: 10px;
+    }
+
+    .logout {
+        width: 55px;
+        height: 55px;
+    }
+
+    .logout img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .main {
+        padding-left: 12px;
+        padding-right: 12px;
+        padding-bottom: 90px;
+    }
+
+    .top-main {
+        padding: 10px 12px;
+    }
+
+    .logo-container {
+        width: 110px;
+    }
+
+    .logo-container img {
+        width: 110px;
+    }
+
+    .home-button {
+        width: 45px;
+        height: 45px;
+    }
+
+    .home-button img {
+        width: 28px;
+    }
+
+    h1 {
+        font-size: 22px;
+        margin: 25px 0 20px 10px;
+    }
+
+    .first-h1 {
+        font-size: 24px;
+    }
+
+    .table .header {
+        min-width: 750px;
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+
+    .student-row {
+        min-width: 750px;
+        padding: 8px 10px;
+        height: 50px;
+    }
+
+    .student-row .teacher-username,
+    .student-row .teacher-name,
+    .student-row .teacher-subject {
+        font-size: 13px;
+    }
+
+    .student-row .teacher-password {
+        font-size: 15px;
+    }
+
+    .actions {
+        margin-left: 5px;
+    }
+
+    .actions img {
+        width: 18px;
+        margin-left: 5px;
+    }
+
+    /* Edit modal */
+    .edit-card {
+        width: 90%;
+    }
+
+    .edit-header {
+        padding: 12px 18px;
+        height: 70px;
+    }
+
+    .edit-header h2 {
+        font-size: 18px;
+    }
+
+    form {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .edit-field input {
+        height: 40px;
+        font-size: 12px;
+    }
+
+    .edit-actions {
+        padding: 0 15px 15px 15px;
+    }
+
+    .btn-edit-cancel,
+    .btn-edit-save {
+        height: 40px;
+        font-size: 13px;
+    }
+
+    /* Confirm modal */
+    .confirm-modal {
+        width: 85%;
+        padding: 25px 20px 22px;
+    }
+
+    .confirm-icon-edit {
+        width: 75px;
+        height: 75px;
+        margin-bottom: 18px;
+    }
+
+    .confirm-icon-edit img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .confirm-title {
+        font-size: 20px;
+        margin-bottom: 25px;
+    }
+
+    .confirm-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .confirm-buttons .btn-confirm {
+        height: 45px;
+        font-size: 13px;
+    }
+
+    /* Delete confirmation */
+    .confirm-card {
+        width: min(300px, 90vw);
+        padding: 20px 16px 18px;
+    }
+
+    .confirm-icon-inner {
+        width: 70px;
+        height: 70px;
+    }
+
+    .confirm-icon-inner img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .confirm-title {
+        font-size: 17px;
+    }
+
+    .confirm-actions {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+        min-width: auto;
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+
+    /* Toast */
+    .toast-wrap-teacher {
+        left: 10px;
+        bottom: 90px;
+    }
+
+    .toast {
+        transform: scale(1.1);
+        min-width: 180px;
+        height: 50px;
+    }
+}
+
+/* --- Mobile Medium (480px and below) --- */
+@media (max-width: 480px) {
+    .sidebar {
+        height: 75px;
+        padding: 0 15px;
+    }
+
+    .menu-item,
+    .menu-item.active,
+    .menu-item.active2,
+    .menu-item.one,
+    .menu-item.two,
+    .menu-item.three {
+        width: 50px;
+        height: 50px;
+    }
+
+    .menu-item.active {
+        padding: 35px;
+    }
+
+    .menu-item img,
+    .menu-item.one img,
+    .menu-item.two img,
+    .menu-item.three img,
+    .menu-item.active img {
+        width: 22px;
+        height: 22px;
+    }
+
+    .menu-item h2,
+    .menu-item.one h2,
+    .menu-item.two h2,
+    .menu-item.three h2,
+    .menu-item.active h2 {
+        font-size: 9px;
+    }
+
+    .logout {
+        width: 50px;
+        height: 50px;
+    }
+
+    .logout img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .main {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .logo-container {
+        width: 100px;
+    }
+
+    .logo-container img {
+        width: 100px;
+    }
+
+    .home-button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .home-button img {
+        width: 24px;
+    }
+
+    h1 {
+        font-size: 20px;
+        margin: 20px 0 18px 8px;
+    }
+
+    .first-h1 {
+        font-size: 22px;
+    }
+
+    .table .header {
+        min-width: 650px;
+        font-size: 11px;
+    }
+
+    .student-row {
+        min-width: 650px;
+    }
+
+    .student-row .teacher-username,
+    .student-row .teacher-name,
+    .student-row .teacher-subject {
+        font-size: 12px;
+    }
+
+    .edit-card {
+        width: 95%;
+    }
+
+    .edit-header h2 {
+        font-size: 16px;
+    }
+
+    .confirm-modal {
+        padding: 20px 16px 18px;
+    }
+
+    .confirm-title {
+        font-size: 18px;
+    }
+}
+
+/* --- Mobile Small (400px and below) --- */
+@media (max-width: 400px) {
+    .sidebar {
+        height: 70px;
+        padding: 0 10px;
+    }
+
+    .menu-item,
+    .menu-item.active,
+    .menu-item.active2,
+    .menu-item.one,
+    .menu-item.two,
+    .menu-item.three {
+        width: 45px;
+        height: 45px;
+    }
+
+    .menu-item.active {
+        padding: 30px;
+    }
+
+    .menu-item img,
+    .menu-item.one img,
+    .menu-item.two img,
+    .menu-item.three img,
+    .menu-item.active img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .menu-item h2,
+    .menu-item.one h2,
+    .menu-item.two h2,
+    .menu-item.three h2,
+    .menu-item.active h2 {
+        font-size: 8px;
+    }
+
+    .logout {
+        width: 45px;
+        height: 45px;
+    }
+
+    .logout img {
+        width: 16px;
+        height: 16px;
+    }
+
+    .main {
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-bottom: 80px;
+    }
+
+    .top-main {
+        padding: 8px 10px;
+    }
+
+    .logo-container {
+        width: 90px;
+    }
+
+    .logo-container img {
+        width: 90px;
+    }
+
+    .home-button {
+        width: 36px;
+        height: 36px;
+    }
+
+    .home-button img {
+        width: 22px;
+    }
+
+    h1 {
+        font-size: 18px;
+        margin: 15px 0 15px 5px;
+    }
+
+    .first-h1 {
+        font-size: 20px;
+    }
+
+    .table .header {
+        min-width: 600px;
+        font-size: 10px;
+        padding: 5px;
+    }
+
+    .student-row {
+        min-width: 600px;
+        padding: 6px 8px;
+        height: 45px;
+    }
+
+    .student-row .teacher-username,
+    .student-row .teacher-name,
+    .student-row .teacher-subject {
+        font-size: 11px;
+    }
+
+    .student-row .teacher-password {
+        font-size: 13px;
+    }
+
+    .actions img {
+        width: 16px;
+        margin-left: 4px;
+    }
+
+    .edit-card {
+        width: 98%;
+    }
+
+    .edit-header {
+        padding: 10px 15px;
+        height: 60px;
+    }
+
+    .edit-header h2 {
+        font-size: 15px;
+    }
+
+    .edit-field input {
+        height: 38px;
+        font-size: 11px;
+    }
+
+    .btn-edit-cancel,
+    .btn-edit-save {
+        height: 38px;
+        font-size: 12px;
+    }
+
+    .confirm-icon-edit {
+        width: 65px;
+        height: 65px;
+    }
+
+    .confirm-icon-edit img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .confirm-title {
+        font-size: 16px;
+    }
+
+    .confirm-buttons .btn-confirm {
+        height: 40px;
+        font-size: 12px;
+    }
+
+    .confirm-icon-inner {
+        width: 60px;
+        height: 60px;
+    }
+
+    .confirm-icon-inner img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .btn {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .toast {
+        transform: scale(1);
+        min-width: 160px;
+        height: 45px;
+        padding: 8px 10px;
+    }
+}

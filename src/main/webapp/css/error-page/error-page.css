@@ -146,3 +146,285 @@ body {
     color: var(--muted);
     font-size: 13px;
 }
+
+
+/* ============================================
+   MEDIA QUERIES — RESPONSIVE
+   ============================================ */
+
+/* --- Desktop Large --- */
+@media (max-width: 1400px) {
+    .container {
+        width: 70%;
+        padding: 56px 48px;
+    }
+
+    .bg-blue {
+        width: 580px;
+        height: 580px;
+    }
+
+    .bg-pink {
+        width: 620px;
+        height: 620px;
+    }
+
+    .bg-yellow {
+        width: 320px;
+        height: 320px;
+        right: 280px;
+    }
+
+    .big-x {
+        width: 250px;
+        margin-right: 700px;
+    }
+}
+
+/* --- Desktop Medium --- */
+@media (max-width: 1200px) {
+    .container {
+        width: 80%;
+        padding: 48px 40px;
+        gap: 30px;
+    }
+
+    .right h1 {
+        font-size: 54px;
+    }
+
+    .right h2 {
+        font-size: 20px;
+    }
+
+    .bg-blue {
+        width: 480px;
+        height: 480px;
+        top: -120px;
+    }
+
+    .bg-pink {
+        width: 520px;
+        height: 520px;
+        top: -200px;
+    }
+
+    .bg-yellow {
+        width: 280px;
+        height: 280px;
+        bottom: 100px;
+        right: 220px;
+    }
+
+    .bg-red {
+        width: 360px;
+        height: 360px;
+    }
+
+    .big-x {
+        width: 220px;
+        margin-right: 500px;
+        margin-top: 150px;
+    }
+}
+
+/* --- Tablet --- */
+@media (max-width: 860px) {
+    body {
+        padding: 20px;
+        align-items: flex-start;
+    }
+
+    .container {
+        width: 100%;
+        flex-direction: column;
+        padding: 40px 32px;
+        gap: 24px;
+        margin: 20px 0;
+    }
+
+    .right {
+        width: 100%;
+        text-align: center;
+    }
+
+    .right h1 {
+        font-size: 48px;
+    }
+
+    .right h2 {
+        font-size: 18px;
+        margin-bottom: 14px;
+    }
+
+    .right p {
+        font-size: 15px;
+        max-width: 100%;
+        margin-bottom: 24px;
+    }
+
+    .btn {
+        padding: 10px 24px;
+    }
+
+    /* Adjust background circles for tablet */
+    .bg-blue {
+        width: 400px;
+        height: 400px;
+        top: -80px;
+        left: -80px;
+    }
+
+    .bg-pink {
+        width: 450px;
+        height: 450px;
+        top: -150px;
+        right: -80px;
+    }
+
+    .bg-yellow {
+        width: 240px;
+        height: 240px;
+        bottom: 60px;
+        right: 40px;
+    }
+
+    .bg-red {
+        width: 300px;
+        height: 300px;
+        left: -40px;
+        bottom: 20px;
+    }
+
+    .big-x {
+        display: none; /* Hide the X on tablet */
+    }
+}
+
+/* --- Mobile Large --- */
+@media (max-width: 600px) {
+    body {
+        padding: 12px;
+    }
+
+    .container {
+        padding: 32px 24px;
+        border-radius: 16px;
+    }
+
+    .right h1 {
+        font-size: 40px;
+        letter-spacing: -0.5px;
+    }
+
+    .right h2 {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    .right p {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        padding: 10px 22px;
+        font-size: 14px;
+    }
+
+    .small {
+        font-size: 12px;
+        margin-top: 14px;
+    }
+
+    /* Adjust background circles for mobile */
+    .bg-blue {
+        width: 300px;
+        height: 300px;
+        top: -50px;
+        left: -50px;
+    }
+
+    .bg-pink {
+        width: 350px;
+        height: 350px;
+        top: -100px;
+        right: -50px;
+    }
+
+    .bg-yellow {
+        width: 180px;
+        height: 180px;
+        bottom: 40px;
+        right: 20px;
+    }
+
+    .bg-red {
+        width: 220px;
+        height: 220px;
+        left: -30px;
+        bottom: 10px;
+    }
+}
+
+/* --- Mobile Small --- */
+@media (max-width: 400px) {
+    body {
+        padding: 8px;
+    }
+
+    .container {
+        padding: 24px 16px;
+    }
+
+    .right h1 {
+        font-size: 32px;
+    }
+
+    .right h2 {
+        font-size: 15px;
+    }
+
+    .right p {
+        font-size: 13px;
+        margin-bottom: 16px;
+    }
+
+    .btn {
+        padding: 8px 20px;
+        font-size: 13px;
+    }
+
+    .small {
+        font-size: 11px;
+    }
+
+    /* Further reduce background circles */
+    .bg-blue {
+        width: 220px;
+        height: 220px;
+        top: -30px;
+        left: -30px;
+    }
+
+    .bg-pink {
+        width: 260px;
+        height: 260px;
+        top: -60px;
+        right: -30px;
+    }
+
+    .bg-yellow {
+        width: 140px;
+        height: 140px;
+        bottom: 20px;
+        right: 10px;
+    }
+
+    .bg-red {
+        width: 160px;
+        height: 160px;
+        left: -20px;
+        bottom: 0px;
+    }
+}

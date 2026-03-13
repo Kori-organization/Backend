@@ -343,3 +343,68 @@ select {
 ::-webkit-scrollbar-thumb:hover {
     background: #e6b53b;
 }
+
+/* MEDIA QUERY */
+@media (max-width: 1400px) {
+    main {
+        padding: 40px;
+    }
+
+    .table .header {
+        grid-template-columns: 0.11fr 0.24fr 0.245fr 80px;
+        padding: 8px 7px;
+    }
+
+    .student-row {
+        grid-template-columns: 0.4fr 1fr 1fr 0.8fr 1fr;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 800px) {
+    main {
+        padding: 40px;
+    }
+
+    .table .header {
+        grid-template-columns: 0.103fr 0.226fr 0.225fr 80px;
+        padding: 8px 7px;
+    }
+
+    .student-row {
+        grid-template-columns: 0.4fr 1fr 1fr 0.8fr 1fr;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 500px) {
+    .topbar {
+        padding: 12px 20px;
+        height: 100px;
+    }
+
+    .topbar .back {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .table .header {
+        grid-template-columns: 0.11fr 0.29fr 0.29fr 80px 80px;
+        padding: 8px 7px;
+    }
+
+    main {
+        margin-top: 110px;
+        padding: 20px 10px;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+    }
+
+    .student-row {
+        grid-template-columns: 0.1fr 1fr 1fr 1fr 1fr;
+        padding: 12px;
+        margin: 0 0 10px 0;
+        width: 100%;
+    }
+
+}

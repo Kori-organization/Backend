@@ -975,3 +975,156 @@ select {
 ::-webkit-scrollbar-thumb:hover {
     background: #e6b53b;
 }
+
+/* MEDIA QUERY */
+@media (max-width: 1400px) {
+    main {
+        padding: 40px;
+    }
+
+    .table .header {
+        grid-template-columns: 0.109fr 0.244fr 0.246fr 0.25fr 80px;
+        padding: 8px 7px;
+    }
+
+    .student-row {
+        grid-template-columns: 0.4fr 0.96fr 0.97fr 0.8fr 1fr;
+        gap: 10px;
+    }
+}
+
+
+/* --- Tablet--- */
+@media (max-width: 860px) {
+    .row-2, .row-3 {
+        flex-wrap: wrap;
+    }
+
+    .edit-student-card {
+        max-height: 80%;
+    }
+
+    .edit-student-form {
+        overflow-y: auto;
+        margin: 0;
+        padding: 24px 38px;
+    }
+
+    .edit-student-header {
+        padding: 28px 32px;
+    }
+
+    .edit-student-actions {
+        padding: 18px 42px 28px;
+    }
+
+    .confirm-title {
+        font-size: 24px;
+    }
+
+    .confirm-card {
+        width: 50%;
+        padding: 40px 26px 36px;
+    }
+}
+
+@media (max-width: 800px) {
+    main {
+        padding: 40px
+    }
+
+    .table .header {
+        grid-template-columns: 0.11fr 0.21fr 0.255fr 80px;
+        padding: 8px 7px;
+    }
+
+    .student-row {
+        grid-template-columns: 0.4fr 0.88fr 1fr 0.8fr 1fr;
+        gap: 10px;
+    }
+}
+
+@Media (max-width: 600px) {
+    main {
+        padding: 40px;
+    }
+
+    .table .header {
+        grid-template-columns: 0.13fr 0.17fr 0.51fr 80px;
+        padding: 8px 7px;
+    }
+
+    .student-row {
+        grid-template-columns: 35px 60px 150px 0px 0px;
+        gap: 10px;
+    }
+
+    .btn-observacoes {
+        margin-left: 60px;
+    }
+
+    .row-2, .row-3 {
+        flex-wrap: wrap;
+    }
+
+    .edit-student-card {
+        width: 80%;
+    }
+
+    .edit-student-form {
+        max-height: 65%;
+        overflow-y: auto;
+        margin: 0;
+        padding: 24px 38px;
+    }
+
+    .edit-student-header {
+        padding: 26px 30px;
+    }
+
+    .confirm-modal {
+        width: 50%;
+        padding: 40px 26px 36px;
+    }
+
+    .confirm-title {
+        font-size: 24px;
+    }
+
+    .confirm-card {
+        width: 60%;
+        padding: 40px 26px 36px;
+    }
+}
+
+
+@media (max-width: 500px) {
+    .topbar {
+        padding: 12px 20px;
+        height: 100px;
+    }
+
+    .topbar .back {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .table .header {
+        grid-template-columns: 0.13fr 0.2fr 0.65fr 80px 80px;
+        padding: 8px 7px;
+    }
+
+    main {
+        margin-top: 110px;
+        padding: 20px 10px;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+    }
+
+    .student-row {
+        grid-template-columns: 32px 55px 150px 0px 10px;
+        padding: 12px;
+        margin: 0 0 10px 0;
+        width: 100%;
+    }
+}
