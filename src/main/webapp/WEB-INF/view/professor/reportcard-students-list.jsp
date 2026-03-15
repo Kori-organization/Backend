@@ -325,6 +325,10 @@
             Em andamento
         </div>
 
+        <div class="popup-filter-item" data-filter="AprovadoR">
+            Apv. por Recuperação
+        </div>
+
         <div class="popup-filter-item clear">
             Retirar filtro
         </div>

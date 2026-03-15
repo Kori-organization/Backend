@@ -345,23 +345,44 @@ public class ProfessorDAO {
 
     public ArrayList<StudentDTO> StudentsFilterDTO(String situation, int serie, String subjectName) {
         ArrayList<StudentDTO> listResult = new ArrayList<>();
-        String sql = "SELECT s.enrollment, s.email, s.issue_date, s.password, s.name, s.serie, g.grade1, g.grade2, g.rec, g.subject_id, sub.name AS subject FROM students s " +
-                "JOIN report_card rc " +
-                "ON s.enrollment = rc.student_id " +
-                "JOIN grade_rep gr " +
-                "ON rc.id = gr.rep_id " +
-                "JOIN grades g " +
-                "ON g.id = gr.grade_id " +
-                "JOIN subjects sub " +
-                "ON sub.id = g.subject_id " +
-                "WHERE rc.final_situation = ? AND s.serie = ? AND sub.name = ?";
+        String sql = "SELECT s.enrollment, s.email, s.issue_date, s.password, s.name, s.serie, t.grade1, t.grade2, t.rec, t.subject_id, t.subject_name AS subject " +
+                "FROM students s " +
+                "CROSS JOIN LATERAL ( " +
+                "    SELECT " +
+                "        sub.id AS subject_id, " +
+                "        sub.name AS subject_name, " +
+                "        g_inner.grade1, g_inner.grade2, g_inner.rec, " +
+                "        CASE " +
+                "            WHEN g_inner.grade1 IS NULL OR g_inner.grade2 IS NULL THEN 'Em andamento' " +
+                "            WHEN (g_inner.grade1 + g_inner.grade2) / 2 >= 7 THEN 'Aprovado' " +
+                "            WHEN g_inner.rec IS NOT NULL THEN " +
+                "                CASE " +
+                "                    WHEN ((g_inner.grade1 + g_inner.grade2) / 2 + g_inner.rec) / 2 >= 7 THEN 'AprovadoR' " +
+                "                    ELSE 'Reprovado' " +
+                "                END " +
+                "            ELSE 'Recuperação' " +
+                "        END AS situacao " +
+                "    FROM subjects sub " +
+                "    LEFT JOIN LATERAL ( " +
+                "        SELECT g.grade1, g.grade2, g.rec " +
+                "        FROM report_card rc " +
+                "        JOIN grade_rep gr ON gr.rep_id = rc.id " +
+                "        JOIN grades g ON g.id = gr.grade_id " +
+                "        WHERE rc.student_id = s.enrollment " +
+                "          AND g.subject_id = sub.id " +
+                "        ORDER BY g.id DESC LIMIT 1 " +
+                "    ) g_inner ON TRUE " +
+                "    WHERE sub.name = ? " +
+                ") t " +
+                "WHERE s.serie = ? " +
+                "  AND t.situacao = ?";
         try (
                 Connection conn = ConnectionFactory.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
-            stmt.setString(1, situation);
+            stmt.setString(1, subjectName);
             stmt.setInt(2, serie);
-            stmt.setString(3, subjectName);
+            stmt.setString(3, situation);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -389,25 +410,27 @@ public class ProfessorDAO {
 
     public ArrayList<Student> StudentsFilter(String situation, int grade, String subjectName) {
         ArrayList<Student> listResult = new ArrayList<>();
-        String sql = "SELECT s.enrollment, s.name, s.email, s.issue_date " +
-                "FROM students s " +
-                "JOIN report_card rc " +
-                "ON s.enrollment = rc.student_id " +
-                "JOIN grade_rep gr " +
-                "ON rc.id = gr.rep_id " +
-                "JOIN grades g " +
-                "ON g.id = gr.grade_id " +
-                "JOIN subjects sub " +
-                "ON sub.id = g.subject_id " +
-                "WHERE rc.final_situation = ? AND s.serie = ? AND sub.name = ?";
+        String sql = "SELECT s.enrollment, s.name, s.email, s.issue_date FROM students s " +
+                "CROSS JOIN LATERAL (SELECT sub.name AS subject_name, CASE WHEN g.grade1 IS NULL OR g.grade2 IS NULL THEN 'Em andamento' WHEN (g.grade1 + g.grade2) / 2 >= 7 THEN 'Aprovado' " +
+                "WHEN g.rec IS NOT NULL THEN CASE WHEN ((g.grade1 + g.grade2) / 2 + g.rec) / 2 >= 7 THEN 'AprovadoR' ELSE 'Reprovado' END " +
+                "ELSE 'Recuperação' END AS situacao FROM subjects sub " +
+                "LEFT JOIN LATERAL (SELECT g.grade1, g.grade2, g.rec FROM report_card rc " +
+                "JOIN grade_rep gr ON gr.rep_id = rc.id " +
+                "JOIN grades g ON g.id = gr.grade_id " +
+                "WHERE rc.student_id = s.enrollment " +
+                "AND g.subject_id = sub.id " +
+                "ORDER BY g.id DESC LIMIT 1) g ON TRUE " +
+                "WHERE sub.name = ?) t " +
+                "WHERE s.serie = ? AND t.situacao = ?";
 
         try (
                 Connection conn = ConnectionFactory.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
-            stmt.setString(1, situation);
+            stmt.setString(1, subjectName);
             stmt.setInt(2, grade);
-            stmt.setString(3, subjectName);
+            stmt.setString(3, situation);
+
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

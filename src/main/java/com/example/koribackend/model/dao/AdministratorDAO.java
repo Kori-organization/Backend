@@ -241,7 +241,7 @@ public class AdministratorDAO {
 
     public ArrayList<Student> StudentsFilter(String situation, int grade) {
         ArrayList<Student> listResult = new ArrayList<>();
-        String sql = "SELECT DISTINCT  ON(s.enrollment) s.enrollment, s.name, s.email, s.issue_date " +
+        String sql = "SELECT DISTINCT ON(s.enrollment) s.enrollment, s.name, s.email, s.issue_date " +
                 "FROM students s " +
                 "JOIN report_card rc " +
                 "ON s.enrollment = rc.student_id " +

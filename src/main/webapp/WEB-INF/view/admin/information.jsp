@@ -13,7 +13,9 @@
       response.sendRedirect("enter");
       return;
     }
+    ${pageContext.request.contextPath}
   %>
+
 </head>
 <body>
 <!-- Main app container -->
