@@ -7,6 +7,7 @@
     <title>Kori – Informações</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/student/information.css">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/logo-top.svg" type="image/png">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/chatbot.css">
     <%
         Student student = (Student) session.getAttribute("student");
         if (student == null) {
