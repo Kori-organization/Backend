@@ -283,10 +283,12 @@ body{
     border-radius:30px;
     font-size:16px;
     cursor:pointer;
+    font-weight: 600;
     width:180px;
     margin-left: 20%;
     transition: transform 0.18s ease;
     z-index: 100;
+    font-family: "Montserrat", sans-serif;
 }
 
 .btn:hover{
