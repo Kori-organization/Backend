@@ -361,7 +361,7 @@
 
             <div class="chat-suggestions">
                 <button>Quais são os eventos próximos?</button>
-                <button>Eu vou passar de ano?</button>
+                <button>Médias das salas</button>
             </div>
         </div>
 
@@ -408,7 +408,7 @@
     const grade = <%= grade %>
     window.APP_CONFIG = {
         chatApiUrl: "https://datarep-g7xu.onrender.com/chat/professor",
-        studentEnrollment: <%=professor.getId()%>
+        professorId: <%=professor.getId()%>
     };
 </script>
 <script src="${pageContext.request.contextPath}/js/professor/chatbotProfessor.js"></script>

@@ -216,10 +216,6 @@ async function sendQuestionToAI(question) {
         professor_id: Number(professorId),
         question: question
     };
-
-    console.log("URL da API:", CHAT_API_URL);
-    console.log("Payload enviado:", payload);
-
     const response = await fetch(CHAT_API_URL, {
         method: "POST",
         headers: {
@@ -227,12 +223,7 @@ async function sendQuestionToAI(question) {
         },
         body: JSON.stringify(payload)
     });
-
-    console.log("Status HTTP:", response.status);
-
     const data = await response.json();
-    console.log("Resposta da API:", data);
-
     if (!response.ok) {
         throw new Error(data.detail || `Erro HTTP: ${response.status}`);
     }
