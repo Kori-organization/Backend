@@ -485,9 +485,5 @@
   <% } %>
 </script>
 <script>
-  history.pushState(null, "", location.href='enter');
-  window.addEventListener("popstate", () => {
-    history.go(10);
-  });
 </script>
 </html>
