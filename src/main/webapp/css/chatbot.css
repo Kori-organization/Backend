@@ -15,7 +15,7 @@
     font-size:22px;
     cursor:pointer;
     box-shadow:0 10px 25px rgba(0,0,0,0.2);
-    z-index:90;
+    z-index:1601;
     transition:transform .2s;
 }
 
@@ -30,7 +30,7 @@
     inset:0;
     background: rgba(0,0,0,0.20);
     display:none;
-    z-index:85;
+    z-index:1500;
 }
 
 .chat-overlay.show{
@@ -50,7 +50,7 @@
     box-shadow:0 20px 40px rgba(0,0,0,0.2);
     display:none;
     flex-direction:column;
-    z-index:90;
+    z-index:1601;
     overflow:hidden;
 
     transform: scale(1);
@@ -212,7 +212,7 @@
     box-shadow:0 20px 40px rgba(0,0,0,0.2);
     display:none;
     flex-direction:column;
-    z-index:90;
+    z-index:1601;
     overflow:hidden;
 
     transform: scale(1);
