@@ -327,7 +327,7 @@
         </div>
 
         <div class="popup-filter-item" data-filter="AprovadoR">
-            Apv. por Recuperação
+            Aprovado por Recuperação
         </div>
 
         <div class="popup-filter-item clear">
