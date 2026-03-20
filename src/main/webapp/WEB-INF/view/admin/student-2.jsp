@@ -253,6 +253,10 @@
     Em andamento
   </div>
 
+  <div class="popup-filter-item" data-filter="AprovadoR">
+    Aprovado por recuperação
+  </div>
+
   <div class="popup-filter-item clear">
     Retirar filtro
   </div>
@@ -261,6 +265,13 @@
 
 </body>
 <script>
+  window.addEventListener("pageshow", function (event) {
+    const nav = performance.getEntriesByType("navigation")[0];
+
+    if (event.persisted || (nav && nav.type === "back_forward")) {
+      window.location.replace("enter");
+    }
+  });
   const contextPath = "<%=request.getContextPath()%>"
   const clean_grade = ${empty sessionScope.serie ? "" : sessionScope.serie}
 </script>

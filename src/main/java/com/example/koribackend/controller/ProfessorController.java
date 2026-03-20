@@ -39,8 +39,10 @@ public class ProfessorController extends HttpServlet {
 
     // Handle navigation and data retrieval for the professor interface
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession(false).getAttribute("professor") == null) {
+            response.sendRedirect("index.jsp");
+        }
         String path = request.getServletPath();
-
         switch (path) {
             case "/homeProfessor":
                 // Fetch the subject assigned to the logged-in professor and display the class ranking
@@ -86,8 +88,10 @@ public class ProfessorController extends HttpServlet {
 
     // Handle data submission such as observations and grade updates
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession(false).getAttribute("professor") == null) {
+            response.sendRedirect("index.jsp");
+        }
         String path = request.getServletPath();
-
         switch (path) {
             case "/addObservation":
                 addObservation(request, response);

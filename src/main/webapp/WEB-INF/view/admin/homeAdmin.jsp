@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/home-screen.css">
 </head>
 <%
-  Administrator admin = (Administrator) session.getAttribute("admin");
+  Administrator admin = (Administrator) request.getSession(false).getAttribute("admin");
   if (admin == null) {
     response.sendRedirect("enter");
     return;
@@ -459,6 +459,17 @@
 <!-- Scripts -->
 <script>
   const contextPath = "<%=request.getContextPath()%>"
+  history.pushState(null, "", location.href);
+  window.addEventListener("popstate", () => {
+    history.go(1);
+  });
+  window.addEventListener("pageshow", function (event) {
+    const nav = performance.getEntriesByType("navigation")[0];
+
+    if (event.persisted || (nav && nav.type === "back_forward")) {
+      window.location.replace("enter");
+    }
+  });
 </script>
 <script src="${pageContext.request.contextPath}/js/admin/home-screen.js"></script>
 <script>
@@ -485,9 +496,5 @@
   <% } %>
 </script>
 <script>
-  history.pushState(null, "", location.href);
-  window.addEventListener("popstate", () => {
-    history.go(1);
-  });
 </script>
 </html>

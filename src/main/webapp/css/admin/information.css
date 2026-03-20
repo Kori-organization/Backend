@@ -270,10 +270,12 @@ img {
     padding:14px 32px;
     border-radius:30px;
     font-size:16px;
+    font-weight: 600;
     cursor:pointer;
     width:180px;
     margin-left: 20%;
     transition: transform 0.18s ease;
+    font-family: "Montserrat", sans-serif;
 }
 
 .btn:hover{

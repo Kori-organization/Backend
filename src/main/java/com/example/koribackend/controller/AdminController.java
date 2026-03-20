@@ -34,13 +34,15 @@ import java.util.Map;
         "/addGradesReportCard",
         "/salveEvent",
         "/deleteEvent",
-        "/selectAllEvents",
         "/adminStudentsFilter"})
 public class AdminController extends HttpServlet {
 
     // Handle incoming GET requests and route them to specific internal methods
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession(false).getAttribute("admin") == null) {
+            response.sendRedirect("index.jsp");
+        }
         String path = request.getServletPath();
         switch (path) {
             case "/homeAdmin":
@@ -76,9 +78,6 @@ public class AdminController extends HttpServlet {
                 break;
             case "/showReportCardStudent":
                 showReportCardStudent(request,response);
-                break;
-            case "/selectAllEvents":
-                selectAllEvents(request, response);
                 break;
             case "/deleteEvent":
                 deleteEvent(request, response);
@@ -223,15 +222,6 @@ public class AdminController extends HttpServlet {
         response.sendRedirect("logout");
     }
 
-    private void selectAllEvents(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ArrayList<Map<String, Object>> result = new AdministratorDAO().selectAllEvents();
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-
-        String json = new com.google.gson.Gson().toJson(result);
-        response.getWriter().write(json);
-    }
-
     private void deleteEvent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String eventDate = request.getParameter("eventDate");
         boolean result = new AdministratorDAO().deleteEventOnCalendar(eventDate);
@@ -252,6 +242,9 @@ public class AdminController extends HttpServlet {
     // Handle incoming POST requests for data creation and modification
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession(false).getAttribute("admin") == null) {
+            response.sendRedirect("index.jsp");
+        }
         String path = request.getServletPath();
         switch (path) {
             case "/createStudent":

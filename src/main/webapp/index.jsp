@@ -6,6 +6,11 @@
     <title>Kori - Login</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel="icon" href="assets/logo-top.svg" type="image/png">
+    <%
+        response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+    %>
 </head>
 <body>
 <!-- Background shapes -->

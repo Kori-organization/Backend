@@ -63,7 +63,8 @@ async function loadEvents() {
 
         calendarNotes = {};
 
-        const response = await fetch(contextPath + '/selectAllEvents');
+        const response = await fetch('selectAllEvents');
+        console.log(response)
         const events = await response.json();
 
         events.forEach(event => {

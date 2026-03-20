@@ -76,10 +76,4 @@ public class StudentController extends HttpServlet {
         request.setAttribute("observations",observations);
         request.getRequestDispatcher("/WEB-INF/view/student/observation.jsp").forward(request,response);
     }
-
-    // Currently unused method for handling POST requests
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 }
