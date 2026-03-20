@@ -318,7 +318,7 @@ saveNoteBtn.onclick = () => {
     const eventStart = eventStartInput.value.trim();
     const eventEnd = eventEndInput.value.trim();
 
-    if (eventStart > eventEnd) {
+    if (eventStart > eventEnd || eventStart === eventEnd) {
         showToast(
             'student',
             'error',

@@ -168,7 +168,7 @@
 
                             <!-- Admin warning -->
                             <div id="saveHint" class="admin-note">
-                                Atenção: somente um administrador poderá alterar as notas digitadas acima.
+                                Atenção: após o fechamento das notas acima, apenas um administrador poderá alterá-las.
                             </div>
                         </div>
 
@@ -209,8 +209,7 @@
 
             <!-- Warning -->
             <p class="confirm-warning">
-                Atenção: somente um administrador poderá<br>
-                alterar essa informação.
+                Atenção: após o fechamento da nota, essa informação só poderá ser alterada por um administrador.
             </p>
 
             <!-- Actions -->
@@ -414,6 +413,13 @@
         chatApiUrl: "https://datarep-g7xu.onrender.com/chat/professor",
         professorId: <%=professor.getId()%>
     };
+    window.addEventListener("pageshow", function (event) {
+        const nav = performance.getEntriesByType("navigation")[0];
+
+        if (event.persisted || (nav && nav.type === "back_forward")) {
+            window.location.replace("enter");
+        }
+    });
 </script>
 <script src="${pageContext.request.contextPath}/js/professor/chatbotProfessor.js"></script>
 

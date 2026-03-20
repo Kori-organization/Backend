@@ -265,6 +265,13 @@
 
 </body>
 <script>
+  window.addEventListener("pageshow", function (event) {
+    const nav = performance.getEntriesByType("navigation")[0];
+
+    if (event.persisted || (nav && nav.type === "back_forward")) {
+      window.location.replace("enter");
+    }
+  });
   const contextPath = "<%=request.getContextPath()%>"
   const clean_grade = ${empty sessionScope.serie ? "" : sessionScope.serie}
 </script>

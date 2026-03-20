@@ -164,6 +164,13 @@
 </body>
 <script>
     const contextPath = "${pageContext.request.contextPath}";
+    window.addEventListener("pageshow", function (event) {
+        const nav = performance.getEntriesByType("navigation")[0];
+
+        if (event.persisted || (nav && nav.type === "back_forward")) {
+            window.location.replace("enter");
+        }
+    });
     window.APP_CONFIG = {
         chatApiUrl: "https://datarep-g7xu.onrender.com/chat/student",
         studentEnrollment: <%=student.getEnrollment()%>

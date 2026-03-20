@@ -200,6 +200,13 @@
             chatApiUrl: "https://datarep-g7xu.onrender.com/chat/professor",
             professorId: <%=professor.getId()%>
         };
+    window.addEventListener("pageshow", function (event) {
+        const nav = performance.getEntriesByType("navigation")[0];
+
+        if (event.persisted || (nav && nav.type === "back_forward")) {
+            window.location.replace("enter");
+        }
+    });
 </script>
 <script src="${pageContext.request.contextPath}/js/professor/chatbotProfessor.js"></script>
 <script src="${pageContext.request.contextPath}/js/professor/obs-students-list.js"></script>
