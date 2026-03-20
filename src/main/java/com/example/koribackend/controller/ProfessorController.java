@@ -112,8 +112,8 @@ public class ProfessorController extends HttpServlet {
         int enrollment = Integer.parseInt(request.getParameter("enrollment"));
         String subject = request.getParameter("subject");
         boolean result = new GradeDAO().updateRec(rec,enrollment,subject);
-        request.setAttribute("resultEditRec",String.valueOf(result));
-        showStudentsReportCardList(request,response);
+        request.getSession().setAttribute("resultEditRec",String.valueOf(result));
+        response.sendRedirect("reportCardStudentsList");
     }
 
     // Update standard grades (n1 and n2) for a specific student and subject
@@ -124,8 +124,8 @@ public class ProfessorController extends HttpServlet {
         int enrollment = Integer.parseInt(request.getParameter("enrollment"));
         String subject = request.getParameter("subject");
         boolean result = new GradeDAO().updateGrades(n1, n2, enrollment,subject);
-        request.setAttribute("resultEditGrades",String.valueOf(result));
-        showStudentsReportCardList(request,response);
+        request.getSession().setAttribute("resultEditGrades",String.valueOf(result));
+        response.sendRedirect("reportCardStudentsList");
     }
 
     // Display a list of students for behavioral observation filtering by grade level or search criteria
@@ -165,6 +165,13 @@ public class ProfessorController extends HttpServlet {
         request.getSession().setAttribute("enrollmentObs",enrollment);
         Student student = new StudentDAO().selectStudentByEnrollment(enrollment);
         List<Observation> observations = new ObservationDAO().selectObservationsForStudent(enrollment);
+
+        String resultAddObs = (String) request.getSession().getAttribute("resultAddObs");
+        if (resultAddObs != null) {
+            request.setAttribute("resultAddObs", resultAddObs);
+            request.getSession().removeAttribute("resultAddObs");
+        }
+
         request.setAttribute("student", student);
         request.setAttribute("observations", observations);
         request.getRequestDispatcher("WEB-INF/view/professor/obs-student.jsp").forward(request,response);
@@ -190,6 +197,19 @@ public class ProfessorController extends HttpServlet {
         } else {
             students = new StudentDAO().selectStudentDTOByNameOrEmail(filter, ((Professor) request.getSession().getAttribute("professor")).getSubjectName(),grade);
         }
+
+        String resultEditGrades = (String) request.getSession().getAttribute("resultEditGrades");
+        if (resultEditGrades != null) {
+            request.setAttribute("resultEditGrades", resultEditGrades);
+            request.getSession().removeAttribute("resultEditGrades");
+        }
+
+        String resultEditRec = (String) request.getSession().getAttribute("resultEditRec");
+        if (resultEditRec != null) {
+            request.setAttribute("resultEditRec", resultEditRec);
+            request.getSession().removeAttribute("resultEditRec");
+        }
+
         request.setAttribute("students", students);
         request.setAttribute("filter",filter);
         request.getRequestDispatcher("WEB-INF/view/professor/reportcard-students-list.jsp").forward(request, response);
@@ -200,8 +220,8 @@ public class ProfessorController extends HttpServlet {
         int enrollment = (int) request.getSession(false).getAttribute("enrollmentObs");
         String observation = request.getParameter("observation");
         boolean result = new ObservationDAO().insertObservation(enrollment, observation);
-        request.setAttribute("resultAddObs",String.valueOf(result));
-        showStudentObservation(request,response);
+        request.getSession().setAttribute("resultAddObs", String.valueOf(result));
+        response.sendRedirect("obsStudent?enrollment=" + enrollment);
     }
 
     // Invalidate the session and redirect the professor back to the login screen
