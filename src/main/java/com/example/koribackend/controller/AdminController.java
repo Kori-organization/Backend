@@ -44,6 +44,7 @@ public class AdminController extends HttpServlet {
         String path = request.getServletPath();
         switch (path) {
             case "/homeAdmin":
+                getHomeResults(request, response);
                 request.getRequestDispatcher("/WEB-INF/view/admin/homeAdmin.jsp").forward(request,response);
                 break;
             case "/informationsAdmin":
@@ -96,6 +97,13 @@ public class AdminController extends HttpServlet {
         } else {
             enrollment = Integer.parseInt(request.getParameter("enrollmentBulletin"));
         }
+
+        String resultAddAllGrades = (String) request.getSession().getAttribute("resultAddAllGrades");
+        if (resultAddAllGrades != null) {
+            request.setAttribute("resultAddAllGrades", resultAddAllGrades);
+            request.getSession().removeAttribute("resultAddAllGrades");
+        }
+
         request.getSession().setAttribute("enrollmentBulletin",enrollment);
         // Fetch report card data via DAO
         ReportCard reportCard = new ReportCardDAO().selectReportCard(enrollment);
@@ -159,7 +167,19 @@ public class AdminController extends HttpServlet {
         } else if (filter.matches("^[0-9]+$")) {
             students = new StudentDAO().selectStudentForSerieAndEnrollment(serie,Integer.parseInt(filter));
         } else {
-            students = new StudentDAO().selectStudentForSerieAndEmailOrName(serie,filter);
+            students = new StudentDAO().selectStudentForSerieAndEmailOrName(serie, filter);
+        }
+
+        String resultEditStudent = (String) request.getSession().getAttribute("resultEditStudent");
+        if (resultEditStudent != null) {
+            request.setAttribute("resultEditStudent", resultEditStudent);
+            request.getSession().removeAttribute("resultEditStudent");
+        }
+
+        String name = (String) request.getSession().getAttribute("name");
+        if (name != null) {
+            request.setAttribute("name", name);
+            request.getSession().removeAttribute("name");
         }
 
         request.getSession().setAttribute("serie",serie);
@@ -181,6 +201,19 @@ public class AdminController extends HttpServlet {
     // Fetch all professors and forward to the management view
     private void showProfessors(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Professor> professors = new ProfessorDAO().selectProfessorAll();
+
+        String name = (String) request.getSession().getAttribute("name");
+        if (name != null) {
+            request.setAttribute("name", name);
+            request.getSession().removeAttribute("name");
+        }
+
+        String resultEditProfessor = (String) request.getSession().getAttribute("resultEditProfessor");
+        if (resultEditProfessor != null) {
+            request.setAttribute("resultEditProfessor", resultEditProfessor);
+            request.getSession().removeAttribute("resultEditProfessor");
+        }
+
         request.setAttribute("professors",professors);
         request.getRequestDispatcher("/WEB-INF/view/admin/teacher.jsp").forward(request,response);
     }
@@ -202,8 +235,8 @@ public class AdminController extends HttpServlet {
     private void deleteEvent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String eventDate = request.getParameter("eventDate");
         boolean result = new AdministratorDAO().deleteEventOnCalendar(eventDate);
-        request.setAttribute("resultEvent",String.valueOf(result));
-        request.getRequestDispatcher("/WEB-INF/view/admin/homeAdmin.jsp").forward(request,response);
+        request.getSession().setAttribute("resultEvent",String.valueOf(result));
+        response.sendRedirect("homeAdmin");
     }
 
     public void studentFilter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -263,8 +296,8 @@ public class AdminController extends HttpServlet {
             count++;
         }
         boolean result = new GradeDAO().updateAllGrades(grades,enrollment,true,request);
-        request.setAttribute("resultAddAllGrades",String.valueOf(result));
-        showReportCardStudent(request,response);
+        request.getSession().setAttribute("resultAddAllGrades",String.valueOf(result));
+        response.sendRedirect("showReportCardStudent?enrollmentBulletin=" + enrollment);
     }
 
     // Update existing student details
@@ -276,9 +309,9 @@ public class AdminController extends HttpServlet {
         int serie = Integer.parseInt(request.getParameter("serie"));
         String password = request.getParameter("password");
         boolean result = new StudentDAO().updateStudent(new Student(enrollment,email,admission,password,name,serie));
-        request.setAttribute("resultEditStudent",String.valueOf(result));
-        request.setAttribute("name",name);
-        selectClass(request,response);
+        request.getSession().setAttribute("resultEditStudent",String.valueOf(result));
+        request.getSession().setAttribute("name",name);
+        response.sendRedirect("selectClass");
     }
 
     // Update existing professor details
@@ -289,9 +322,9 @@ public class AdminController extends HttpServlet {
         String subject = request.getParameter("subjectEdit");
         String password = request.getParameter("passwordEdit");
         int result = new ProfessorDAO().updateProfessor(new Professor(id,user,password,name,subject));
-        request.setAttribute("name",name);
-        request.setAttribute("resultEditProfessor",String.valueOf(result == 1));
-        showProfessors(request,response);
+        request.getSession().setAttribute("name",name);
+        request.getSession().setAttribute("resultEditProfessor",String.valueOf(result == 1));
+        response.sendRedirect("showProfessors");
     }
 
     // Register a new professor in the system
@@ -301,8 +334,8 @@ public class AdminController extends HttpServlet {
         String subject = request.getParameter("subject");
         String password = request.getParameter("password");
         int result = new ProfessorDAO().createAccount(new Professor(user, password, name, subject));
-        request.setAttribute("resultProfessor",String.valueOf(result));
-        request.getRequestDispatcher("/WEB-INF/view/admin/homeAdmin.jsp").forward(request,response);
+        request.getSession().setAttribute("resultProfessor",String.valueOf(result));
+        response.sendRedirect("homeAdmin");
     }
 
     // Register a new student in the system
@@ -314,8 +347,8 @@ public class AdminController extends HttpServlet {
         String password = request.getParameter("password");
 
         boolean result = new StudentDAO().createAccount(new Student(email,admission,password,name,studentGrade));
-        request.setAttribute("resultStudent",String.valueOf(result));
-        request.getRequestDispatcher("/WEB-INF/view/admin/homeAdmin.jsp").forward(request,response);
+        request.getSession().setAttribute("resultStudent",String.valueOf(result));
+        response.sendRedirect("homeAdmin");
     }
 
     private void salveEvent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -335,8 +368,29 @@ public class AdminController extends HttpServlet {
             System.out.println("nao");
             result = new AdministratorDAO().salveEventOnCalender(event);
         }
-        request.setAttribute("resultEvent",String.valueOf(result));
-        request.getRequestDispatcher("/WEB-INF/view/admin/homeAdmin.jsp").forward(request,response);
+        request.getSession().setAttribute("resultEvent",String.valueOf(result));
+        response.sendRedirect("homeAdmin");
     }
+
+    private void getHomeResults(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String resultProfessor = (String) request.getSession().getAttribute("resultProfessor");
+        if (resultProfessor != null) {
+            request.setAttribute("resultProfessor", resultProfessor);
+            request.getSession().removeAttribute("resultProfessor");
+        }
+
+        String resultStudent = (String) request.getSession().getAttribute("resultStudent");
+        if (resultStudent != null) {
+            request.setAttribute("resultStudent", resultStudent);
+            request.getSession().removeAttribute("resultStudent");
+        }
+
+        String resultEvent = (String) request.getSession().getAttribute("resultEvent");
+        if (resultEvent != null) {
+            request.setAttribute("resultEvent", resultEvent);
+            request.getSession().removeAttribute("resultEvent");
+        }
+    }
+
 
 }
