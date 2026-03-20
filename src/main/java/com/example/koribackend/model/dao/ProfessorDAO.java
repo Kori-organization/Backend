@@ -357,7 +357,7 @@ public class ProfessorDAO {
                 "            WHEN (g_inner.grade1 + g_inner.grade2) / 2 >= 7 THEN 'Aprovado' " +
                 "            WHEN g_inner.rec IS NOT NULL THEN " +
                 "                CASE " +
-                "                    WHEN ((g_inner.grade1 + g_inner.grade2) / 2 + g_inner.rec) / 2 >= 7 THEN 'AprovadoR' " +
+                "                    WHEN ((g_inner.grade1 + g_inner.grade2) / 2 + g_inner.rec) / 2 >= 7 THEN 'Aprovado por recuperação' " +
                 "                    ELSE 'Reprovado' " +
                 "                END " +
                 "            ELSE 'Recuperação' " +

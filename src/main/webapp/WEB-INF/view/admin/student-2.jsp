@@ -21,7 +21,7 @@
     ArrayList<Student> students = (ArrayList<Student>) request.getAttribute("students");
     String resultDeleteStudent = (String) request.getAttribute("resultDeleteStudent");
     String resultEditStudent = (String) request.getAttribute("resultEditStudent");
-    String filter = (String) request.getAttribute("filter");
+    String filter = request.getAttribute("filter") == null ? "" : (String) request.getAttribute("filter");
   %>
 </head>
 <body>
@@ -253,7 +253,7 @@
     Em andamento
   </div>
 
-  <div class="popup-filter-item" data-filter="AprovadoR">
+  <div class="popup-filter-item" data-filter="Aprovado por recuperação">
     Aprovado por recuperação
   </div>
 

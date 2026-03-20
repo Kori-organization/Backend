@@ -157,7 +157,19 @@ function calculateAll() {
     if (statusList.includes("-")) finalSituation = "Em andamento";
     else if (statusList.includes("Recuperação")) finalSituation = "Em andamento";
     else if (statusList.includes("Reprovado")) finalSituation = "Reprovado";
-    else if (statusList.every(s => s === "Aprovado")) finalSituation = "Aprovado";
+    else if (statusList.every(s => s === "Aprovado")) {
+        for (let j = 0; j < statusList.length;j++) {
+            const g1Line = n1[j].value === '' ? null : Number(n1[j].value);
+            const g2Line = n2[j].value === '' ? null : Number(n2[j].value);
+            const rLine  = rec[j].value === '' ? null : Number(rec[j].value);
+            if (statusList[j] === "Aprovado" && rLine !== null ) {
+                finalSituation = "Aprovado por recuperação";
+                break;
+            } else {
+                finalSituation = "Aprovado";
+            }
+        }
+    }
 
     document.querySelector('.final-status span').textContent =
         `Situação final: ${finalSituation}.`;

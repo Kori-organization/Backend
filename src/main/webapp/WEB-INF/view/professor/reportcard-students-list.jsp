@@ -325,7 +325,7 @@
             Em andamento
         </div>
 
-        <div class="popup-filter-item" data-filter="AprovadoR">
+        <div class="popup-filter-item" data-filter="Aprovado por recuperação">
             Aprovado por Recuperação
         </div>
 

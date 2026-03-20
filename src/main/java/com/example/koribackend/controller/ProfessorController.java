@@ -221,7 +221,7 @@ public class ProfessorController extends HttpServlet {
     public void studentFilterDTO(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Professor professor = (Professor) request.getSession().getAttribute("professor");
         String situation = request.getParameter("situation");
-
+        System.out.println(situation);
         int grade;
         // Check session for grade level to maintain state during filtering
         if (request.getSession(false).getAttribute("grade") != null && request.getParameter("grade") == null) {
